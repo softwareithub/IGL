@@ -1,0 +1,36 @@
+﻿.ajaxLoading {
+    position: relative;
+}
+
+.ajaxLoading:before {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: 9;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.6) url(../images/loading.gif) no-repeat center 35vh;
+    background-size: 85px;
+}
+.input-validation-error {
+    border-color: #ff6a00;
+    padding-right: 2.25rem;
+    background-image: url(../images/error-svgrepo-com.svg);
+    background-repeat: no-repeat;
+    background-position: right calc(.375em + .1875rem) center;
+    background-size: calc(.75em + .375rem) calc(.75em + .375rem);
+}
+.field-validation-error
+{
+    color:#ff6a00
+}
+.valid {
+    border-color: #0094ff;
+    padding-right: 2.25rem;
+    background-image: url(../images/success-svgrepo-com.svg);
+    background-repeat: no-repeat;
+    background-position: right calc(.375em + .1875rem) center;
+    background-size: calc(.75em + .375rem) calc(.75em + .375rem);
+}

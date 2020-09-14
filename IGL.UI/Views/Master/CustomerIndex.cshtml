@@ -1,0 +1,70 @@
+﻿@model IEnumerable<IGL.Core.Entities.Master.CustomerMaster>
+@{
+    ViewData["Title"] = "CustomerIndex";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Customer Master Details</h3>
+                        <button class="btn btn-info float-sm-right" onclick="customer.Fn_EditCustomerMaster()">
+                            <i class="fa fa-plus"> &nbsp;Create</i>
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Phone</th>
+                                    <th>Email</th>
+                                    <th>House Number</th>
+                                    <th>Place Address</th>
+                                    <th>Registration Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var data in Model)
+                                {
+                                    <tr>
+                                        <td>@data.Name</td>
+                                        <td>
+                                            @data.Phone
+                                        </td>
+                                        <td>@data.Email</td>
+                                        <td>@data.HouseNumber</td>
+                                        <td>@data.PlaceAddress</td>
+                                        <td>
+                                            @data.RegistrationDate.ToShortDateString()
+                                        </td>
+                                        <td>
+                                            <a class="btn" onclick="customer.Fn_EditCustomerMaster(@data.Id, '@data.Name')">
+                                                <i class="fa fa-edit" style="color:#3C8DBC"></i>
+                                            </a>
+                                            <a class="btn" onclick="customer.Fn_DeleteCustomerMaster(@data.Id)">
+                                                <i class="fa fa-trash" style="color:#DD4B39"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @await Html.PartialAsync("~/Views/Shared/IGLCommanModal.cshtml")
+</section>
+<environment include="Development">
+    <script src="~/js/Customer/CustomerMaster.js"></script>
+</environment>
+<environment include="Production">
+    <script src="~/js/Customer/CustomerMaster.js"></script>
+</environment>

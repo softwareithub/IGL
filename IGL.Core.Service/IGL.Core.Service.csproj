@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IGL.Core.Comman\IGL.Core.Comman.csproj" />
+    <ProjectReference Include="..\IGL.Core.Entities\IGL.Core.Entities.csproj" />
+    <ProjectReference Include="..\IGL.Core.ViewModelEntities\IGL.Core.ViewModelEntities.csproj" />
+  </ItemGroup>
+
+</Project>

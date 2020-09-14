@@ -1,0 +1,103 @@
+﻿@model IGL.Core.Entities.Master.CustomerMaster
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<div id="divCreate">
+    <form id="form" method="post" data-ajax="true" data-ajax-method="post"
+          asp-action="UpSertCustomer" asp-controller="Customer" data-ajax-success="customAjax.Fn_SubmitSuccess"
+          data-ajax-begin="customAjax.Fn_SubmitBegin" data-ajax-complete="customAjax.Fn_SubmitComplete">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <input type="hidden" asp-for="Id" />
+                    <label asp-for="Name">Name Name</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-user"></i></span>
+                        </div>
+                        <input asp-for="Name" class="form-control" />
+                    </div>
+                    <span asp-validation-for="Name"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="Phone">Phone</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-phone"></i></span>
+                        </div>
+                        <input asp-for="Phone" class="form-control" />
+                    </div>
+                    <span asp-validation-for="Phone"></span>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="Email">Email</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                        </div>
+                        <input asp-for="Email" class="form-control" />
+                    </div>
+                    <span asp-validation-for="Email"></span>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="HouseNumber">House Number</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-home"></i></span>
+                        </div>
+                        <input asp-for="HouseNumber" class="form-control" />
+                    </div>
+                    <span asp-validation-for="HouseNumber"></span>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="PlaceAddress">Address</label>
+                    <input type="hidden" asp-for="Latitude" />
+                    <input type="hidden" asp-for="Longitude" />
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-globe"></i></span>
+                        </div>
+                        <input asp-for="PlaceAddress"
+                               class="mailbox-controls form-control"
+                               type="text"
+                               placeholder="Search Box" />
+                    </div>
+                    <span asp-validation-for="PlaceAddress"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="RegistrationDate">Registration Date</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                        </div>
+                        <input asp-for="RegistrationDate" class="form-control" />
+                    </div>
+                    <span asp-validation-for="PlaceAddress"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <input type="submit" class="btn btn-success float-right" value="Save" />
+            </div>
+            <div class="col-md-4">
+                <input type="reset" class="btn btn-danger float-left" value="Cancel" />
+            </div>
+        </div>
+    </form>
+</div>
+
