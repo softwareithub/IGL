@@ -1,0 +1,74 @@
+﻿@model IEnumerable<IGL.Core.Entities.Master.CustomerMaster>
+@{
+    ViewData["Title"] = "Customer Detail";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Customer Details</h3>
+
+                <button class="btn btn-primary pull-right" onclick="customerDetail.Fn_CreateCustomer()">
+                    <i class="fa fa-plus-circle"> &nbsp; &nbsp; Add &nbsp; &nbsp;</i>
+                </button>
+
+            </div>
+            <div class="box-body">
+                <table id="IGLDataTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th> Name</th>
+                            <th>Phone</th>
+                            <th>Email </th>
+                            <th>Buisness Partner No.</th>
+                            <th>Resgistration Date</th>
+                            <th>Address 1</th>
+                            <th>Address 2</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var data in Model)
+                        {
+                        <tr>
+                            <td>
+                                @data.CustomerName
+                            </td>
+                            <td>
+                                @data.CustomerPhone
+                            </td>
+                            <td>
+                                @data.CustomerEmail
+                            </td>
+                            <td>
+                                @data.BPNumber
+                            </td>
+                            <td>
+                                @data.RegistrationDate.ToShortDateString()
+                            </td>
+                            <td>
+                                @data.AddressLine1
+                            </td>
+                            <td>
+                                @data.AddressLine2
+
+                            <td>
+                                <a class="btn btn-outline-danger pull-right" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'  style='color:#DD4B39'></i>" onclick="customerDetail.Fn_DeleteCustomer(@data.Id, this)">
+                                    <i class="fa fa-trash" style="color:#DD4B39"></i>
+                                </a>
+
+                                <a class="btn btn-outline-success pull-right" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'  style='color:#DD4B39'></i>" onclick="customerDetail.Fn_EditCustomer(@data.Id, this)">
+                                    <i class="fa fa-edit" style="color:#3C8DBC"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

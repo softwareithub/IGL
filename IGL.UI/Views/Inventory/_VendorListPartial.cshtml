@@ -1,0 +1,91 @@
+﻿@model IEnumerable<IGL.Core.Entities.Inventory.VendorMaster>
+@{
+    ViewData["Title"] = "Vendor Detail";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Vendor Details</h3>
+
+                <button class="btn btn-primary pull-right" onclick="vendorDetail.Fn_CreateVendor()">
+                    <i class="fa fa-plus-circle"> &nbsp; &nbsp; Add &nbsp; &nbsp;</i>
+                </button>
+
+            </div>
+            <div class="box-body">
+                <table id="IGLDataTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th> Vendor Name</th>
+                            <th>Vendor Type</th>
+                            <th>Vendor Email</th>
+                            <th>Vendor Phone</th>
+                            <th>PAN</th>
+                            <th>GST</th>
+                            <th>Address Line 1</th>
+                            <th>Address Line 2</th>
+                            <th>Contact Person</th>
+                            <th>Email(Contact Person)</th>
+                            <th>Phone(Contact Person)</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var data in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @data.VendorName
+                                </td>
+                                <td>
+                                    @data.VendorType
+                                </td>
+                                <td>
+                                    @data.VendorEmail
+                                </td>
+                                <td>
+                                    @data.VendorPhone
+                                </td>
+                                <td>
+                                    @data.PANNumber
+                                </td>
+                                <td>
+                                    @data.GSTNumber
+                                </td>
+                                <td>
+                                    @data.AddressLine2
+                                </td>
+                                <td>
+                                    @data.AddressLine2
+                                </td>
+                                <td>
+                                    @data.ContactPerson
+                                </td>
+                                <td>
+                                    @data.ContactEmail
+                                </td>
+                                <td>
+                                    @data.ContactPhone
+                                </td>
+                                <td>
+
+                                    <a class="btn btn-outline-danger pull-right" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'  style='color:#DD4B39'></i>" onclick="vendorDetail.Fn_DeleteVendor(@data.Id, this)">
+                                        <i class="fa fa-trash" style="color:#DD4B39"></i>
+                                    </a>
+
+                                    <a class="btn btn-outline-success pull-right" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'  style='color:#DD4B39'></i>" onclick="vendorDetail.Fn_EditVendor(@data.Id, this)">
+                                        <i class="fa fa-edit" style="color:#3C8DBC"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

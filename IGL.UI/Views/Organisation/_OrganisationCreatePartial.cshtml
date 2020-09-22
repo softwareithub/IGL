@@ -1,0 +1,77 @@
+﻿@model IGL.Core.Entities.Organization.Organisation
+
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+<form id="form" method="post" data-ajax="true" data-ajax-method="post"
+      asp-action="UpsertDetail" asp-controller="Organisation" data-ajax-success="organisation.Fn_Success"
+      data-ajax-begin="customAjax.Fn_SubmitBegin(divModalPopUp)" data-ajax-complete="customAjax.Fn_SubmitComplete(divModalPopUp)">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="col-md-4 form-group">
+                <input type="hidden" asp-for="Id" />
+                <label class="control-label"> Organisation Name</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">Address Line 1</label>
+                <input asp-for="AddressLine1" class="form-control" />
+                <span asp-validation-for="AddressLine1"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">Address Line 2</label>
+                <input asp-for="AddressLine2" class="form-control" />
+                <span asp-validation-for="AddressLine2"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">CIN Number</label>
+                <input asp-for="CINNumber" class="form-control" />
+                <span asp-validation-for="CINNumber"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">GST Number</label>
+                <input asp-for="GSTNumber" class="form-control" />
+                <span asp-validation-for="GSTNumber"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">LandLine Number</label>
+                <input asp-for="LandlineNumber" class="form-control" />
+                <span asp-validation-for="LandlineNumber"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">Email Address</label>
+                <input asp-for="EmailId" class="form-control" />
+                <span asp-validation-for="EmailId"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">Contact Person</label>
+                <input asp-for="ContactPerson" class="form-control" />
+                <span asp-validation-for="ContactPerson"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">Contact Email</label>
+                <input asp-for="ContactEmailId" class="form-control" />
+                <span asp-validation-for="ContactEmailId"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">Contact Phone</label>
+                <input asp-for="ContactPhone" class="form-control" />
+                <span asp-validation-for="ContactPhone"></span>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="col-sm-8">
+                <button type="submit" class="btn btn-primary pull-right" value="Save">
+                    <i class="fa fa-download"> &nbsp;&nbsp;Save</i>
+                </button>
+            </div>
+            <div class="col-sm-4">
+                <button type="reset" class="btn btn-warning" value="reset">
+                    <i class="fa fa-refresh">&nbsp;&nbsp;Reset</i>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

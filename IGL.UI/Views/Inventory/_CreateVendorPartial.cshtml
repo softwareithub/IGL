@@ -1,0 +1,79 @@
+﻿@model IGL.Core.Entities.Inventory.VendorMaster
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+<form id="form" method="post" data-ajax="true" data-ajax-method="post"
+      asp-action="UpSertVendor" asp-controller="VendorMaster" data-ajax-success="vendorDetail.Fn_Success"
+      data-ajax-begin="customAjax.Fn_SubmitBegin(divModalPopUp)" data-ajax-complete="customAjax.Fn_SubmitComplete(divModalPopUp)">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="col-md-4 form-group">
+                <input type="hidden" asp-for="Id" />
+                <label class="control-label"> Vendor Name</label>
+                <input asp-for="VendorName" class="form-control" />
+                <span asp-validation-for="VendorName"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">Vendor Type</label>
+                <select asp-for="VendorType" class="form-control">
+                    <option value="Client">Client</option>
+                    <option value="Direct Procurement">Direct Procurement</option>
+                </select>
+                <span asp-validation-for="VendorType"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">Vendor Email</label>
+                <input asp-for="VendorEmail" class="form-control" />
+                <span asp-validation-for="VendorEmail"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">PAN Number</label>
+                <input asp-for="PANNumber" class="form-control" />
+                <span asp-validation-for="PANNumber"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">GST Number</label>
+                <input asp-for="GSTNumber" class="form-control" />
+                <span asp-validation-for="GSTNumber"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">Address Line1</label>
+                <input asp-for="AddressLine1" class="form-control" />
+                <span asp-validation-for="AddressLine1"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">Address Line 2</label>
+                <input asp-for="AddressLine2" class="form-control" />
+                <span asp-validation-for="AddressLine2"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">Contact Person</label>
+                <input asp-for="ContactPerson" class="form-control" />
+                <span asp-validation-for="ContactPerson"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">Contact Email</label>
+                <input asp-for="ContactEmail" class="form-control" />
+                <span asp-validation-for="ContactEmail"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">Contact Phone</label>
+                <input asp-for="ContactPhone" class="form-control" />
+                <span asp-validation-for="ContactPhone"></span>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="col-sm-8">
+                <button type="submit" class="btn btn-primary pull-right" value="Save">
+                    <i class="fa fa-download"> &nbsp;&nbsp;Save</i>
+                </button>
+            </div>
+            <div class="col-sm-4">
+                <button type="reset" class="btn btn-warning" value="reset">
+                    <i class="fa fa-refresh">&nbsp;&nbsp;Reset</i>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,11 +1,11 @@
-﻿<div class="modal fade" id="IGLCommanModal">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
+﻿<div class="modal fade" id="IGLCommanModal"  data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" id="divModalPopUp">
             <div class="modal-header">
-                <h4 class="modal-title" id="modalTitle"></h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="customAjax.Fn_ReloadPage()">
+                <button type="button" class="close" onclick="modalPop.fn_close('IGLCommanModal')" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
+                <h3 style="color:#F39C12" class="modal-title" id="modalTitle"></h3>
             </div>
             <div class="modal-body">
                 <div id="divCommanModalPartial">
@@ -13,8 +13,10 @@
                 </div>
             </div>
             <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-danger float-right" onclick="customAjax.Fn_ReloadPage()" data-dismiss="modal">Close</button>
+                <button type="button" class="btn bg-navy margin pull-right" onclick="modalPop.fn_close('IGLCommanModal')">Close</button>
             </div>
         </div>
     </div>
 </div>
+
+

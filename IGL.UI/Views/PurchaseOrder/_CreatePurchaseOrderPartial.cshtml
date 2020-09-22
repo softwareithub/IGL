@@ -1,0 +1,101 @@
+﻿@model IGL.Core.Entities.Inventory.PurchaseOrder
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+<form id="form" method="post" data-ajax="true" data-ajax-method="post"
+      asp-action="CreatePurchaseOrder" asp-controller="PurchaseOrder" data-ajax-success="poDetail.Fn_Success"
+      data-ajax-begin="customAjax.Fn_SubmitBegin(divModalPopUp)" data-ajax-complete="customAjax.Fn_SubmitComplete(divModalPopUp)">
+    <div class="row" id="divUnitMasterCreate">
+        <div class="col-xs-12">
+            <div class="col-md-4 form-group">
+                <input type="hidden" asp-for="Id" />
+                <label class="control-label"> Po Number</label>
+                <input asp-for="PONumber" class="form-control" />
+                <span asp-validation-for="PONumber"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">Po Date</label>
+                <input asp-for="PODate" class="form-control" />
+                <span asp-validation-for="PODate"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">Vendor</label>
+                <select asp-for="VendorId" class="form-control" asp-items="@(new SelectList(ViewBag.VendorList,"Id","VendorName"))">
+                    <option value="">Select</option>
+                </select>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">Remarks</label>
+                <input asp-for="Remarks" class="form-control" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">DeliveryTerm</label>
+                <input asp-for="DeliveryTerm" class="form-control" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">TermOfPayment</label>
+                <input asp-for="TermOfPayment" class="form-control" />
+                <span asp-validation-for="TermOfPayment"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">SpecialComment</label>
+                <input asp-for="SpecialComment" class="form-control" />
+                <span asp-validation-for="SpecialComment"></span>
+            </div>
+        </div>
+
+        <div class="col-xs-12" style="overflow-y:scroll;max-height:300px;">
+            <table class="table table-responsive">
+                <thead>
+                    <tr>
+                        <th>
+                            Sr.No
+                        </th>
+                        <th>
+                            Material Name
+                        </th>
+                        <th>
+                            Material Code
+                        </th>
+                        <th>
+                            Unit
+                        </th>
+                        <th>
+                            Quantity
+                        </th>
+                        <th>
+                            Total Price
+                        </th>
+                        <th>
+                            Remarks
+                        </th>
+                        <th>
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="tblMaterialReturnIssue">
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-12">
+            <button type="button" class="btn btn-primary pull-right" onclick="poDetail.Fn_GetMaterialDetail()">
+                <i class="fa fa-plus-square">Add Item</i>
+            </button>
+        </div>
+
+        <div class="col-sm-12">
+            <div class="col-sm-8">
+                <button type="submit" class="btn btn-primary pull-right" value="Save">
+                    <i class="fa fa-download"> &nbsp;&nbsp;Save</i>
+                </button>
+            </div>
+            <div class="col-sm-4">
+                <button type="reset" class="btn btn-warning" value="reset">
+                    <i class="fa fa-refresh">&nbsp;&nbsp;Reset</i>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

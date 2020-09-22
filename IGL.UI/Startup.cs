@@ -28,6 +28,15 @@ namespace IGL.UI
             services.AddControllersWithViews();
             services.AddServices();
             services.AddRepository(Configuration);
+            services.AddAuthentication(Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(option => {
+                option.LoginPath = "/Authenticate/Index";
+            });
+            services.ConfigureApplicationCookie(option => {
+                option.Cookie.Name = "IGLCookie";
+                option.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+                option.SlidingExpiration = true;
+            });
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,13 +54,15 @@ namespace IGL.UI
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=UnitMaster}/{action=Index}/{id?}");
+                    pattern: "{controller=Account}/{action=Index}/{id?}");
             });
         }
     }

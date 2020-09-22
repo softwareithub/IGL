@@ -1,0 +1,99 @@
+﻿@model IEnumerable<IGL.Core.Entities.Transaction.RiserMaster>
+@{
+    ViewData["Title"] = "Riser Detail";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Riser Details</h3>
+
+                <button class="btn btn-primary pull-right" onclick="riserDetail.Fn_CreateRiserInfo()">
+                    <i class="fa fa-plus-circle"> &nbsp; &nbsp; Add &nbsp; &nbsp;</i>
+                </button>
+
+            </div>
+            <div class="box-body">
+                <table id="IGLDataTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Riser Code</th>
+                            <th>Riser Number</th>
+                            <th>Tower</th>
+                            <th>Name</th>
+                            <th>Floar</th>
+                            <th>Aprtment</th>
+                            <th>House Number</th>
+                            <th>Block Colony</th>
+                            <th>Sub Area Phase</th>
+                            <th>Sector</th>
+                            <th>Location</th>
+                            <th>Potential Customer</th>
+                            <th>Connected Customer</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var data in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @data.RiseCode
+                                </td>
+                                <td>
+                                    @data.RiserNumber
+                                </td>
+                                <td>
+                                    @data.Tower
+                                </td>
+                                <td>
+                                    @data.FirstName
+                                </td>
+                                <td>
+                                    @data.Floar
+                                </td>
+                                <td>
+                                    @data.Apartment
+                                </td>
+                                <td>
+                                    @data.HouseNumber
+                                </td>
+                                <td>
+                                    @data.BlockColony
+                                </td>
+                                <td>
+                                    @data.SubAreaPhase
+                                </td>
+                                <td>
+                                    @data.Sector
+                                </td>
+                                <td>
+                                    @data.Location
+                                </td>
+                                <td>
+                                    @data.PotentialCustomer
+                                </td>
+                                <td>
+                                    @data.ConectedCustomer
+                                </td>
+                                <td>
+
+                                    <a class="btn btn-outline-danger pull-right" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'  style='color:#DD4B39'></i>" onclick="riserDetail.Fn_DeleteRiserDetail(@data.Id, this)">
+                                        <i class="fa fa-trash" style="color:#DD4B39"></i>
+                                    </a>
+
+                                    <a class="btn btn-outline-success pull-right" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'  style='color:#DD4B39'></i>" onclick="riserDetail.Fn_EditRiserDetail(@data.Id, this)">
+                                        <i class="fa fa-edit" style="color:#3C8DBC"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,48 @@
+﻿@model IGL.Core.Entities.Master.EmployeeDetail
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+<form id="form" method="post" data-ajax="true" data-ajax-method="post"
+      asp-action="UpsertEmployeeDetail" asp-controller="EmployeeDetail" data-ajax-success="employeeDetail.Fn_Success"
+      data-ajax-begin="customAjax.Fn_SubmitBegin(divModalPopUp)" data-ajax-complete="customAjax.Fn_SubmitComplete(divModalPopUp)">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="col-md-4 form-group">
+                <input type="hidden" asp-for="Id" />
+                <label class="control-label"> Name</label>
+                <input asp-for="Name" class="form-control" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">Employee Type</label>
+                <select asp-for="EmployeeTypeId" class="form-control" asp-items="@(new SelectList(ViewBag.EmployeeType,"Id","Name"))">
+                    <option value="0">Select</option>
+                </select>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">Email Id</label>
+                <input asp-for="EmailId" class="form-control" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">Phone</label>
+                <input asp-for="Phone" class="form-control" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">Address</label>
+                <input asp-for="Address" class="form-control" />
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="col-sm-8">
+                <button type="submit" class="btn btn-primary pull-right" value="Save">
+                    <i class="fa fa-download"> &nbsp;&nbsp;Save</i>
+                </button>
+            </div>
+            <div class="col-sm-4">
+                <button type="reset" class="btn btn-warning" value="reset">
+                    <i class="fa fa-refresh">&nbsp;&nbsp;Reset</i>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

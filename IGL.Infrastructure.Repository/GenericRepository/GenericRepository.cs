@@ -24,6 +24,7 @@ namespace IGL.Infrastructure.Repository.GenericRepository
 
         public async Task<ResponseMessage> CreateEntity(TEntity model)
         {
+            
             try
             {
                 await TEntities.AddAsync(DefaultIfNullEntity<TEntity>(model));
@@ -43,15 +44,12 @@ namespace IGL.Infrastructure.Repository.GenericRepository
         public async Task<IList<TEntity>> GetAll(params Expression<Func<TEntity, object>>[] navigationProperties)
         {
             List<TEntity> tList;
-            using (baseContext)
+            IQueryable<TEntity> dbQuery = baseContext.Set<TEntity>();
+            foreach (Expression<Func<TEntity, object>> navigationProp in navigationProperties)
             {
-                IQueryable<TEntity> dbQuery = baseContext.Set<TEntity>();
-                foreach (Expression<Func<TEntity, object>> navigationProp in navigationProperties)
-                {
-                    dbQuery.Include<TEntity, object>(navigationProp);
-                }
-                tList = await dbQuery.AsNoTracking().ToListAsync<TEntity>();
+                dbQuery.Include<TEntity, object>(navigationProp);
             }
+            tList = await dbQuery.AsNoTracking().ToListAsync<TEntity>();
             return tList;
         }
 
@@ -60,19 +58,13 @@ namespace IGL.Infrastructure.Repository.GenericRepository
             List<TEntity> list = new List<TEntity>();
             try
             {
-                using (baseContext)
+                IQueryable<TEntity> dbQuery = baseContext.Set<TEntity>();
+                foreach (Expression<Func<TEntity, object>> navigationProperty in navigationProperties)
                 {
-                    IQueryable<TEntity> dbQuery = baseContext.Set<TEntity>();
-
-                    //Apply eager loading
-                    foreach (Expression<Func<TEntity, object>> navigationProperty in navigationProperties)
-                    {
-                        dbQuery = dbQuery.Include<TEntity, object>(navigationProperty);
-                    }
-
-                    list = dbQuery.AsNoTracking().Where(where).ToList<TEntity>();
-                    return await Task.Run(() => list);
+                    dbQuery = dbQuery.Include<TEntity, object>(navigationProperty);
                 }
+                list = dbQuery.AsNoTracking().Where(where).ToList<TEntity>();
+                return await Task.Run(() => list);
             }
             catch (Exception ex)
             {
@@ -83,18 +75,13 @@ namespace IGL.Infrastructure.Repository.GenericRepository
         public async Task<TEntity> GetSingle(Func<TEntity, bool> where, params Expression<Func<TEntity, object>>[] navigationProperties)
         {
             TEntity item = null;
-            using (baseContext)
-            {
-                IQueryable<TEntity> dbQuery = baseContext.Set<TEntity>();
+            IQueryable<TEntity> dbQuery = baseContext.Set<TEntity>();
+            foreach (Expression<Func<TEntity, object>> navigationProperty in navigationProperties)
+                dbQuery = dbQuery.Include<TEntity, object>(navigationProperty);
 
-                //Apply eager loading
-                foreach (Expression<Func<TEntity, object>> navigationProperty in navigationProperties)
-                    dbQuery = dbQuery.Include<TEntity, object>(navigationProperty);
-
-                item = dbQuery
-                    .AsNoTracking() //Don't track any changes for the selected item
-                    .FirstOrDefault(where); //Apply where clause
-            }
+            item = dbQuery
+                .AsNoTracking() //Don't track any changes for the selected item
+                .FirstOrDefault(where); //Apply where clause
             return await Task.Run(() => item);
         }
 
@@ -102,12 +89,8 @@ namespace IGL.Infrastructure.Repository.GenericRepository
         {
             try
             {
-                using (baseContext)
-                {
-                    await baseContext.AddRangeAsync(items);
-                    await baseContext.SaveChangesAsync();
-                }
-
+                await baseContext.AddRangeAsync(items);
+                await baseContext.SaveChangesAsync();
                 return ResponseMessage.AddedSuccessfully;
             }
             catch (Exception ex)
@@ -121,11 +104,8 @@ namespace IGL.Infrastructure.Repository.GenericRepository
         {
             try
             {
-                using (baseContext)
-                {
-                    baseContext.UpdateRange(DefaultIfNullEntityArray(items));
-                    await baseContext.SaveChangesAsync();
-                }
+                baseContext.UpdateRange(DefaultIfNullEntityArray(items));
+                await baseContext.SaveChangesAsync();
                 return ResponseMessage.UpdatedSuccessfully;
             }
             catch (Exception ex)
@@ -139,11 +119,8 @@ namespace IGL.Infrastructure.Repository.GenericRepository
         {
             try
             {
-                using (baseContext)
-                {
-                    baseContext.UpdateRange(items);
-                    await baseContext.SaveChangesAsync();
-                }
+                baseContext.UpdateRange(items);
+                await baseContext.SaveChangesAsync();
                 return ResponseMessage.DeletedSuccessfully;
             }
             catch (Exception ex)

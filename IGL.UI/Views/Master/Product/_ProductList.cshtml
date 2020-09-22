@@ -1,0 +1,75 @@
+﻿@model IEnumerable<IGL.Core.ViewModelEntities.MasterVm.MaterialMasterVm>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Product List</h3>
+
+                <button class="btn btn-primary pull-right" onclick="productDetail.Fn_CreateProduct()">
+                    <i class="fa fa-plus-circle"> &nbsp; &nbsp; Add &nbsp; &nbsp;</i>
+                </button>
+
+            </div>
+            <div class="box-body">
+                <table id="IGLDataTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Product Code</th>
+                            <th>Unit</th>
+                            <th>Per Unit Cost</th>
+                            <th>Opening Quantity</th>
+                            <th>Threshold Value</th>
+                            <th>HSN Code</th>
+                            <th>Is Payable</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var data in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @data.MaterialName
+                                </td>
+                                <td>
+                                    @data.Code
+                                </td>
+                                <th>
+                                    @data.Unit
+                                </th>
+                                <th>
+                                    @data.PerUnitCost
+                                </th>
+                                <th>
+                                    @data.Quantity
+                                </th>
+                                <th>
+                                    @data.ThresholdValue
+                                </th>
+                                <td>
+                                    @data.HSNCode
+                                </td>
+                                <td>
+                                    @data.IsPayable
+                                </td>
+                                <td>
+                                    <a class="btn btn-outline-danger pull-right" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'  style='color:#DD4B39'></i>" onclick="productDetail.Fn_DeleteProduct(@data.Id, this)">
+                                        <i class="fa fa-trash" style="color:#DD4B39"></i>
+                                    </a>
+
+                                    <a class="btn btn-outline-success pull-right" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'  style='color:#DD4B39'></i>" onclick="productDetail.Fn_EditProductMaster(@data.Id, this)">
+                                        <i class="fa fa-edit" style="color:#3C8DBC"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

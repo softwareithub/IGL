@@ -1,0 +1,26 @@
+﻿@model IEnumerable<IGL.Core.Entities.Master.UnitMaster>
+@{
+    ViewData["Title"] = "Unit Master";
+}
+
+<section class="content-header">
+    <h1>
+        Unit Master
+    </h1>
+</section>
+<section class="content container-fluid">
+    <section class="content">
+        <div class="row" id="divUnitList">
+        </div>
+    </section>
+    @await Html.PartialAsync("~/Views/Shared/IGLCommanModal.cshtml")
+</section>
+
+
+<environment include="Production">
+    <script src="~/js/UnitMaster/UnitMaster.js"></script>
+</environment>
+<environment include="Development">
+    <script src="~/js/UnitMaster/UnitMaster.js"></script>
+</environment>
+

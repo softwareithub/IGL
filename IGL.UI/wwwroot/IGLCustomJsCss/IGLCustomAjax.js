@@ -1,75 +1,62 @@
-﻿
-var customAjax = {
+﻿var customAjax = {
     "Fn_Success": function (response) {
-        var Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000
-        });
-        Toast.fire({
-            icon: 'success',
-            title: response
-        })
+        alertify.success(response);
     },
     "Fn_Error": function (response) {
-        var Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000
-        });
-        Toast.fire({
-            icon: 'error',
-            title: response
-        })
-        setTimeout(function () {
-            customAjax.Fn_ReloadPage();
-        }, 3000);
+        alertify.error(response);
     },
-    "Fn_SubmitBegin": function () {
-        $("#divCreate").addClass('ajaxLoading');
+    "Fn_SubmitBegin": function (name) {
+        $("#"+name.id).addClass('ajaxLoading');
     },
-    "Fn_SubmitComplete": function () {
-        $("#divCreate").removeClass('ajaxLoading');
+    "Fn_SubmitComplete": function (name) {
+        $("#"+ name.id).removeClass('ajaxLoading');
     },
     "Fn_SubmitSuccess": function (response) {
         customAjax.Fn_Success(response);
         $("#form")[0].reset();
     },
-    "Fn_ReloadPage": function () {
-        window.location.reload();
+    "Fn_CommanDelete": function (id, deleteUrl, callback,loadingDiv) {
+        $(loadingDiv).addClass('ajaxLoading');
+        alertify.confirm('IGL Confirm', 'Are you sure to delete?', function () {
+            $.get(deleteUrl, { id: id }, function (response) {
+                alertify.success(response);
+            }).done(function () { callback(); $(loadingDiv).removeClass('ajaxLoading'); });
+        }, function () {
+            alertify.error("Delete record canceled.")
+        });
+          
     },
-    "Fn_CommanDelete": function (id, deleteUrl, propData) {
-        Swal.fire({
-            title: 'Are you sure want to delete ' + propData+'? ',
-            text: "Deleted data will be archived ,You can enable it by the help of Admin !",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.get(deleteUrl, { id, id }, function (response) {
-                    Swal.fire({
-                        title: 'Deleted',
-                        text: response,
-                        icon: 'success',
-                        onClose: () => {
-                            location.reload();
-                        }
-                    })
-                });
-            }
-        })
-    },
-    "Fn_CommanEdit": function (id, geturl,headerText) {
+    "Fn_CommanEdit": function (id, geturl, headerText, loadingDiv) {
+        $(loadingDiv).addClass('ajaxLoading');
         $.get(geturl, { id, id }, function (data) {
             $("#modalTitle").text(headerText);
             $("#divCommanModalPartial").html(data);
             $("#IGLCommanModal").modal('show');
+         
+        }).done(function () {
+            $(loadingDiv).removeClass('ajaxLoading');
         });
+    },
+    "Fn_CommanGet": function (getUrl, bindingDivId, bindingTableId) {
+        $.get(getUrl, function (response) {
+            debugger;
+            $(bindingDivId).html(response)
+        }).done(function () {
+            $(bindingTableId).DataTable({
+                "responsive": true,
+                "autoWidth": false,
+            });
+        });
+    },
+    "Fn_CommanCreate": function (getUrl, dataBindingId, modalPopId, modalText, loadingDiv) {
+        $(loadingDiv).addClass('ajaxLoading');
+        $.get(getUrl, function (data) {
+            $(dataBindingId).html(data);
+        }).done(function () {
+            $(modalPopId).modal('show');
+            $("#modalTitle").text(modalText);
+            $(loadingDiv).removeClass('ajaxLoading');
+        })
     }
 
 };

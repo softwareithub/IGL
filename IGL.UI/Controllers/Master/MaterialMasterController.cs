@@ -6,10 +6,12 @@ using IGL.Core.Comman.Helper;
 using IGL.Core.Entities.Master;
 using IGL.Core.Service.GenericService;
 using IGL.Core.ViewModelEntities.MasterVm;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IGL.UI.Controllers.Master
 {
+    [Authorize]
     public class MaterialMasterController : Controller
     {
         private readonly IGenericService<MaterialMaster, int> _IMaterialMasterService;
@@ -21,31 +23,40 @@ namespace IGL.UI.Controllers.Master
         }
         public async Task<IActionResult> Index()
         {
+            return await Task.Run(()=> View("~/Views/Master/Product/ProductIndex.cshtml"));
+        }
+
+        public async Task<IActionResult> GetProductDetails()
+        {
             var unitModels = await _IUnitMasterService.GetList(x => x.IsActive == 1);
             var materialModels = await _IMaterialMasterService.GetList(x => x.IsActive == 1);
 
 
             var models = (from mt in materialModels
-                         join UM in unitModels
-                         on mt.UnitId equals UM.Id
-                         select new MaterialMasterVm
-                         {
-                             Id= mt.Id,
-                             MaterialName= mt.Name,
-                             Code=mt.Code,
-                             Unit= UM.Name,
-                             PerUnitCost= mt.PerUnitCost,
-                             IsPayable= mt.IsPayable
-                         }).ToList();
+                          join UM in unitModels
+                          on mt.UnitId equals UM.Id
+                          select new MaterialMasterVm
+                          {
+                              Id = mt.Id,
+                              MaterialName = mt.Name,
+                              Code = mt.Code,
+                              Unit = UM.Name,
+                              PerUnitCost = mt.PerUnitCost,
+                              IsPayable = mt.IsPayable==1? "Payable":"Not Payable",
+                              ThresholdValue= mt.ThresholdValue,
+                              Quantity= mt.OpeningQuantity,
+                              HSNCode= mt.HSNCode
+                          }).ToList();
 
-            return View("~/Views/Master/MaterialMasterIndex.cshtml", models);
+            return PartialView("~/Views/Master/Product/_ProductList.cshtml", models);
+
         }
 
         public async Task<IActionResult> CreateMaterial(int id)
         {
             ViewBag.UnitMaster = await _IUnitMasterService.GetList(x => x.IsActive == 1);
             var materialModel = await _IMaterialMasterService.GetSingle(x => x.Id == id);
-            return PartialView("~/Views/Master/_CreateMaterialPartial.cshtml", materialModel);
+            return PartialView("~/Views/Master/Product/_ProductCreate.cshtml", materialModel);
         }
 
         [HttpPost]

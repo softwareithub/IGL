@@ -1,0 +1,83 @@
+﻿@model IGL.Core.Entities.Transaction.MaterialTransction
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+<form id="form" method="post" data-ajax="true" data-ajax-method="post"
+      asp-action="CreateReturnIssue" asp-controller="MaterialTransaction" data-ajax-success="materialTransaction.Fn_Success"
+      data-ajax-begin="customAjax.Fn_SubmitBegin(divModalPopUp)" data-ajax-confirm="Are you sure want to create?" data-ajax-complete="customAjax.Fn_SubmitComplete(divModalPopUp)">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="col-md-4 form-group">
+                <input type="hidden" asp-for="Id" />
+                <label class="control-label"> Employee</label>
+                <select asp-for="EmployeeId" class="form-control" asp-items="@(new SelectList(ViewBag.EmployeeList,"Id","Name"))">
+                    <option value="">Select</option>
+                </select>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">Date of Issue/Return</label>
+                <input asp-for="TransactionDate" class="form-control" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">Transaction Type</label>
+                <select asp-for="TransactionType" class="form-control">
+                    <option value="Return">Return</option>
+                    <option value="Issue">Issue</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <table class="table table-responsive">
+                <thead>
+                    <tr>
+                        <th>
+                            Sr.No
+                        </th>
+                        <th>
+                            Material Name
+                        </th>
+                        <th>
+                            Material Code
+                        </th>
+                        <th>
+                            Unit
+                        </th>
+                        <th>
+                            Quantity
+                        </th>
+                        <th>
+                            Total Price
+                        </th>
+                        <th>
+                            Remarks
+                        </th>
+                        <th>
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="tblMaterialReturnIssue">
+
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-12">
+            <button type="button" class="btn btn-primary pull-right" onclick="materialTransaction.Fn_GetMaterialDetail()">
+                <i class="fa fa-plus-square">Add Item</i>
+            </button>
+        </div>
+        <div class="col-sm-12">
+            <div class="col-sm-8">
+                <button type="submit" class="btn btn-primary pull-right" value="Save">
+                    <i class="fa fa-download"> &nbsp;&nbsp;Save</i>
+                </button>
+            </div>
+            <div class="col-sm-4">
+                <button type="reset" class="btn btn-warning" value="reset">
+                    <i class="fa fa-refresh">&nbsp;&nbsp;Reset</i>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

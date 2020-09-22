@@ -1,0 +1,87 @@
+﻿@model IEnumerable<IGL.Core.Entities.Organization.Organisation>
+@{
+    ViewData["Title"] = "Organisation Detail";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Organisation Details</h3>
+
+                <button class="btn btn-primary pull-right" onclick="organisation.Fn_CreateOrgan()">
+                    <i class="fa fa-plus-circle"> &nbsp; &nbsp; Add &nbsp; &nbsp;</i>
+                </button>
+
+            </div>
+            <div class="box-body">
+                <table id="IGLDataTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Address Line 1</th>
+                            <th>Address Line 2</th>
+                            <th>CIN</th>
+                            <th>GST</th>
+                            <th>Land Line</th>
+                            <th>Email Address</th>
+                            <th>Contact Person</th>
+                            <th>Email(Contact Person)</th>
+                            <th>Phone(Contact Person)</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var data in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @data.Name
+                                </td>
+                                <td>
+                                    @data.AddressLine1
+                                </td>
+                                <td>
+                                    @data.AddressLine2
+                                </td>
+                                <td>
+                                    @data.CINNumber
+                                </td>
+                                <td>
+                                    @data.GSTNumber
+                                </td>
+                                <td>
+                                    @data.LandlineNumber
+                                </td>
+                                <td>
+                                    @data.EmailId
+                                </td>
+                                <td>
+                                    @data.ContactPerson
+                                </td>
+                                <td>
+                                    @data.ContactEmailId
+                                </td>
+                                <td>
+                                    @data.ContactPhone
+                                </td>
+                                <td>
+
+                                    <a class="btn btn-outline-danger pull-right" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'  style='color:#DD4B39'></i>" onclick="organisation.Fn_DeleteOrgan(@data.Id, this)">
+                                        <i class="fa fa-trash" style="color:#DD4B39"></i>
+                                    </a>
+
+                                    <a class="btn btn-outline-success pull-right" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'  style='color:#DD4B39'></i>" onclick="organisation.Fn_EditOrgan(@data.Id, this)">
+                                        <i class="fa fa-edit" style="color:#3C8DBC"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

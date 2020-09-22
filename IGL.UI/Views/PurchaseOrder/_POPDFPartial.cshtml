@@ -1,0 +1,151 @@
+﻿@{
+    ViewData["Title"] = "Purchase Order Detail";
+}
+@model IEnumerable<IGL.Core.ViewModelEntities.Inventory.PurchaseOrderDetail>
+<style>
+    p {
+        font-weight: 700;
+        color: #333333;
+        font-family: Arial;
+        margin: 0 0 1px !important;
+    }
+</style>
+<section class="content container-fluid">
+    <section class="content">
+        <div class="row" id="poDiv">
+            <table class="table table-responsive table-bordered">
+                <tr>
+                    <td colspan="8">
+                        <h3 style="text-align:center;font-weight:bold">Purchase Order</h3>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <p style="text-align:left"> PONumber : @Model.First().PoNUmber</p>
+                    </td>
+                    <td colspan="4">
+                        <p style="text-align:right">PO Date : @Model.First().PoDate.ToShortDateString()</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <p>Byuer Information</p>
+                    </td>
+                    <td colspan="4">
+                        <p>Vendor Information</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <p>@Model.First().Organisation.Name</p>
+                        Address : @Model.First().Organisation.AddressLine1<br />
+                        CIN     :@Model.First().Organisation.CINNumber<br />
+                        GST     : @Model.First().Organisation.GSTNumber<br />
+                        TELE    :@Model.First().Organisation.LandlineNumber<br />
+                        EmailID :@Model.First().Organisation.EmailId<br />
+
+                    </td>
+                    <td colspan="4">
+                        <p>@Model.First().VendorName</p>
+                        Address :  @Model.First().VendorAddress<br />
+                        Email :  @Model.First().VendorEmail<br />
+                        Phone :  @Model.First().VendorPhone<br />
+                        GST   :  @Model.First().VendorGST<br />
+                        PAN   :  @Model.First().VendorCIN<br />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="8">
+                        <p>Terms Of delivery : </p>
+                        <p>Terms Of Payment  : </p>
+                        <p>Remarks           : </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td><p>S.no</p></td>
+                    <td><p>Item Name</p></td>
+                    <td><p>Item Code</p></td>
+                    <td><p>HSN Code</p></td>
+                    <td><p>Unit</p></td>
+                    <td><p>Unit Price</p></td>
+                    <td><p>Quantity</p></td>
+                    <td><p>Amount</p></td>
+                </tr>
+                @{
+                    var count = 1;
+                    var amount = default(decimal);
+                    foreach (var data in Model)
+                    {
+                        <tr>
+                            <td>@count</td>
+                            <td>@data.ItemName</td>
+                            <td>@data.ItemCode</td>
+                            <td>@data.HSNCode</td>
+                            <td>meter</td>
+                            <td> @data.UnitPrice</td>
+                            <td>@data.Quantity</td>
+                            <td> @data.Amount    </td>
+                        </tr>
+                        count++;
+                        amount = amount + data.Amount;
+                    }
+
+                }
+
+                @{
+                    var igst = Math.Round(amount * Convert.ToDecimal(0.18), 2);
+                    var cgst = Math.Round(amount * Convert.ToDecimal(0.09), 2);
+                    var sgst = Math.Round(amount * Convert.ToDecimal(0.09), 2);
+                    var totalAmount = amount + igst;
+                }
+
+                <tr style="border:0">
+                    <td colspan="6">
+                        <p style="text-align:right">Net Amount        :</p>
+                        <p style="text-align:right">IGST (18%)        :</p>
+                        <p style="text-align:right">CGST (9%)         :</p>
+                        <p style="text-align:right">SGST (9%)         :</p>
+                    </td>
+                    <td colspan="2">
+                        <p style="text-align:right"> @amount</p>
+                        <p style="text-align:right"> @igst </p>
+                        <p style="text-align:right"> 0</p>
+                        <p style="text-align:right"> 0 </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="8" style="border-top:none">
+                        <p style="text-align:right">Total Amount        :  @totalAmount</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <p style="text-align:right">Prepaerd By        :</p>
+                    </td>
+                    <td colspan="4">
+                        <p style="text-align:right">Authorised Signatory        :</p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="row no-print">
+            <div class="col-xs-12">
+                <button type="button" class="btn btn-primary pull-right" onclick="poDetail.fn_PrintSlip()" style="margin-right: 5px;">
+                    <i class="fa fa-download"></i> Generate PDF
+                </button>
+            </div>
+        </div>
+    </section>
+</section>
+
+
+
+
+<environment include="Production">
+    <script src="~/js/Inventory/PurchaseOrder.js"></script>
+</environment>
+<environment include="Development">
+    <script src="~/js/Inventory/PurchaseOrder.js"></script>
+</environment>

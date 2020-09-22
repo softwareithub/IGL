@@ -1,0 +1,67 @@
+﻿@model IEnumerable<IGL.Core.ViewModelEntities.MasterVm.EmployeeDetailVm>
+@{
+    ViewData["Title"] = "Employee Detail";
+}
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Employee Details</h3>
+
+                    <button class="btn btn-primary pull-right" onclick="employeeDetail.Fn_CreateEmployee()">
+                        <i class="fa fa-plus-circle"> &nbsp; &nbsp; Add &nbsp; &nbsp;</i>
+                    </button>
+
+                </div>
+                <div class="box-body">
+                    <table id="IGLDataTable" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th> Name</th>
+                                <th>Employee Type</th>
+                                <th>Email Id</th>
+                                <th>Phone</th>
+                                <th>Address</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var data in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @data.Name
+                                    </td>
+                                    <td>
+                                        @data.EmployeeType
+                                    </td>
+                                    <th>
+                                        @data.EmailId
+                                    </th>
+                                    <th>
+                                        @data.Phone
+                                    </th>
+                                    <th>
+                                        @data.Address
+                                    </th>
+
+                                    <td>
+                                        <a class="btn btn-outline-danger pull-right" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'  style='color:#DD4B39'></i>" onclick="employeeDetail.Fn_DeleteEmployee(@data.Id, this)">
+                                            <i class="fa fa-trash" style="color:#DD4B39"></i>
+                                        </a>
+
+                                        <a class="btn btn-outline-success pull-right" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'  style='color:#DD4B39'></i>" onclick="employeeDetail.Fn_EditEmployee(@data.Id, this)">
+                                            <i class="fa fa-edit" style="color:#3C8DBC"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+

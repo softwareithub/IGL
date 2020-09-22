@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "Purchase Order Detail";
+}
+
+<section class="content-header">
+    <h1>
+        Create Purchase Order
+    </h1>
+</section>
+<section class="content container-fluid">
+    <section class="content">
+        <div class="row" id="divPurchaseOrder">
+        </div>
+    </section>
+    @await Html.PartialAsync("~/Views/Shared/IGLCommanModal.cshtml")
+
+    <div class="modal fade" id="MaterialModalPopUp" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" id="divModalPopUp">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3 style="color:#F39C12" class="modal-title" id="modalTitle">Material Details</h3>
+                </div>
+                <div class="modal-body">
+                    <div id="divMaterilDetail">
+
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn bg-navy margin pull-right" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<environment include="Production">
+    <script src="~/js/Inventory/PurchaseOrder.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2017.2.621/js/jszip.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2017.2.621/js/kendo.all.min.js"></script>
+</environment>
+<environment include="Development">
+    <script src="~/js/Inventory/PurchaseOrder.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2017.2.621/js/jszip.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2017.2.621/js/kendo.all.min.js"></script>
+</environment>
+

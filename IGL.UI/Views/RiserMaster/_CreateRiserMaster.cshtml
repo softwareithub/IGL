@@ -1,0 +1,91 @@
+﻿@model IGL.Core.Entities.Transaction.RiserMaster
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+<form id="form" method="post" data-ajax="true" data-ajax-method="post"
+      asp-action="UpSertRiserMaster" asp-controller="RiserMaster" data-ajax-success="riserDetail.Fn_Success"
+      data-ajax-begin="customAjax.Fn_SubmitBegin(divModalPopUp)" data-ajax-complete="customAjax.Fn_SubmitComplete(divModalPopUp)">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="col-md-4 form-group">
+                <input type="hidden" asp-for="Id" />
+                <label class="control-label"> Riser Code</label>
+                <input asp-for="RiseCode" value="@ViewData["RiserNumber"].ToString()" readonly="readonly" class="form-control" />
+                <span asp-validation-for="RiseCode"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label"> Riser Number</label>
+                <input asp-for="RiserNumber" class="form-control" />
+                <span asp-validation-for="RiserNumber"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">Tower</label>
+                <input asp-for="Tower" class="form-control" />
+                <span asp-validation-for="Tower"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">First Name</label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">Floar</label>
+                <input asp-for="Floar" class="form-control" />
+                <span asp-validation-for="Floar"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">Apartment</label>
+                <input asp-for="Apartment" class="form-control" />
+                <span asp-validation-for="Apartment"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">House Number</label>
+                <input asp-for="HouseNumber" class="form-control" />
+                <span asp-validation-for="HouseNumber"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">Block (/) Colony</label>
+                <input asp-for="BlockColony" class="form-control" />
+                <span asp-validation-for="BlockColony"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">Sub Area Phase</label>
+                <input asp-for="SubAreaPhase" class="form-control" />
+                <span asp-validation-for="SubAreaPhase"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">Sector Name</label>
+                <input asp-for="Sector" class="form-control" />
+                <span asp-validation-for="Sector"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">Location</label>
+                <input asp-for="Location" class="form-control" />
+                <span asp-validation-for="Location"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">Potential Customer</label>
+                <input asp-for="PotentialCustomer" class="form-control" />
+                <span asp-validation-for="PotentialCustomer"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">Connected Customer</label>
+                <input asp-for="ConectedCustomer" class="form-control" />
+                <span asp-validation-for="ConectedCustomer"></span>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="col-sm-8">
+                <button type="submit" class="btn btn-primary pull-right" value="Save">
+                    <i class="fa fa-download"> &nbsp;&nbsp;Save</i>
+                </button>
+            </div>
+            <div class="col-sm-4">
+                <button type="reset" class="btn btn-warning" value="reset">
+                    <i class="fa fa-refresh">&nbsp;&nbsp;Reset</i>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

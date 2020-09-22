@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewData["Title"] = "Product Master";
+}
+
+<section class="content-header">
+    <h1>
+        Product Master
+    </h1>
+</section>
+<section class="content container-fluid">
+    <section class="content">
+        <div class="row" id="divProductDetail">
+        </div>
+    </section>
+    @await Html.PartialAsync("~/Views/Shared/IGLCommanModal.cshtml")
+</section>
+
+
+<environment include="Production">
+    <script src="~/js/Material/Material.js"></script>
+</environment>
+<environment include="Development">
+    <script src="~/js/Material/Material.js"></script>
+</environment>

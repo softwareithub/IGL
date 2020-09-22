@@ -11,6 +11,10 @@ namespace IGL.Core.ViewModelEntities.MasterVm
         public string Code { get; set; }
         public string Unit { get; set; }
         public decimal PerUnitCost { get; set; }
-        public int IsPayable { get; set; }
+        public string IsPayable { get; set; }
+        public int ThresholdValue { get; set; }
+        public int Quantity { get; set; }
+        public string HSNCode { get; set; }
+
     }
 }

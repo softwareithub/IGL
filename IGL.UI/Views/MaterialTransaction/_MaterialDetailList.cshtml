@@ -1,0 +1,65 @@
+﻿@model IEnumerable<IGL.Core.ViewModelEntities.MasterVm.MaterialMasterVm>
+
+@{
+    ViewData["Title"] = "Employee Detail";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Material Details</h3>
+            </div>
+            <div class="box-body">
+                <table id="IGLDataTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Select</th>
+                            <th>Name</th>
+                            <th>Code</th>
+                            <th>Unit</th>
+                            <th>Per Unit Cost</th>
+                            <th>Is Payable</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var data in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <input class="chk" type="checkbox" data-id="@data.Id" data-name="@data.MaterialName"
+                                           data-code="@data.Code" data-unit="@data.Unit" data-perunitCost="@data.PerUnitCost"
+                                           data-isPayable="@data.IsPayable" />
+                                </td>
+                                <td>
+                                    @data.MaterialName
+                                </td>
+                                <td>
+                                    @data.Code
+                                </td>
+                                <th>
+                                    @data.Unit
+                                </th>
+                                <th>
+                                    @data.PerUnitCost
+                                </th>
+                                <th>
+                                    @data.IsPayable
+                                </th>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+
+            <div class="box-footer">
+                <div class="col-xs-12">
+                    <button class="btn btn-primary pull-right" onclick="materialTransaction.Fn_AddItemToIssueReturn()">
+                        <i class="fa fa-plus-square">Add Item</i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

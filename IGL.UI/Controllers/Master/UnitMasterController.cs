@@ -1,12 +1,14 @@
 ﻿using IGL.Core.Comman.Helper;
 using IGL.Core.Entities.Master;
 using IGL.Core.Service.GenericService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace IGL.UI.Controllers.Master
 {
+    [Authorize]
     public class UnitMasterController : Controller
     {
         private readonly IGenericService<UnitMaster, int> _IUnitMasterService;
@@ -18,14 +20,19 @@ namespace IGL.UI.Controllers.Master
         public async Task<IActionResult> Index()
         {
             var models = await _IUnitMasterService.GetList(x => x.IsActive == 1);
-            return View("~/Views/Master/UnitMaster.cshtml", models.OrderBy(x => x.CreatedDate).ThenBy(x => x.UpdatedDate).ToList());
+            return View("~/Views/Master/UnitMaster/UnitMaster.cshtml", models.OrderBy(x => x.CreatedDate).ThenBy(x => x.UpdatedDate).ToList());
+        }
+        public async Task<IActionResult> GetUnitList()
+        {
+            var models = await _IUnitMasterService.GetList(x => x.IsActive == 1);
+            return PartialView("~/Views/Master/UnitMaster/_UnitListPartial.cshtml", models.OrderBy(x => x.CreatedDate).ThenBy(x => x.UpdatedDate).ToList());
         }
 
 
         public async Task<IActionResult> CreateUnit(int id)
         {
             var model = await _IUnitMasterService.GetSingle(x => x.Id == id);
-            return PartialView("~/Views/Master/_UnitMasterCreatePartial.cshtml", model);
+            return PartialView("~/Views/Master/UnitMaster/_UnitMasterCreatePartial.cshtml", model);
         }
 
         [HttpPost]

@@ -1,0 +1,113 @@
+﻿@model IEnumerable<IGL.Core.ViewModelEntities.Inventory.PurchaseOrderDetail>
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+<form id="form" method="post" data-ajax="true" data-ajax-method="post"
+      asp-action="CreatePurchaseOrder" asp-controller="PurchaseOrder" data-ajax-success="poDetail.Fn_Success"
+      data-ajax-begin="customAjax.Fn_SubmitBegin(divModalPopUp)" data-ajax-complete="customAjax.Fn_SubmitComplete(divModalPopUp)">
+    <div class="row" id="divUnitMasterCreate">
+        <div class="col-xs-12">
+            <div class="col-md-4 form-group">
+                <input type="hidden" value="@Model.First().PoId" />
+                <label class="control-label"> Po Number</label>
+                <input value="@Model.First().PoNUmber" readonly="readonly" class="form-control" />
+                
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">Po Date</label>
+                <input value="@Model.First().PoDate.ToShortDateString()" readonly="readonly" class="form-control" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">Vendor</label>
+                <input value="@Model.First().VendorName"  readonly="readonly" class="form-control" />
+            </div>
+        </div>
+
+        <div class="col-xs-12" style="overflow-y:scroll;max-height:300px;">
+            <table class="table table-responsive">
+                <thead>
+                    <tr>
+                        <th>
+                            Sr.No
+                        </th>
+                        <th>
+                            Material Name
+                        </th>
+                        <th>
+                            Material Code
+                        </th>
+                        <th>
+                            Unit
+                        </th>
+                        <th>
+                            Quantity
+                        </th>
+                        <th>
+                            Total Price
+                        </th>
+                        <th>
+                            Remarks
+                        </th>
+                        <th>
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="tblMaterialReturnIssue">
+                    @foreach (var data in Model)
+                    {
+                    <tr>
+                        <td>
+                            1
+                        </td>
+                        <td>
+                            @data.ItemName
+                        </td>
+                        <td>
+                            @data.ItemCode
+                        </td>
+                        <td>
+                            @data.UnitName
+                        </td>
+
+                        <td>
+                            <input type="hidden" name="matId" value="@data.ItemId" />
+                            <input type="number" onblur="poDetail.Fn_UpdateTotalPrice(this,@data.UnitPrice,@data.ItemId)" name="qty" class="form-control" value="@data.Quantity" />
+                        </td>
+                        <td>
+                            @{ var totalPrice = data.Quantity * data.UnitPrice;}
+                            <span id="@data.ItemId">@totalPrice</span>
+                            
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" name="remarks" value="@data.Remarks" />
+                        </td>
+                        <td>
+                            <a onclick="poDetail.fn_deleteItem(this)">Delete</a>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-12">
+            <button type="button" class="btn btn-primary pull-right" onclick="poDetail.Fn_GetMaterialDetail()">
+                <i class="fa fa-plus-square">Add Item</i>
+            </button>
+        </div>
+
+        <div class="col-sm-12">
+            <div class="col-sm-8">
+                <button type="submit" class="btn btn-primary pull-right" value="Save">
+                    <i class="fa fa-download"> &nbsp;&nbsp;Save</i>
+                </button>
+            </div>
+            <div class="col-sm-4">
+                <button type="reset" class="btn btn-warning" value="reset">
+                    <i class="fa fa-refresh">&nbsp;&nbsp;Reset</i>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
