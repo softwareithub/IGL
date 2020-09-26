@@ -1,0 +1,66 @@
+﻿<div class="row" id="divUnitMasterCreate">
+        <div class="col-xs-12" style="overflow-y:scroll;max-height:300px;">
+        <table class="table table-responsive">
+            <thead>
+                <tr>
+                    <th>
+                        Material Name
+                    </th>
+                    <th>
+                        Material Code
+                    </th>
+                    <th>
+                        Unit
+                    </th>
+                    <th>Unit Price</th>
+                    <th>
+                        Quantity
+                    </th>
+                    <th>
+                        Total Price
+                    </th>
+                    <th>
+                        Remarks
+                    </th>
+                    <th>
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="tblMaterialReturnIssue">
+                @foreach (var data in Model)
+                {
+                    <tr>
+                        <td>
+                            @data.ItemName
+                        </td>
+                        <td>
+                            @data.ItemCode
+                        </td>
+                        <td>
+                            @data.UnitName
+                        </td>
+                        <td>
+                            <input type="number" onblur="sivDetails.Fn_UpdateTotalPrice(this,@data.UnitPrice,@data.ItemId)" name="unitPrice" class="form-control" value="@data.UnitPrice" />
+                        </td>
+                        <td>
+                            <input type="hidden" name="matId" value="@data.ItemId" />
+                            <input type="number" onblur="sivDetails.Fn_UpdateTotalPrice(this,@data.UnitPrice,@data.ItemId)" name="qty" class="form-control" value="@data.Quantity" />
+                        </td>
+                        <td>
+                            @{ var totalPrice = data.Quantity * data.UnitPrice;}
+                            <span id="@data.ItemId">@totalPrice</span>
+
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" name="remarks" value="@data.Remarks" />
+                        </td>
+                        <td>
+                            <a onclick="sivDetails.Fn_DeleteSIVItem(this)">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

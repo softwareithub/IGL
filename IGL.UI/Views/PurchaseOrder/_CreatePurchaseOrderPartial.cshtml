@@ -11,7 +11,7 @@
             <div class="col-md-4 form-group">
                 <input type="hidden" asp-for="Id" />
                 <label class="control-label"> Po Number</label>
-                <input asp-for="PONumber" class="form-control" />
+                <input asp-for="PONumber" class="form-control" readonly="readonly" value="@ViewData["poNumber"]"/>
                 <span asp-validation-for="PONumber"></span>
             </div>
             <div class="col-md-4 form-group">

@@ -32,6 +32,9 @@ namespace IGL.Core.Entities.Master
 
 		[Display(Prompt ="HSN Code")]
 		public string HSNCode { get; set; }
+		[NotMapped]
+		public bool IsEachProductUniqueNumber { get; set; }
+		public int IsUnique { get; set; }
 
 
 	}

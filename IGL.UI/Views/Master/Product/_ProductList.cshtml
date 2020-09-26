@@ -23,6 +23,7 @@
                             <th>Threshold Value</th>
                             <th>HSN Code</th>
                             <th>Is Payable</th>
+                            <th>Is unique</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -53,6 +54,17 @@
                                 </td>
                                 <td>
                                     @data.IsPayable
+                                </td>
+                                <td>
+                                    @if (data.IsUniqe)
+                                    {
+                                       <a class="btn btn-outline-success " onclick="productDetail.Fn_AsssignNumber(@data.Id,@data.Quantity)">
+                                           <i class="fa fa-plus-circle">Assign Number</i>
+                                       </a>
+                                    }
+                                    else { 
+                                    <span>No</span>
+                                    }
                                 </td>
                                 <td>
                                     <a class="btn btn-outline-danger pull-right" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'  style='color:#DD4B39'></i>" onclick="productDetail.Fn_DeleteProduct(@data.Id, this)">

@@ -11,7 +11,7 @@
                 <h3 class="box-title">Material Details</h3>
             </div>
             <div class="box-body">
-                <table id="IGLDataTable" class="table table-bordered table-striped">
+                <table id="IGLMaterialTable" class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>Select</th>
@@ -29,7 +29,7 @@
                                 <td>
                                     <input class="chk" type="checkbox" data-id="@data.Id" data-name="@data.MaterialName"
                                            data-code="@data.Code" data-unit="@data.Unit" data-perunitCost="@data.PerUnitCost"
-                                           data-isPayable="@data.IsPayable" />
+                                           data-isPayable="@data.IsPayable" data-isUniqu="@data.IsUniqe" />
                                 </td>
                                 <td>
                                     @data.MaterialName

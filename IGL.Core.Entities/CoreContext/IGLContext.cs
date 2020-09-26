@@ -1,6 +1,9 @@
 ﻿using IGL.Core.Entities.Inventory;
 using IGL.Core.Entities.Master;
 using IGL.Core.Entities.Organization;
+using IGL.Core.Entities.ProductTransaction;
+using IGL.Core.Entities.SIV;
+using IGL.Core.Entities.StoreMaster;
 using IGL.Core.Entities.Transaction;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -30,5 +33,9 @@ namespace IGL.Core.Entities.CoreContext
         public DbSet<Organisation> Organisations { get; set; }
         public DbSet<PurchaseOrder> PurchaseOrders { get; set; }
         public DbSet<POItem> POItems { get; set; }
+        public DbSet<StoreDetail> StoreDetails { get; set; }
+        public DbSet<SIVDetail> SIVDetails { get; set; }
+        public DbSet<SIVMaterialTransaction> SIVMaterialTransactions { get; set; }
+        public DbSet<ProductTransactionDetail> ProductTransactionDetails { get; set; }
     }
 }

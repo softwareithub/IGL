@@ -1,0 +1,94 @@
+﻿@model IGL.Core.Entities.SIV.SIVDetail
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+<form id="form" method="post" data-ajax="true" data-ajax-method="post"
+      asp-action="CreateSIVDetail" asp-controller="SIVMaster" data-ajax-success="sivDetail.Fn_Success"
+      data-ajax-begin="customAjax.Fn_SubmitBegin(divModalPopUp)" data-ajax-complete="customAjax.Fn_SubmitComplete(divModalPopUp)">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Store Inward Voucher</h3>
+                </div>
+                <div class="box-body">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-3 form-group">
+                                <input type="hidden" asp-for="Id" />
+                                <label class="control-label"> Store</label>
+                                <select asp-for="StoreId" class="form-control" asp-items="@(new SelectList(ViewBag.StoreList,"Id","StoreName"))">
+                                    <option value="">Select</option>
+                                </select>
+                                <span asp-validation-for="StoreId"></span>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label class="control-label"> Purchase Order</label>
+                                <select asp-for="PoId" class="form-control" asp-items="@(new SelectList(ViewBag.POList,"Id","PONumber"))" onchange="sivDetails.Fn_GetPoDetailInfo()">
+                                    <option value="">Select</option>
+                                </select>
+                                <span asp-validation-for="PoId"></span>
+                            </div>
+
+                            <div class="col-md-3 form-group">
+                                <label class="control-label"> PO Date</label>
+                                <input type="text" readonly class="form-control" id="poDate" />
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label class="control-label">Vendor Name</label>
+                                <input type="text" readonly class="form-control" id="vendorName" />
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label class="control-label">Invoice Number</label>
+                                <input asp-for="InvoiceNumber" class="form-control" />
+                                <span asp-validation-for="InvoiceNumber"></span>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label class="control-label">Invoice Date</label>
+                                <input asp-for="InvoiceDate" class="form-control" />
+                                <span asp-validation-for="InvoiceDate"></span>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label class="control-label">Upload Invoice</label>
+                                <input type="file" asp-for="InvoicePath" class="form-control" />
+                                <span asp-validation-for="InvoicePath"></span>
+                            </div>
+
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div id="divPoItems">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <div class="col-sm-12">
+                        <div class="col-sm-8">
+                            <div id="btnSave">
+                                <button type="submit" name="Save" class="btn btn-primary pull-right" value="Save" id="btnSave">
+                                    <i class="fa fa-download"> &nbsp;&nbsp;Save</i>
+                                </button>
+                            </div>
+                            <div id="btnApprove" style="display:none">
+                                <button type="submit" name="Save" class="btn btn-info pull-right" value="Approve" id="btnSave">
+                                    <i class="fa fa-angle-left"> &nbsp;&nbsp;Approve</i>
+                                </button>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-4">
+                            <button type="reset" class="btn btn-warning" value="reset">
+                                <i class="fa fa-refresh">&nbsp;&nbsp;Reset</i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</form>

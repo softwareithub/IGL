@@ -1,7 +1,7 @@
-﻿using IGL.Core.Repository.GenericRepository;
-using IGL.Core.Service.GenericService;
+﻿using IGL.Core.Service.GenericService;
+using IGL.Core.Service.MaterialDetail;
 using IGL.Infastructure.Service.GenericService;
-using Microsoft.Extensions.Configuration;
+using IGL.Infastructure.Service.MaterialDetail;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace IGL.Infastructure.Service.Extensions
@@ -13,6 +13,7 @@ namespace IGL.Infastructure.Service.Extensions
             #region GenericService
 
             services.AddTransient(typeof(IGenericService<,>), typeof(GenericService<,>));
+            services.AddTransient<IMaterialDetailService, MaterialDetailService>();
 
             #endregion
         }

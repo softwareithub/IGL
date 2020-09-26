@@ -28,5 +28,9 @@ namespace IGL.Core.ViewModelEntities.Inventory
         public string ItemCode { get; set; }
         public string HSNCode { get; set; }
         public string UnitName { get; set; }
+        public string InvoiceNumber { get; set; }
+        public DateTime InvoiceDate { get; set; }
+        public string InvoicePath { get; set; }
+
     }
 }

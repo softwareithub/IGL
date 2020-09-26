@@ -38,6 +38,13 @@ namespace IGL.UI.Controllers.Inventory
 
         public async Task<IActionResult> CreatePO()
         {
+            string poNumber = "PO00" + Convert.ToString(1);
+            var poDetails = await _IPurchaseOrderService.GetList(x => x.IsActive == 1);
+            if(poDetails.Count()>0)
+            {
+                poNumber = poNumber + (poDetails.Max(x => x.Id)+1).ToString();
+            }
+            ViewData["poNumber"] = poNumber;
             var vendorDetails = await _IVendorService.GetList(x => x.IsActive == 1);
             ViewBag.VendorList = vendorDetails;
             return await Task.Run(() => PartialView("~/Views/PurchaseOrder/_CreatePurchaseOrderPartial.cshtml"));
@@ -126,9 +133,9 @@ namespace IGL.UI.Controllers.Inventory
             return Json(ResponseHelper.GetResponseMessage(itemResponse));
         }
 
-        public async Task<IActionResult> POPDF()
+        public async Task<IActionResult> POPDF(int id)
         {
-            List<PurchaseOrderDetail> models = await GetPoDetail();
+            List<PurchaseOrderDetail> models = await GetPoDetail(id);
             return PartialView("~/Views/PurchaseOrder/_POPDFPartial.cshtml", models);
         }
 
@@ -176,7 +183,7 @@ namespace IGL.UI.Controllers.Inventory
         }
 
         #region PrivateRegion
-        private async Task<List<PurchaseOrderDetail>> GetPoDetail()
+        private async Task<List<PurchaseOrderDetail>> GetPoDetail(int id)
         {
             var poDetail = await _IPurchaseOrderService.GetList(x => x.IsActive == 1);
             var poItems = await _IPOItemService.GetList(x => x.IsActive == 1);
@@ -194,6 +201,7 @@ namespace IGL.UI.Controllers.Inventory
                           on PI.ItemId equals PRD.Id
                           join UM in unitDetail
                           on PRD.UnitId equals UM.Id
+                          where PO.Id== id
                           select new PurchaseOrderDetail
                           {
                               PoId = PO.Id,

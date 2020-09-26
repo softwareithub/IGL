@@ -6,6 +6,7 @@ using IGL.Core.Comman.Helper;
 using IGL.Core.Entities.Master;
 using IGL.Core.Entities.Transaction;
 using IGL.Core.Service.GenericService;
+using IGL.Core.Service.MaterialDetail;
 using IGL.Core.ViewModelEntities.MasterVm;
 using IGL.Core.ViewModelEntities.MasterVm.TransactionVm;
 using Microsoft.AspNetCore.Authorization;
@@ -21,14 +22,16 @@ namespace IGL.UI.Controllers.MaterialTransaction
         private readonly IGenericService<MaterialMaster, int> _IMaterialMasterService;
         private readonly IGenericService<UnitMaster, int> _IUnitMasterRepo;
         private readonly IGenericService<TransactionItems, int> _ITransactionItemService;
+        private readonly IMaterialDetailService _materialDetailService;
 
-        public MaterialTransactionController(IGenericService<MaterialTransction, int> materialTransactionService, IGenericService<EmployeeDetail, int> employeeDetailService, IGenericService<MaterialMaster, int> materialMasterService, IGenericService<UnitMaster, int> unitMasterRepo, IGenericService<TransactionItems, int> _transactionService)
+        public MaterialTransactionController(IGenericService<MaterialTransction, int> materialTransactionService, IGenericService<EmployeeDetail, int> employeeDetailService, IGenericService<MaterialMaster, int> materialMasterService, IGenericService<UnitMaster, int> unitMasterRepo, IGenericService<TransactionItems, int> _transactionService, IMaterialDetailService materialDetailService)
         {
             _IMaterialTransactionService = materialTransactionService;
             _IEmployeeDetailService = employeeDetailService;
             _IMaterialMasterService = materialMasterService;
             _IUnitMasterRepo = unitMasterRepo;
             _ITransactionItemService = _transactionService;
+            _materialDetailService = materialDetailService;
         }
         public async Task<IActionResult> Index()
         {
@@ -41,22 +44,7 @@ namespace IGL.UI.Controllers.MaterialTransaction
         }
         public async Task<IActionResult> GetMaterialDetails()
         {
-            var unitModels = await _IUnitMasterRepo.GetList(x => x.IsActive == 1);
-            var materialModels = await _IMaterialMasterService.GetList(x => x.IsActive == 1);
-
-
-            var models = (from mt in materialModels
-                          join UM in unitModels
-                          on mt.UnitId equals UM.Id
-                          select new MaterialMasterVm
-                          {
-                              Id = mt.Id,
-                              MaterialName = mt.Name,
-                              Code = mt.Code,
-                              Unit = UM.Name,
-                              PerUnitCost = mt.PerUnitCost,
-                              IsPayable = mt.IsPayable==1?"Payable": "Free (IGL Product)"
-                          }).ToList();
+            var models =await _materialDetailService.GetMaterialDetail();
             return PartialView("~/Views/MaterialTransaction/_MaterialDetailList.cshtml", models);
         }
 
@@ -106,6 +94,7 @@ namespace IGL.UI.Controllers.MaterialTransaction
                 itemModel.IsDeleted = 0;
                 itemModel.CreatedBy = 1;
                 itemModel.CreatedDate = DateTime.Now.Date;
+                
 
                 itemModels.Add(itemModel);
             }

@@ -15,6 +15,13 @@
     },
     "Fn_GetProductDetail": function () {
         customAjax.Fn_CommanGet("/Materialmaster/GetProductDetails", "#divProductDetail", "#IGLDataTable")
+    },
+    "Fn_AsssignNumber": function (prdId,prdCount) {
+        $.get("/Materialmaster/AssignProductNumber", { ProductId: prdId, count: prdCount }, function (data) {
+            $("#divCommanModalPartial").html(data);
+            $("#IGLCommanModal").modal('show');
+            $("#modalTitle").text("Assign Product Number To Each Product.")
+        })
     }
 };
 

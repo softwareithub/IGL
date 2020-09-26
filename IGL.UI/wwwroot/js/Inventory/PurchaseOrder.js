@@ -58,9 +58,13 @@
         $.get("/PurchaseOrder/MaterialForPo", function (data) {
             $("#divMaterilDetail").html(data);
             $("#MaterialModalPopUp").modal('show', { backdrop: 'static', keyboard: true }).draggable();
+        }).done(function () {
+            setTimeout(function () {
+                $("#IGLMaterialTable").DataTable();
+            }, 300)
         });
     },
-    "fn_PrintSlip": function () {
+    "fn_PrintSlip": function (poNumber) {
         kendo.drawing
             .drawDOM("#poDiv",
                 {
@@ -70,7 +74,7 @@
                     height: 500
                 })
             .then(function (group) {
-                kendo.drawing.pdf.saveAs(group, "Material Slip")
+                kendo.drawing.pdf.saveAs(group, "Purchase Order  " + poNumber)
             });
     },
     "Fn_ApprovePO": function (id) {

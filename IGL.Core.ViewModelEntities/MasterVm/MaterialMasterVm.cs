@@ -15,6 +15,7 @@ namespace IGL.Core.ViewModelEntities.MasterVm
         public int ThresholdValue { get; set; }
         public int Quantity { get; set; }
         public string HSNCode { get; set; }
+        public bool IsUniqe { get; set; }
 
     }
 }

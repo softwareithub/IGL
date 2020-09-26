@@ -30,8 +30,8 @@
             <div class="col-md-4 form-group">
                 <label class="control-label">Is Payable</label>
                 <select asp-for="IsPayable" class="form-control">
-                    <option value="0">No</option>
-                    <option value="1">Yes</option>
+                    <option value="0">No (IGL Free Product)</option>
+                    <option value="1">Yes (Vendor Product)</option>
                 </select>
             </div>
             <div class="col-md-4 form-group">
@@ -48,6 +48,14 @@
                 <label class="control-label">Product HSN Code </label>
                 <input asp-for="HSNCode" class="form-control" />
                 <span asp-validation-for="HSNCode"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">Is Each Product Has Unique Number</label>
+                <select asp-for="IsUnique" class="form-control">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+                <span asp-validation-for="IsUnique"></span>
             </div>
         </div>
         <div class="col-sm-12">

@@ -1,0 +1,55 @@
+﻿@model IGL.Core.Entities.StoreMaster.StoreDetail
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+<form id="form" method="post" data-ajax="true" data-ajax-method="post"
+      asp-action="UpSertStoreDetail" asp-controller="StoreDetail" data-ajax-success="store.Fn_Success"
+      data-ajax-begin="customAjax.Fn_SubmitBegin(divModalPopUp)" data-ajax-complete="customAjax.Fn_SubmitComplete(divModalPopUp)">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="col-md-4 form-group">
+                <input type="hidden" asp-for="Id" />
+                <label class="control-label"> Store Name</label>
+                <input asp-for="StoreName" class="form-control" />
+                <span asp-validation-for="StoreName"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">Store Phone</label>
+                <input asp-for="StorePhone" class="form-control" />
+                <span asp-validation-for="StorePhone"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">Store Address</label>
+                <input asp-for="StoreAddress" class="form-control" />
+                <span asp-validation-for="StoreAddress"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">Store Manager</label>
+                <input asp-for="StoreManager" class="form-control" />
+                <span asp-validation-for="StoreManager"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">Manager Email</label>
+                <input asp-for="ManagerEmail" class="form-control" />
+                <span asp-validation-for="ManagerEmail"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">Manager Phone</label>
+                <input asp-for="ManagerPhone" class="form-control" />
+                <span asp-validation-for="ManagerPhone"></span>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="col-sm-8">
+                <button type="submit" class="btn btn-primary pull-right" value="Save">
+                    <i class="fa fa-download"> &nbsp;&nbsp;Save</i>
+                </button>
+            </div>
+            <div class="col-sm-4">
+                <button type="reset" class="btn btn-warning" value="reset">
+                    <i class="fa fa-refresh">&nbsp;&nbsp;Reset</i>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

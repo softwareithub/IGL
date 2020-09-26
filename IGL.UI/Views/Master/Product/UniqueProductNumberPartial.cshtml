@@ -1,0 +1,50 @@
+﻿@{
+    var itemNumbers = (List<string>)ViewBag.ItemNumbes;
+    var isExists = false;
+    if(itemNumbers!=null)
+    {
+        if (itemNumbers.Count() == (int)ViewBag.prodCount)
+            isExists = true;
+    }
+}
+
+    <form id="form" method="get" data-ajax="true" data-ajax-method="get"
+          asp-action="UpSertProductNumber" asp-controller="MaterialMaster" data-ajax-success="productDetail.Fn_Success">
+        @if (isExists)
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <input type="hidden" name="prodId" value="@ViewBag.prodId" />
+                    @for (var i = 0; i < itemNumbers.Count; i++)
+                    {
+                        var placeHolder = "Product Number" + i.ToString();
+                        <div class="col-md-3">
+                            <input type="text" value="@itemNumbers[i]" placeholder="@placeHolder" class="form-control" name="number" />
+                        </div>
+                    }
+                </div>
+                <div class="col-md-12">
+                    <input type="submit" class="btn btn-primary" value="Save" />
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <input type="hidden" name="prodId" value="@ViewBag.prodId" />
+                    @for (var i = 0; i < ViewBag.prodCount; i++)
+                    {
+                        var placeHolder = "Product Number" + i.ToString();
+                        <div class="col-md-3">
+                            <input type="text" placeholder="@placeHolder" class="form-control" name="number" />
+                        </div>
+                    }
+                </div>
+                <div class="col-md-12">
+                    <input type="submit" class="btn btn-primary" value="Save" />
+                </div>
+            </div>
+        }
+
+    </form>
