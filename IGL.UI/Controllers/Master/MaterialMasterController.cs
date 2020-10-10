@@ -84,7 +84,6 @@ namespace IGL.UI.Controllers.Master
         {
             ViewBag.prodId = ProductId;
             ViewBag.prodCount = count;
-            int itemNUmber = 0;
             
             var models = await _IProductTransactionService.GetList(x => x.IsActive == 1 && x.MaterialId == ProductId);
 
@@ -113,7 +112,7 @@ namespace IGL.UI.Controllers.Master
                 item.UpdatedBy = 1;
                 item.UpdatedDate = DateTime.Now.Date;
             });
-            var response = await _IProductTransactionService.Update(models.ToArray());
+            var response = await _IProductTransactionService.Delete(models.ToArray());
             var prodList = new List<ProductTransactionDetail>();
             for (int i = 0; i < number.Count(); i++)
             {

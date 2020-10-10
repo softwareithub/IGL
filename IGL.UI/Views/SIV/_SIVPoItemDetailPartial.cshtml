@@ -1,4 +1,5 @@
-﻿<div class="row" id="divUnitMasterCreate">
+﻿@model IEnumerable<IGL.Core.ViewModelEntities.Inventory.PurchaseOrderDetail>
+<div class="row" id="divUnitMasterCreate">
         <div class="col-xs-12" style="overflow-y:scroll;max-height:300px;">
         <table class="table table-responsive">
             <thead>
@@ -45,6 +46,7 @@
                         </td>
                         <td>
                             <input type="hidden" name="matId" value="@data.ItemId" />
+                            <input type="hidden" id="poStatus" value="@data.POStatus" />
                             <input type="number" onblur="sivDetails.Fn_UpdateTotalPrice(this,@data.UnitPrice,@data.ItemId)" name="qty" class="form-control" value="@data.Quantity" />
                         </td>
                         <td>

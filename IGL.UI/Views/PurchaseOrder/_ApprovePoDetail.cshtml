@@ -9,7 +9,7 @@
     <div class="row" id="divUnitMasterCreate">
         <div class="col-xs-12">
             <div class="col-md-4 form-group">
-                <input type="hidden" value="@Model.First().PoId" />
+                <input type="hidden" name="poId" value="@Model.First().PoId" />
                 <label class="control-label"> Po Number</label>
                 <input value="@Model.First().PoNUmber" readonly="readonly" class="form-control" />
                 
@@ -73,6 +73,7 @@
 
                         <td>
                             <input type="hidden" name="matId" value="@data.ItemId" />
+                            <input type="hidden" name="unitPrice" value="@data.UnitPrice" />
                             <input type="number" onblur="poDetail.Fn_UpdateTotalPrice(this,@data.UnitPrice,@data.ItemId)" name="qty" class="form-control" value="@data.Quantity" />
                         </td>
                         <td>

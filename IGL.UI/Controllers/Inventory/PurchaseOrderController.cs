@@ -87,7 +87,7 @@ namespace IGL.UI.Controllers.Inventory
         public async Task<IActionResult> MaterialForPo()
         {
             var unitModels = await _IunitMasterService.GetList(x => x.IsActive == 1);
-            var materialModels = await _IProductService.GetList(x => x.IsActive == 1);
+            var materialModels = await _IProductService.GetList(x => x.IsActive == 1 && x.IsUnique==0);
 
 
             var models = (from mt in materialModels
@@ -105,33 +105,73 @@ namespace IGL.UI.Controllers.Inventory
             return PartialView("~/Views/PurchaseOrder/_AddMaterialToPOPartial.cshtml", models);
         }
 
-        public async Task<IActionResult> CreatePurchaseOrder(PurchaseOrder model, string[] matId, string[] remarks, string[] qty, string[] unitPrice)
+        public async Task<IActionResult> CreatePurchaseOrder(PurchaseOrder model, string[] matId, string[] remarks, string[] qty, string[] unitPrice, int poId)
         {
-            var createHelper = CommanCRUDHelper.CommanCreateCode(model, 1);
-            createHelper.POStatus = "Created";
-            var response = await _IPurchaseOrderService.CreateEntity(model);
-            var poId = (await _IPurchaseOrderService.GetList(x => x.IsActive == 1)).Max(x => x.Id);
-
-            List<POItem> poItems = new List<POItem>();
-
-            for (int i = 0; i < matId.Count(); i++)
+            //if po already exists then Approve the po
+            if ((await _IPurchaseOrderService.GetList(x => x.IsActive == 1 && x.Id== poId)).Count() > 0)
             {
-                POItem item = new POItem();
-                item.PoId = poId;
-                item.ItemId = Convert.ToInt32(matId[i]);
-                item.Quantity = Convert.ToInt32(qty[i]);
-                item.Amount = Convert.ToDecimal(Convert.ToInt32(qty[i]) * Convert.ToDecimal(unitPrice[i]));
-                item.Remarks = remarks[i];
-                item.IsActive = 1;
-                item.IsDeleted = 0;
-                item.CreatedBy = 1;
-                item.CreatedDate = DateTime.Now.Date;
-                poItems.Add(item);
-            }
+                var poDetail = await _IPurchaseOrderService.GetSingle(x => x.Id == poId);
+                poDetail.POStatus = "POApproved";
+                await _IPurchaseOrderService.Update(poDetail);
+                var poItems = await _IPOItemService.GetList(x => x.PoId == poDetail.Id);
 
-            var itemResponse = await _IPOItemService.Add(poItems.ToArray());
-            return Json(ResponseHelper.GetResponseMessage(itemResponse));
-        }
+                poItems.ToList().ForEach(item => {
+                    item.IsActive = 0;
+                    item.IsDeleted = 1;
+                    item.UpdatedBy = 1;
+                    item.UpdatedDate = DateTime.Now.Date;
+                });
+                var deletePreviousPoItems = await _IPOItemService.Update(poItems.ToArray());
+
+                List<POItem> tempPOItems = new List<POItem>();
+
+                for (int i = 0; i < matId.Count(); i++)
+                {
+                    POItem item = new POItem();
+                    item.PoId = poDetail.Id;
+                    item.ItemId = Convert.ToInt32(matId[i]);
+                    item.Quantity = Convert.ToInt32(qty[i]);
+                    item.Amount = Convert.ToDecimal(Convert.ToInt32(qty[i]) * Convert.ToDecimal(unitPrice[i]));
+                    item.Remarks = remarks[i];
+                    item.IsActive = 1;
+                    item.IsDeleted = 0;
+                    item.CreatedBy = 1;
+                    item.CreatedDate = DateTime.Now.Date;
+                    tempPOItems.Add(item);
+                }
+
+                var itemResponse = await _IPOItemService.Add(tempPOItems.ToArray());
+                return Json(ResponseHelper.GetResponseMessage(itemResponse));
+            }
+            else
+            { 
+                var createHelper = CommanCRUDHelper.CommanCreateCode(model, 1);
+                createHelper.POStatus = "Created";
+                var response = await _IPurchaseOrderService.CreateEntity(model);
+                var tempPoId = (await _IPurchaseOrderService.GetList(x => x.IsActive == 1)).Max(x => x.Id);
+
+                List<POItem> poItems = new List<POItem>();
+
+                for (int i = 0; i < matId.Count(); i++)
+                {
+                    POItem item = new POItem();
+                    item.PoId = tempPoId;
+                    item.ItemId = Convert.ToInt32(matId[i]);
+                    item.Quantity = Convert.ToInt32(qty[i]);
+                    item.Amount = Convert.ToDecimal(Convert.ToInt32(qty[i]) * Convert.ToDecimal(unitPrice[i]));
+                    item.Remarks = remarks[i];
+                    item.IsActive = 1;
+                    item.IsDeleted = 0;
+                    item.CreatedBy = 1;
+                    item.CreatedDate = DateTime.Now.Date;
+                    poItems.Add(item);
+                }
+
+                var itemResponse = await _IPOItemService.Add(poItems.ToArray());
+                return Json(ResponseHelper.GetResponseMessage(itemResponse));
+            }
+           
+            }
 
         public async Task<IActionResult> POPDF(int id)
         {

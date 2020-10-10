@@ -44,7 +44,7 @@ namespace IGL.UI.Controllers.SIV
         public async Task<IActionResult> CreateSIV()
         {
             ViewBag.StoreList = await _IStoreService.GetList(x => x.IsActive == 1);
-            ViewBag.POList = await _IPoDetailService.GetList(x => x.IsActive == 1);
+            ViewBag.POList = await _IPoDetailService.GetList(x => x.IsActive == 1 && x.POStatus!= "Created");
             return PartialView("~/Views/SIV/_SIVCreatePartial.cshtml");
         }
 
@@ -63,7 +63,8 @@ namespace IGL.UI.Controllers.SIV
                             {
                                 poDate = PO.PODate.ToShortDateString(),
                                 vendorName = VM.VendorName,
-                                isApprove = false
+                                isApprove = false,
+                                poApproved=PO.POStatus
                             };
                 return Json(model.First());
             }
@@ -82,7 +83,8 @@ namespace IGL.UI.Controllers.SIV
                                 invoiceNumber = SV.InvoiceNumber,
                                 invoiceDate = SV.InvoiceDate,
                                 invoicePatg = SV.InvoicePath,
-                                isApprove = true
+                                isApprove = true,
+                                poApproved = PO.POStatus
                             };
                 return Json(model.First());
 
@@ -138,6 +140,10 @@ namespace IGL.UI.Controllers.SIV
             }
             else
             {
+                var purchasedetail = await _IPoDetailService.GetSingle(x => x.Id == model.PoId);
+                purchasedetail.POStatus = "SIVApproved";
+                var updatePo = await _IPoDetailService.Update(purchasedetail);
+
                 var sivDetail = await _ISIVDetailService.GetSingle(x => x.PoId == model.PoId && x.IsActive == 1);
                 sivDetail.InvoiceDate = model.InvoiceDate;
                 sivDetail.InvoiceNumber = model.InvoiceNumber;
@@ -220,6 +226,8 @@ namespace IGL.UI.Controllers.SIV
             var sivItems = await _ISIVTransactionService.GetList(x => x.IsActive == 1);
             var productDetails = await _IProductService.GetList(x => x.IsActive == 1);
             var unitDetail = await _IunitMasterService.GetList(x => x.IsActive == 1);
+            var poDetail = await _IPoDetailService.GetList(x => x.IsActive==1);
+
 
             var models = (from SV in sivDetails
                           join SI in sivItems
@@ -228,6 +236,8 @@ namespace IGL.UI.Controllers.SIV
                           on SI.ItemId equals PRD.Id
                           join UM in unitDetail
                           on PRD.UnitId equals UM.Id
+                          join PO in poDetail
+                          on SV.PoId equals PO.Id
                           where (SV.PoId == id)
                           select new PurchaseOrderDetail
                           {
@@ -241,7 +251,8 @@ namespace IGL.UI.Controllers.SIV
                               Amount = SI.Quantity * SI.UnitPrice,
                               InvoiceDate = Convert.ToDateTime(SV.InvoiceDate),
                               InvoiceNumber = SV.InvoiceNumber,
-                              InvoicePath = SV.InvoicePath
+                              InvoicePath = SV.InvoicePath,
+                              POStatus= PO.POStatus
                           }).ToList();
             return models;
         }

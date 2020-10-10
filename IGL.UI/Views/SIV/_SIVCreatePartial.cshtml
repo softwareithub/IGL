@@ -4,7 +4,7 @@
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
 
 <form id="form" method="post" data-ajax="true" data-ajax-method="post"
-      asp-action="CreateSIVDetail" asp-controller="SIVMaster" data-ajax-success="sivDetail.Fn_Success"
+      asp-action="CreateSIVDetail" asp-controller="SIVMaster" data-ajax-success="sivDetails.Fn_Success"
       data-ajax-begin="customAjax.Fn_SubmitBegin(divModalPopUp)" data-ajax-complete="customAjax.Fn_SubmitComplete(divModalPopUp)">
     <div class="row">
         <div class="col-md-12">
@@ -67,7 +67,7 @@
                 </div>
                 <div class="box-footer">
                     <div class="col-sm-12">
-                        <div class="col-sm-8">
+                        <div class="col-sm-8" id="divButtons">
                             <div id="btnSave">
                                 <button type="submit" name="Save" class="btn btn-primary pull-right" value="Save" id="btnSave">
                                     <i class="fa fa-download"> &nbsp;&nbsp;Save</i>
@@ -92,3 +92,4 @@
         
     </div>
 </form>
+

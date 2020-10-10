@@ -21,6 +21,12 @@
                 $("#btnApprove").attr("style", 'display:none');
                 $("#btnSave").removeAttr('style')
             }
+            if (data.poApproved == "SIVApproved") {
+                $("#divButtons").hide();
+            }
+            else {
+                $("#divButtons").show();
+            }
 
         });
         $.get("/SIVMaster/GetPOItems", { id: $("#PoId").val() }, function (data) {

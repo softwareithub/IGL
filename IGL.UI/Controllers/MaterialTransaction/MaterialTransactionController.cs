@@ -74,7 +74,7 @@ namespace IGL.UI.Controllers.MaterialTransaction
             string slipNumber = "#0001";
             if (listData.Count() > 0)
             {
-                slipNumber = slipNumber + listData.Max(x => x.Id).ToString();
+                slipNumber += listData.Max(x => x.Id).ToString();
             }
             model.SlipNumber = slipNumber;
             var transactionMdoel = CommanCRUDHelper.CommanCreateCode(model, 1);

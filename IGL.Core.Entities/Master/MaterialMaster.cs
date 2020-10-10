@@ -7,7 +7,7 @@ using System.Text;
 
 namespace IGL.Core.Entities.Master
 {
-	[Table("Material",Schema ="Master")]
+	[Table("Product", Schema ="Master")]
     public class MaterialMaster: BaseClass<int>
     {
 		[Required(ErrorMessage ="Material name is required.")]
