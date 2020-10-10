@@ -5033,3 +5033,39 @@ hr {
     white-space: normal !important;
   }
 }
+
+
+.dvAddProductItem {
+    position: fixed;
+    bottom: 540px;
+    margin-left: 1015px;
+}
+
+.modal-dialog {
+    width: 80%;
+    height: 80%;
+}
+
+.modal-content {
+    width: 100%;
+    /*height:100%;*/
+}
+
+.modal-body {
+    height: 100% !important;
+    width: 100%;
+}
+/* #divCommanModalPartial {
+        width: 100%;
+        height: 100%;
+    }*/
+#divMaterilDetail {
+    height: 539px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.modal-open .modal {
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
