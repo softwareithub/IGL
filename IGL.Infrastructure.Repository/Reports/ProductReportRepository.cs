@@ -46,10 +46,7 @@ namespace IGL.Infrastructure.Repository.Reports
         {
             var models = new List<ProductTransactionStatusReport>();
             
-            SqlParameter[] sqlParams ={
-                    new SqlParameter("@EmployeeId",EmployeeId) };
-
-            var reader = await SqlHelperExtension.ExecuteReader(_connectionString, SqlConstant.ProcGetProductTransactionStatusReport, System.Data.CommandType.StoredProcedure, sqlParams);
+            var reader = await SqlHelperExtension.ExecuteReader(_connectionString, SqlConstant.ProcGetProductTransactionStatusReport, System.Data.CommandType.StoredProcedure, null);
 
             while (reader.Read())
             {
