@@ -37,5 +37,6 @@ namespace IGL.Core.Entities.CoreContext
         public DbSet<SIVDetail> SIVDetails { get; set; }
         public DbSet<SIVMaterialTransaction> SIVMaterialTransactions { get; set; }
         public DbSet<ProductTransactionDetail> ProductTransactionDetails { get; set; }
+        public DbSet<RateMaster> RateMasters { get; set; }
     }
 }

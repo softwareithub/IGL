@@ -36,6 +36,7 @@
 
     "Fn_Success": function (response) {
         alertify.success(response);
+        sivDetails.Fn_CreateSiv();
     },
     "Fn_DeleteSIVItem": function (eData) {
         alertify.confirm("Are you sure want to remove the Item ??", function ()

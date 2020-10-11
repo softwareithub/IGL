@@ -24,8 +24,9 @@ namespace IGL.UI.Controllers.SIV
         private readonly IGenericService<VendorMaster, int> _IVendorService;
         private readonly IGenericService<MaterialMaster, int> _IProductService;
         private readonly IGenericService<UnitMaster, int> _IunitMasterService;
+        private readonly IGenericService<RateMaster, int> _IRateMasterService;
 
-        public SIVMasterController(IGenericService<StoreDetail, int> storeService, IGenericService<PurchaseOrder, int> poDetailService, IGenericService<POItem, int> poItemService, IGenericService<SIVDetail, int> sivDetailService, IGenericService<SIVMaterialTransaction, int> sivTransactionService, IGenericService<VendorMaster, int> vendorService, IGenericService<MaterialMaster, int> productService, IGenericService<UnitMaster, int> unitService)
+        public SIVMasterController(IGenericService<StoreDetail, int> storeService, IGenericService<PurchaseOrder, int> poDetailService, IGenericService<POItem, int> poItemService, IGenericService<SIVDetail, int> sivDetailService, IGenericService<SIVMaterialTransaction, int> sivTransactionService, IGenericService<VendorMaster, int> vendorService, IGenericService<MaterialMaster, int> productService, IGenericService<UnitMaster, int> unitService, IGenericService<RateMaster, int> rateMasterService)
         {
             _IStoreService = storeService;
             _IPOItemService = poItemService;
@@ -35,6 +36,7 @@ namespace IGL.UI.Controllers.SIV
             _IVendorService = vendorService;
             _IProductService = productService;
             _IunitMasterService = unitService;
+            _IRateMasterService = rateMasterService;
         }
         public IActionResult Index()
         {
@@ -44,7 +46,7 @@ namespace IGL.UI.Controllers.SIV
         public async Task<IActionResult> CreateSIV()
         {
             ViewBag.StoreList = await _IStoreService.GetList(x => x.IsActive == 1);
-            ViewBag.POList = await _IPoDetailService.GetList(x => x.IsActive == 1 && x.POStatus!= "Created");
+            ViewBag.POList = await _IPoDetailService.GetList(x => x.IsActive == 1 && x.POStatus != "Created");
             return PartialView("~/Views/SIV/_SIVCreatePartial.cshtml");
         }
 
@@ -64,7 +66,7 @@ namespace IGL.UI.Controllers.SIV
                                 poDate = PO.PODate.ToShortDateString(),
                                 vendorName = VM.VendorName,
                                 isApprove = false,
-                                poApproved=PO.POStatus
+                                poApproved = PO.POStatus
                             };
                 return Json(model.First());
             }
@@ -164,7 +166,7 @@ namespace IGL.UI.Controllers.SIV
                     });
 
                     var deleteResponse = await _ISIVTransactionService.Update(sivItemDetails.ToArray());
-                    if(deleteResponse==ResponseMessage.UpdatedSuccessfully)
+                    if (deleteResponse == ResponseMessage.UpdatedSuccessfully)
                     {
                         List<SIVMaterialTransaction> models = new List<SIVMaterialTransaction>();
                         for (int i = 0; i < matId.Count(); i++)
@@ -179,9 +181,13 @@ namespace IGL.UI.Controllers.SIV
                         }
 
                         var createSIVItemResponse = await _ISIVTransactionService.Add(models.ToArray());
+                        var responseUpdate = await UpdateProductOnSIVApprove(matId, qty, unitPrice);
+                        var updateRateMaster = await UpdateRateMaster(matId, unitPrice);
                         return Json(ResponseHelper.GetResponseMessage(createSIVItemResponse));
                     }
                 }
+
+             
             }
             return Json("There is somethng wents wrong. Please contact Admin Team.");
         }
@@ -226,7 +232,7 @@ namespace IGL.UI.Controllers.SIV
             var sivItems = await _ISIVTransactionService.GetList(x => x.IsActive == 1);
             var productDetails = await _IProductService.GetList(x => x.IsActive == 1);
             var unitDetail = await _IunitMasterService.GetList(x => x.IsActive == 1);
-            var poDetail = await _IPoDetailService.GetList(x => x.IsActive==1);
+            var poDetail = await _IPoDetailService.GetList(x => x.IsActive == 1);
 
 
             var models = (from SV in sivDetails
@@ -252,9 +258,61 @@ namespace IGL.UI.Controllers.SIV
                               InvoiceDate = Convert.ToDateTime(SV.InvoiceDate),
                               InvoiceNumber = SV.InvoiceNumber,
                               InvoicePath = SV.InvoicePath,
-                              POStatus= PO.POStatus
+                              POStatus = PO.POStatus
                           }).ToList();
             return models;
+        }
+
+        private async Task<bool> UpdateProductOnSIVApprove(string[] matId, string[] qty, string[] price)
+        {
+            try
+            {
+
+                var productDetails = await _IProductService.GetList(x => x.IsActive == 1);
+                List<MaterialMaster> productList = new List<MaterialMaster>();
+                int i = 0;
+                matId.ToList().ForEach(x =>
+                {
+                    int productId = Convert.ToInt32(x);
+                    var prdDetail = productDetails.ToList().Where(z => z.Id ==productId).FirstOrDefault();
+                    prdDetail.OpeningQuantity += Convert.ToInt32(qty[i]);
+                    prdDetail.PerUnitCost = Convert.ToDecimal(price);
+                    productList.Add(prdDetail);
+                    i++;
+                });
+                var response = await _IProductService.Update(productList.ToArray());
+                return response == ResponseMessage.UpdatedSuccessfully ? true : false;
+            }
+            catch (Exception ex) {
+
+                return false;
+            }
+           
+        }
+
+        private async Task<bool> UpdateRateMaster(string [] prodId, string [] price)
+        {
+            ResponseMessage createResponse = ResponseMessage.AddedSuccessfully;
+            for(int i=0; i<prodId.Count(); i++)
+            {
+                //Check product exists in RateMaster
+                var productId = Convert.ToInt32(prodId[i]);
+                var rateModel = (await _IRateMasterService.GetList(x => x.ProductId == productId && x.ToDate == null)).FirstOrDefault();
+
+                if (rateModel != null)
+                {
+                    rateModel.ToDate = DateTime.Now.Date;
+                    var updateResponse = await _IRateMasterService.Update(rateModel);
+                }
+                RateMaster model = new RateMaster();
+                model.ProductId =Convert.ToInt32(prodId[i]);
+                model.Rate = Convert.ToDecimal(price[i]);
+                model.FromDate = DateTime.Now.Date;
+                model.ToDate = null;
+                createResponse = await _IRateMasterService.CreateEntity(model);
+            }
+           
+            return createResponse == Core.Comman.Comman.ResponseMessage.AddedSuccessfully ? true : false;
         }
     }
 }
