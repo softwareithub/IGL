@@ -25,21 +25,21 @@
                     <option value="">Select</option>
                 </select>
             </div>
-            <div class="col-md-4 form-group">
+            <div class="col-md-4 form-group clearB">
                 <label class="control-label">Remarks</label>
                 <input asp-for="Remarks" class="form-control" />
             </div>
             <div class="col-md-4 form-group">
-                <label class="control-label">DeliveryTerm</label>
+                <label class="control-label">Delivery Term</label>
                 <input asp-for="DeliveryTerm" class="form-control" />
             </div>
             <div class="col-md-4 form-group">
-                <label class="control-label">TermOfPayment</label>
+                <label class="control-label">Term Of Payment</label>
                 <input asp-for="TermOfPayment" class="form-control" />
                 <span asp-validation-for="TermOfPayment"></span>
             </div>
             <div class="col-md-4 form-group">
-                <label class="control-label">SpecialComment</label>
+                <label class="control-label">Special Comment</label>
                 <input asp-for="SpecialComment" class="form-control" />
                 <span asp-validation-for="SpecialComment"></span>
             </div>
@@ -85,7 +85,7 @@
             </button>
         </div>
 
-        <div class="col-sm-12">
+        <div class="col-sm-12 hide" id="dvCreatePObtn">
             <div class="col-sm-8">
                 <button type="submit" class="btn btn-primary pull-right" value="Save">
                     <i class="fa fa-download"> &nbsp;&nbsp;Save</i>

@@ -10,16 +10,16 @@ namespace IGL.Core.Entities.Inventory
     [Table("VendorMaster", Schema = "Master")]
     public class VendorMaster:BaseClass<int>
     {
-        [Required(ErrorMessage = "Vendor name is required.")]
+        [Required(ErrorMessage = "Please Enter Vendor Name")]
         [Display(Prompt = "Vendor Name")]
         public string VendorName { get; set; }
 
-        [Required(ErrorMessage = "Vendor type is required.")]
+        [Required(ErrorMessage = "Please Select Vendor Type.")]
         [Display(Prompt = "Vendor Type")]
 
         public string VendorType { get; set; }
 
-        [Required(ErrorMessage = "Vendor email is required.")]
+        [Required(ErrorMessage = "Please Enter Vendor Email Id.")]
         [Display(Prompt = "Vendor Email")]
         [DataType(DataType.EmailAddress)]
         public string VendorEmail { get; set; }

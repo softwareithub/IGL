@@ -12,6 +12,7 @@
                 <input type="hidden" asp-for="Id" />
                 <label class="control-label"> Name</label>
                 <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name"></span>
             </div>
             <div class="col-md-4 form-group">
                 <label class="control-label">Code</label>
@@ -23,9 +24,10 @@
                     <option value="0">Select</option>
                 </select>
             </div>
-            <div class="col-md-4 form-group">
+            <div class="col-md-4 form-group clearB">
                 <label class="control-label">Per Unit Cost</label>
                 <input asp-for="PerUnitCost" class="form-control" />
+                <span asp-validation-for="PerUnitCost"></span>
             </div>
             <div class="col-md-4 form-group">
                 <label class="control-label">Is Payable</label>

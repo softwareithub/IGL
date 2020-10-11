@@ -5069,3 +5069,17 @@ hr {
     overflow-x: hidden;
     overflow-y: hidden;
 }
+.clearB {
+clear:both;
+}
+#divMaterilDetail .box-footer {
+    position: fixed;
+    bottom: 546px;
+    margin-left: 1000px;
+}
+.hide {
+    display:none;
+}
+.show {
+display:block;
+}

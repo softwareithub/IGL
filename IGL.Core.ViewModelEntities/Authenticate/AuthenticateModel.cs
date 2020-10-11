@@ -7,15 +7,15 @@ namespace IGL.Core.ViewModelEntities.Authenticate
 {
     public class AuthenticateModel
     {
-        [Required(ErrorMessage ="User Name is required.")]
-        [StringLength(20,ErrorMessage ="In Valida User Name")]
+        [Required(ErrorMessage ="Please Enter User Name.")]
+        [StringLength(20,ErrorMessage ="Invalid User Name")]
         public string UserName { get; set; }
 
-        [Required(ErrorMessage = "Password is required.")]
+        [Required(ErrorMessage = "Please Enter Password.")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Required(ErrorMessage = "Email is required.")]
+        [Required(ErrorMessage = "Please Enter Email Id.")]
         [DataType(DataType.EmailAddress)]
         public string EmailId { get; set; }
 

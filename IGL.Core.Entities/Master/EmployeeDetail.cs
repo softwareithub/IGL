@@ -10,21 +10,21 @@ namespace IGL.Core.Entities.Master
     [Table("EmployeeDetail",Schema = "Master")]
     public class EmployeeDetail:BaseClass<int>
     {
-        [Required(ErrorMessage = "Employee name is required.")]
+        [Required(ErrorMessage = "Please Enter Employee Name.")]
         [Display(Prompt = "Employee Name")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage ="Employee Type is required.")]
+        [Required(ErrorMessage ="Please Select Employee Type.")]
         public int EmployeeTypeId { get; set; }
 
-        [Required(ErrorMessage = "Email is required.")]
+        [Required(ErrorMessage = "Please Enter Email Id.")]
         [Display(Prompt = "Email")]
-        [StringLength(20, ErrorMessage = "Email is too long")]
+        [StringLength(20, ErrorMessage = "Email Id Is Too Long")]
         [DataType(DataType.EmailAddress)]
         public string EmailId { get; set; }
 
         [Required(ErrorMessage = "Please Enter Phone Number")]
-        [RegularExpression(@"^[0-9]*$", ErrorMessage = "Character and space are not allowed.")]
+        [RegularExpression(@"^[0-9]*$", ErrorMessage = "Character And Space Are Not Allowed.")]
         [MaxLength(15, ErrorMessage = "Invalid Phone Number.")]
         [MinLength(10, ErrorMessage = "Invalid Phone Number.")]
         public string Phone { get; set; }

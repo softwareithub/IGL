@@ -19,14 +19,18 @@ namespace IGL.Core.Entities.Master
 
 		[Required(ErrorMessage ="Unit type is required.")]
 		public int UnitId { get; set; }
+
+		[Required(ErrorMessage = "Per unit cost value is required.")]
 		[DataType(DataType.Currency)]
 		[Display(Prompt ="Per Unit Cost")]
 		public decimal PerUnitCost { get; set; }
 		public int IsPayable { get; set; }
 
+		[Required(ErrorMessage = "Threshold value is required.")]
 		[Display(Prompt ="Threshold Value")]
 		public int ThresholdValue { get; set; }
 
+		[Required(ErrorMessage = "Opening quantity is required.")]
 		[Display(Prompt ="Quantity")]
 		public int OpeningQuantity { get; set; }
 

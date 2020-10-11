@@ -8,12 +8,12 @@ namespace IGL.Core.Entities.Inventory
 	[Table("PurchaseOrder", Schema= "Master")]
 	public class PurchaseOrder: BaseClass<int>
     {
-		[Required(ErrorMessage ="PO Date is required.")]
+		[Required(ErrorMessage ="Please Enter PO Date.")]
 		[DataType(DataType.Date)]
 		public DateTime PODate { get; set; }
 		public string PONumber { get; set; }
 
-		[Required(ErrorMessage = "Vendor is required.")]
+		[Required(ErrorMessage = "Please Select Vendor.")]
 		public int VendorId { get; set; }
 
 		[Display(Prompt ="Delivery Term")]

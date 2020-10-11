@@ -7,11 +7,11 @@ namespace IGL.Core.Entities.Master
     [Table("AuthUsers", Schema = "Master")]
     public class UserDetail:BaseClass<int>
     {
-        [Required(ErrorMessage ="User name is required.")]
+        [Required(ErrorMessage ="Please Enter User Name")]
         [Display(Prompt ="User Name")]
         public string UserName { get; set; }
 
-        [Required(ErrorMessage ="Password is required.")]
+        [Required(ErrorMessage ="Please Enter Password.")]
         [Display(Prompt ="Password")]
         [StringLength(20,ErrorMessage ="Password is too long")]
         [DataType(DataType.Password)]
@@ -24,12 +24,12 @@ namespace IGL.Core.Entities.Master
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
 
-        [Required(ErrorMessage = "Name is required.")]
+        [Required(ErrorMessage = "Please Enter Name.")]
         [Display(Prompt = "Name")]
         [StringLength(200, ErrorMessage = "Name is too long")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Email is required.")]
+        [Required(ErrorMessage = "Please Enter Email Id.")]
         [Display(Prompt = "Email")]
         [StringLength(20, ErrorMessage = "Email is too long")]
         [DataType(DataType.EmailAddress)]
@@ -42,7 +42,7 @@ namespace IGL.Core.Entities.Master
         public string Phone { get; set; }
         public string Address { get; set; }
 
-        [Required(ErrorMessage = "Role is required.")]
+        [Required(ErrorMessage = "Please Select Role.")]
         public int RoleId { get; set; }
     }
 }
