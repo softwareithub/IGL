@@ -18,11 +18,13 @@ namespace IGL.UI.Controllers.Master
         private readonly IGenericService<MaterialMaster, int> _IMaterialMasterService;
         private readonly IGenericService<UnitMaster, int> _IUnitMasterService;
         private readonly IGenericService<ProductTransactionDetail, int> _IProductTransactionService;
-        public MaterialMasterController(IGenericService<MaterialMaster, int> _matetialService, IGenericService<UnitMaster, int> _unitMasterService, IGenericService<ProductTransactionDetail, int> productTransactionService)
+        private readonly IGenericService<RateMaster, int> _IRateMasterService;
+        public MaterialMasterController(IGenericService<MaterialMaster, int> _matetialService, IGenericService<UnitMaster, int> _unitMasterService, IGenericService<ProductTransactionDetail, int> productTransactionService, IGenericService<RateMaster, int> rateMasterService)
         {
             _IMaterialMasterService = _matetialService;
             _IUnitMasterService = _unitMasterService;
             _IProductTransactionService = productTransactionService;
+            _IRateMasterService = rateMasterService;
         }
         public async Task<IActionResult> Index()
         {
@@ -70,14 +72,23 @@ namespace IGL.UI.Controllers.Master
             {
                 var createModel = CommanCRUDHelper.CommanCreateCode(model, 1);
                 var createResponse = await _IMaterialMasterService.CreateEntity(createModel);
+
+                var createdPrdctId = (await _IMaterialMasterService.GetList(x => x.IsActive == 1)).Max(x => x.Id);
+                var rateMasterResponse = await UpdateRateMaster(createdPrdctId, model.PerUnitCost);
+
                 return Json(ResponseHelper.GetResponseMessage(createResponse));
             }
             else
             {
                 var updateModel = CommanCRUDHelper.CommanUpdateCode(model, 1);
                 var updateResponse = await _IMaterialMasterService.Update(updateModel);
+
+                var rateMasterResponse = await UpdateRateMaster(model.Id, model.PerUnitCost);
+
                 return Json(ResponseHelper.GetResponseMessage(updateResponse));
             }
+
+            
         }
 
         public async Task<IActionResult> AssignProductNumber(int ProductId, int count)
@@ -138,6 +149,25 @@ namespace IGL.UI.Controllers.Master
             var deleteResponse = await _IMaterialMasterService.Update(deleteModel);
             return Json(ResponseHelper.GetResponseMessage(deleteResponse));
 
+        }
+
+        private async  Task<bool> UpdateRateMaster(int prodId,decimal price)
+        {
+            //Check product exists in RateMaster
+            var rateModel = (await _IRateMasterService.GetList(x => x.ProductId == prodId && x.ToDate == null)).FirstOrDefault();
+
+            if(rateModel!=null)
+            {
+                rateModel.ToDate = DateTime.Now.Date;
+                var updateResponse = await _IRateMasterService.Update(rateModel);
+            }
+            RateMaster model = new RateMaster();
+            model.ProductId = prodId;
+            model.Rate = Convert.ToDecimal(price);
+            model.FromDate = DateTime.Now.Date;
+            model.ToDate = null;
+            var createResponse = await _IRateMasterService.CreateEntity(model);
+            return createResponse == Core.Comman.Comman.ResponseMessage.AddedSuccessfully ? true : false;
         }
     }
 }
