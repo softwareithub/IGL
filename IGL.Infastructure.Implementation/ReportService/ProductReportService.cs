@@ -17,6 +17,8 @@ namespace IGL.Infastructure.Service.ReportService
             _IProducReportRepository = productReportRepository;
         }
         public Task<List<ProductReport>> GetProductReport() =>  _IProducReportRepository.GetProductReport();
-     
+
+        public Task<List<ProductTransactionStatusReport>> GetProductTransactionStatusReport(int? EmployeeId) => _IProducReportRepository.GetProductTransactionStatusReport(EmployeeId);
+        
     }
 }
