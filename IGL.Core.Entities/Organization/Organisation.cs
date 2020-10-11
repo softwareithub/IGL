@@ -7,12 +7,12 @@ namespace IGL.Core.Entities.Organization
 	[Table("OrganisationDetail", Schema ="Master")]
     public class Organisation:BaseClass<int>
     {
-		[Required(ErrorMessage ="Name is required.")]
+		[Required(ErrorMessage ="Please Enter Name.")]
 		[Display(Prompt ="Organisation Name")]
 		[StringLength(200,ErrorMessage ="Organisation name is too large.")]
 		public string Name { get; set; }
 
-		[Required(ErrorMessage = "Address is required.")]
+		[Required(ErrorMessage = "Please Enter Address.")]
 		[Display(Prompt = "Address Line 1")]
 		[StringLength(450, ErrorMessage = "Address Line 1 is too large.")]
 		public string AddressLine1 { get; set; }

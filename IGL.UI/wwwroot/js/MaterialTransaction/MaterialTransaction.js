@@ -29,7 +29,6 @@ var materialTransaction = {
         var message = "Item Added !!!";
         $(".chk").each(function (e, data) {
             if (data.checked) {
-                debugger;
                 if ($("#tblMaterialReturnIssue tr > td:contains(" + data.getAttribute("data-name") + ")").length > 0) {
                     message = "Item already present, Please select another item."
                 }
@@ -48,15 +47,21 @@ var materialTransaction = {
                     html += "</tr>";
                     $("#tblMaterialReturnIssue").append(html);
                     message = "Item Added !!!";
+                    $('#dvMatIssueReturnSaveBtn').removeClass("hide");
                 }
             }
         });
         alertify.success(message);
         $("#MaterialModalPopUp").modal('hide');
     },
-    "fn_deleteItem": function (eData) {
-        debugger;
+    "fn_deleteItem": function (eData) {       
         $(eData).parent().parent().remove()
+        if ($('#tblMaterialReturnIssue>tr').length > 0) {
+            $('#dvMatIssueReturnSaveBtn').removeClass("hide");
+        }
+        else {
+            $('#dvMatIssueReturnSaveBtn').addClass("hide");
+        }
     },
     "fn_calculateCost": function (eData, cost, id) {
         debugger;

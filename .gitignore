@@ -15,3 +15,5 @@
 /IGL.UI/obj
 /IGL.UI/bin
 /.vs/IGL/v16/*.suo
+.vs/IGL/config/applicationhost.config
+.vs/IGL/DesignTimeBuild/.dtbcache.v2

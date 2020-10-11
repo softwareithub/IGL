@@ -13,7 +13,7 @@ namespace IGL.Core.Entities.Transaction
         [Display(Prompt = "Riser Code")]
         public string RiseCode { get; set; }
 
-        [Required(ErrorMessage = "Raise Number is required.")]
+        [Required(ErrorMessage = "Please Enter Raiser Number.")]
         [Display(Prompt = "Riser Number")]
         public string RiserNumber { get; set; }
         [Display(Prompt = "Tower Name/Number")]
@@ -36,9 +36,14 @@ namespace IGL.Core.Entities.Transaction
         [Display(Prompt = "Sub Area Phase")]
         public string Sector { get; set; }
         [Display(Prompt = "Sector Name")]
+        
         public string Location { get; set; }
+
         [Display(Prompt = "Potential Customer Count")]
+        [Required(ErrorMessage = "Please Enter Potential Customer Value.")]
         public int PotentialCustomer { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Connected Customer Value.")]
         [Display(Prompt = "Connected Customer Count")]
         public int ConectedCustomer { get; set; }
     }

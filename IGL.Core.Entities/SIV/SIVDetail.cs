@@ -8,7 +8,7 @@ namespace IGL.Core.Entities.SIV
 	[Table("SIVDetail", Schema = "Master")]
     public class SIVDetail:BaseClass<int>
     {
-		[Required(ErrorMessage ="Please select Store.")]
+		[Required(ErrorMessage ="Please Select Store.")]
 		public int StoreId { get; set; }
 		public int? PoId { get; set; }
 		[Display(Prompt ="Invoice Number")]

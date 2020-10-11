@@ -18,9 +18,9 @@
     },
     "Fn_AddMaterialToPo": function () {
         var message = "Item Added !!!";
+        debugger;
         $(".chk").each(function (e, data) {
             if (data.checked) {
-                debugger;
                 if ($("#tblMaterialReturnIssue tr > td:contains(" + data.getAttribute("data-name") + ")").length > 0) {
                     message="Item already present, Please select another item."
                 }
@@ -39,6 +39,7 @@
                     html += "</tr>";
                     $("#tblMaterialReturnIssue").append(html);
                     message = "Item Added !!!";
+                    $('#dvCreatePObtn').removeClass("hide");
                 }
             }
         });
@@ -46,22 +47,31 @@
         $("#MaterialModalPopUp").modal('hide');
     },
     "fn_deleteItem": function (eData) {
-        debugger;
-        $(eData).parent().parent().remove()
+        $(eData).parent().parent().remove();
+        if ($('#dvCreatePObtn>tr').length > 0) {
+            $('#dvCreatePObtn').removeClass("hide");
+        }
+        else {
+            $('#dvCreatePObtn').addClass("hide");
+        }
     },
     "fn_calculateCost": function (eData, cost, id) {
-        debugger;
         $("#" + id).text(parseFloat($(eData).val()) * cost);
         return
     },
     "Fn_GetMaterialDetail": function () {
         $.get("/PurchaseOrder/MaterialForPo", function (data) {
             $("#divMaterilDetail").html(data);
-            $("#MaterialModalPopUp").modal('show', { backdrop: 'static', keyboard: true }).draggable();
+            $("#MaterialModalPopUp").modal();
         }).done(function () {
             setTimeout(function () {
-                $("#IGLMaterialTable").DataTable();
-            }, 300)
+                debugger;
+                $("#IGLMaterialTable").DataTable({
+                    "responsive": true,
+                    "autoWidth": false,
+                    "paging": false,
+                });
+            }, 500)
         });
     },
     "fn_PrintSlip": function (poNumber) {

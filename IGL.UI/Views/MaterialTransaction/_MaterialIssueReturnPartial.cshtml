@@ -14,10 +14,12 @@
                 <select asp-for="EmployeeId" class="form-control" asp-items="@(new SelectList(ViewBag.EmployeeList,"Id","Name"))">
                     <option value="">Select</option>
                 </select>
+                <span asp-validation-for="EmployeeId"></span>
             </div>
             <div class="col-md-4 form-group">
                 <label class="control-label">Date of Issue/Return</label>
                 <input asp-for="TransactionDate" class="form-control" />
+                <span asp-validation-for="TransactionDate"></span>
             </div>
             <div class="col-md-4 form-group">
                 <label class="control-label">Transaction Type</label>
@@ -27,7 +29,7 @@
                 </select>
             </div>
         </div>
-        <div class="col-xs-12">
+        <div class="col-xs-12"  style="overflow-y: auto; max-height: 388px;">
             <table class="table table-responsive">
                 <thead>
                     <tr>
@@ -67,7 +69,7 @@
                 <i class="fa fa-plus-square">Add Item</i>
             </button>
         </div>
-        <div class="col-sm-12">
+        <div class="col-sm-12 hide" id="dvMatIssueReturnSaveBtn">
             <div class="col-sm-8">
                 <button type="submit" class="btn btn-primary pull-right" value="Save">
                     <i class="fa fa-download"> &nbsp;&nbsp;Save</i>

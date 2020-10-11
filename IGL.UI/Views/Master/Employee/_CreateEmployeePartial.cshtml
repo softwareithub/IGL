@@ -12,20 +12,24 @@
                 <input type="hidden" asp-for="Id" />
                 <label class="control-label"> Name</label>
                 <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name"></span>
             </div>
             <div class="col-md-4 form-group">
                 <label class="control-label">Employee Type</label>
                 <select asp-for="EmployeeTypeId" class="form-control" asp-items="@(new SelectList(ViewBag.EmployeeType,"Id","Name"))">
-                    <option value="0">Select</option>
+                    <option value="">Select</option>
                 </select>
+                <span asp-validation-for="EmployeeTypeId"></span>
             </div>
             <div class="col-md-4 form-group">
                 <label class="control-label">Email Id</label>
                 <input asp-for="EmailId" class="form-control" />
+                <span asp-validation-for="EmailId"></span>
             </div>
             <div class="col-md-4 form-group">
                 <label class="control-label">Phone</label>
                 <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone"></span>
             </div>
             <div class="col-md-4 form-group">
                 <label class="control-label">Address</label>
