@@ -7,5 +7,8 @@ namespace IGL.Infrastructure.Repository.SqlHelper
     public static class SqlConstant
     {
         public static string ProcGetMaterialDetail = @"Proc_GetMaterialDetail";
+        public static string ProcGetProductReport = @"Proc_ProductReport";
+        public static string ProcGetVendorWisePoStatusReport = @"Proc_VendorWisePOStatusReport";
+        public static string ProcGetVendorWisePoStatusDetailReport = @"Proc_VenderWisePoStatusDetailReport";
     }
 }

@@ -1,0 +1,64 @@
+﻿@model IEnumerable<IGL.Core.Entities.Reports.VendorWisePOStatus>
+@{
+    ViewData["Title"] = "Vendor Wise PO Status Report";
+}
+
+<section class="content-header">
+    <h1>
+        PO Status Detail
+    </h1>
+</section>
+<section class="content container-fluid">
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Vendor Wise PO Status Report</h3>
+                    </div>
+                    <div class="box-body">
+                        <table id="IGLDataTable" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>PO Count By Status</th>
+                                    <th>Vendor Name</th>
+                                    <th>POStatus</th>
+                                    <th>Detail</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var data in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @data.POCountByStatus
+                                        </td>
+                                        <td>
+                                            @data.VendorName
+                                        </td>
+                                        <td>
+                                            @data.POStatus
+                                        </td>
+                                        <td>
+                                            <a class="cursorP" onclick="PoDetail(@data.VendorId,'@data.POStatus')">GetDetail</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    @await Html.PartialAsync("~/Views/Shared/IGLCommanModal.cshtml")
+</section>
+
+
+<environment include="Production">
+    <script src="~/js/Reports/VendorWisePoStatusReport.js"></script>
+</environment>
+<environment include="Development">
+    <script src="~/js/Reports/VendorWisePoStatusReport.js"></script>
+</environment>

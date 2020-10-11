@@ -1,0 +1,44 @@
+﻿@model IEnumerable<IGL.Core.Entities.Reports.VenderWisePoStatusDetail>
+@{
+    ViewData["Title"] = "Vendor Wise PO Status Detail Report";
+}
+
+<div class="col-xs-12">
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Vendor Wise PO Status Detail Report</h3>
+        </div>
+        <div class="box-body">
+            <table id="IGLPOStatusDetailTable" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>PO Date.</th>
+                        <th>PO Number</th>
+                        <th>Vendor Name</th>
+                        <th>PO Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var data in Model)
+                    {
+                        <tr>
+                            <td>
+                                @data.PoDate.ToShortDateString()
+                            </td>
+                            <td>
+                                @data.PoNumber
+                            </td>
+                            <td>
+                                @data.VendorName
+                            </td>
+                            <td>
+                                @data.POStatus
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>

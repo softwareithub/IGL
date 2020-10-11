@@ -10,7 +10,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\IGL.Core.Entities\IGL.Core.Entities.csproj" />
+    <ProjectReference Include="..\IGL.Core.Entities\IGL.Core.Entities.csproj">
+      <Private>true</Private>
+    </ProjectReference>
     <ProjectReference Include="..\IGL.Core.Repository\IGL.Core.Repository.csproj" />
   </ItemGroup>
 
