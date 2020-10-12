@@ -345,6 +345,33 @@
                         </ul>
                     </li>
                 </ul>
+                <ul class="sidebar-menu" data-widget="tree">
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-gears"></i> <span>Reports</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li>
+                                <a asp-action="Index" asp-controller="ProductReport">
+                                    <i class="fa fa-flask"> &nbsp;&nbsp;Product Report </i>
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-action="Index" asp-controller="VendorWisePoStatusReport">
+                                    <i class="fa fa-product-hunt"> &nbsp;&nbsp;PO/SIV Status Report </i>
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-action="GetProductTransactionStatusReport" asp-controller="ProductReport">
+                                    <i class="fa fa-user-plus"> &nbsp;&nbsp;Product Return/Issue Report</i>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
             </section>
         </aside>
         <div class="content-wrapper">

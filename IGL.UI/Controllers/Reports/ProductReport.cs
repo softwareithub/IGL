@@ -20,5 +20,11 @@ namespace IGL.UI.Controllers.Reports
             var models =await  _IProductReportService.GetProductReport();
             return View("~/Views/Reports/ProductReport.cshtml", models);
         }
+
+        public async Task<IActionResult> GetProductTransactionStatusReport(int? EmployeeId)
+        {
+            var models = await _IProductReportService.GetProductTransactionStatusReport(EmployeeId);
+            return View("~/Views/Reports/ProductTransactionStatusReport.cshtml", models);
+        }
     }
 }
