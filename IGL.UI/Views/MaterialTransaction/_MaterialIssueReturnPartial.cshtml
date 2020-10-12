@@ -24,32 +24,22 @@
             <div class="col-md-4 form-group">
                 <label class="control-label">Transaction Type</label>
                 <select asp-for="TransactionType" class="form-control">
-                    <option value="Return">Return</option>
                     <option value="Issue">Issue</option>
                 </select>
             </div>
         </div>
-        <div class="col-xs-12"  style="overflow-y: auto; max-height: 388px;">
+        <div class="col-xs-12" style="overflow-y: auto; max-height: 388px;">
             <table class="table table-responsive">
                 <thead>
                     <tr>
                         <th>
-                            Sr.No
-                        </th>
-                        <th>
                             Material Name
                         </th>
                         <th>
-                            Material Code
-                        </th>
-                        <th>
-                            Unit
+                            Number
                         </th>
                         <th>
                             Quantity
-                        </th>
-                        <th>
-                            Total Price
                         </th>
                         <th>
                             Remarks
@@ -60,7 +50,6 @@
                     </tr>
                 </thead>
                 <tbody id="tblMaterialReturnIssue">
-
                 </tbody>
             </table>
         </div>
@@ -69,7 +58,7 @@
                 <i class="fa fa-plus-square">Add Item</i>
             </button>
         </div>
-        <div class="col-sm-12 hide" id="dvMatIssueReturnSaveBtn">
+        <div class="col-sm-12 ">
             <div class="col-sm-8">
                 <button type="submit" class="btn btn-primary pull-right" value="Save">
                     <i class="fa fa-download"> &nbsp;&nbsp;Save</i>
@@ -83,3 +72,15 @@
         </div>
     </div>
 </form>
+
+<script>
+    function GetProductDetails() {
+         var fieldString = '';
+        $.each(@Html.Raw(Json.Serialize(@ViewBag.ProductList)) , function (index, value) {
+            debugger;
+            var prdDescription = value.name + "(" + value.code + ")";
+            fieldString += '<option data-isUnique='+value.isUnique+' value=' + value.id + '>' + prdDescription + '</option>';
+        });
+        return fieldString;
+    }
+</script>

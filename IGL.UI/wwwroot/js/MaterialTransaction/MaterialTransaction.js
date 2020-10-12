@@ -20,41 +20,16 @@ var materialTransaction = {
         customAjax.Fn_CommanGet("/MaterialTransaction/GetMaterialTransactionDetail", "#divMaterialTransaction", "#IGLDataTable")
     },
     "Fn_GetMaterialDetail": function () {
-        $.get("/MaterialTransaction/GetMaterialDetails", function (data) {
-            $("#divMaterilDetail").html(data);
-            $("#MaterialModalPopUp").modal('show');
-        });
+        var html = "<tr>";
+        html += "<td><select name='matId' class='form-control'  onchange='materialTransaction.fn_ValidateProduct(this)'><option>" + GetProductDetails() + "</option></select></td>";
+        html += "<td><select name='prodNumber'  class='form-control'></select></td>";
+        html += "<td><input type='number' onblur='materialTransaction.fn_ValidateQuantity(this)' name='qty' class='form-control' name='quantity'/></td>";
+        html += "<td><input type='text' class='form-control' name='remarks'/></td>";
+        html += "<td><a onclick='materialTransaction.fn_deleteItem(this)'>Delete</a></td>";
+        html += "</tr>";
+        $("#tblMaterialReturnIssue").append(html);
     },
-    "Fn_AddItemToIssueReturn": function () {
-        var message = "Item Added !!!";
-        $(".chk").each(function (e, data) {
-            if (data.checked) {
-                if ($("#tblMaterialReturnIssue tr > td:contains(" + data.getAttribute("data-name") + ")").length > 0) {
-                    message = "Item already present, Please select another item."
-                }
-                else {
-                    var cost = parseFloat(data.getAttribute("data-perunitCost"));
-                    var html = "<tr>";
-                    html += "<td><input type='hidden' name='matId' value=" + data.getAttribute("data-id") + "><input type='hidden' name='unitPrice' value=" + data.getAttribute("data-perunitCost") + ">";
-                    html += "" + 1 + "</td>";
-                    html += "<td>" + data.getAttribute("data-name") + "</td>";
-                    html += "<td>" + data.getAttribute("data-code") + "</td>";
-                    html += "<td>" + data.getAttribute("data-unit") + "</td>";
-                    html += "<td><input type='number' name='qty' onblur='materialTransaction.fn_calculateCost(this," + cost + "," + data.getAttribute("data-id") + ")' class='form-control' name='quantity'/></td>";
-                    html += "<td><span id=" + data.getAttribute("data-id") + "> </span></td>";
-                    html += "<td><input type='text' class='form-control' name='remarks'/></td>";
-                    html += "<td><a onclick='materialTransaction.fn_deleteItem(this)'>Delete</a></td>";
-                    html += "</tr>";
-                    $("#tblMaterialReturnIssue").append(html);
-                    message = "Item Added !!!";
-                    $('#dvMatIssueReturnSaveBtn').removeClass("hide");
-                }
-            }
-        });
-        alertify.success(message);
-        $("#MaterialModalPopUp").modal('hide');
-    },
-    "fn_deleteItem": function (eData) {       
+    "fn_deleteItem": function (eData) {
         $(eData).parent().parent().remove()
         if ($('#tblMaterialReturnIssue>tr').length > 0) {
             $('#dvMatIssueReturnSaveBtn').removeClass("hide");
@@ -93,11 +68,53 @@ var materialTransaction = {
         alertify.confirm("Are you sure want to create " + transactionType, function () {
             return true
         }, function () { return false; })
+    },
+    "fn_ValidateProduct": function (eData) {
+        debugger;
+        if ($(eData.selectedOptions).attr('data-isunique') == 1) {
+            $(eData.parentElement.nextElementSibling.firstElementChild).removeAttr('readOnly')
+            $(eData.parentElement.nextElementSibling.nextElementSibling.firstElementChild).val('1');
+            $(eData.parentElement.nextElementSibling.nextElementSibling.firstElementChild).attr('readOnly', 'true');
+            $.get("/MaterialTransaction/GetProductNumber", { prodId: $(eData.selectedOptions).val() }, function (data) {
+                debugger;
+                var html = '';
+                for (var i = 0; i < data.length; i++) {
+                    html += '<option value=' + data[i].id + '>' + data[i].itemNumber + '</option>'
+                }
+                $(eData.parentElement.nextElementSibling.firstElementChild).empty().append(html);
+            });
+        }
+        else {
+            $(eData.parentElement.nextElementSibling.firstElementChild).attr('readOnly', 'true')
+            $(eData.parentElement.nextElementSibling.nextElementSibling.firstElementChild).val('0');
+            $(eData.parentElement.nextElementSibling.nextElementSibling.firstElementChild).removeAttr('readOnly');
+            $(eData.parentElement.nextElementSibling.firstElementChild).empty().append('<option value="0"> select</option>');
+        }
+    },
+
+    "fn_ValidateQuantity": function (eData) {
+        $(eData.parentElement.previousElementSibling.previousElementSibling.firstElementChild).val()
+        $.get("/MaterialTransaction/ValidateProductQuantity",
+            { prodId: $(eData.parentElement.previousElementSibling.previousElementSibling.firstElementChild).val(), qty: eData.value }, function (data) {
+                if (data == "-1") {
+                    alertify.confirm("Product do not have suffcient quantity to Issue. Do you want to continue?", function () {
+                    }, function () {
+                            $(eData).val('0')
+                    });
+                }
+                if (data == "-2") {
+                    alertify.confirm("After Product Issue the quantity will become 0. Do you want to continue?", function () { }, function () {
+                        $(eData).val('0')
+                    });
+                }
+
+            })
     }
 };
 
 $(document).ready(function () {
     materialTransaction.Fn_GetMaterialTransaction();
+
 })
 
 

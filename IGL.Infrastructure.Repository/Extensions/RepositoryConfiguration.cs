@@ -17,6 +17,7 @@ namespace IGL.Infrastructure.Repository.Extensions
             services.AddTransient<IMaterialDetailRepo, MaterialDetailRepository>();
             services.AddTransient<IProductReportRepository, ProductReportRepository>();
             services.AddTransient<IVendorWisePoStatusReportRepository, VendorWisePoStatusReportRepository>();
+            services.AddTransient<IProductReturnRepository, ProductReturnRepository>();
         }
     }
 }

@@ -1,0 +1,44 @@
+﻿@model IEnumerable<IGL.Core.Entities.ProductTransaction.ProductIssueDetail>
+
+    <div class="col-xs-12">
+        <div class="col-md-4 form-group">
+            <label class="control-label">Employee Name</label>
+            <label class="control-label">@Model.First().EmployeeName</label>
+        </div>
+
+        <div class="col-md-4 form-group">
+            <label class="control-label">Transaction Date</label>
+            <label class="control-label">@Model.First().TransactionDate</label>
+        </div>
+
+        <div class="col-xs-12">
+            <table id="IGLMaterialTable" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Item Number</th>
+                        <th>Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var data in Model)
+                    {
+                        int maxValue = Convert.ToInt32(data.Quantity);
+                        <tr>
+                            <td>
+                                @data.ProductName
+                            </td>
+                            <td>
+                                @data.ItemNumber
+                            </td>
+                            <td>
+                                <input type="number" onblur="CheckNo(this,@data.Quantity)" class="form-control" value="@data.Quantity" />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+    
