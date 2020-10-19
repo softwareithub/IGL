@@ -33,9 +33,13 @@ namespace IGL.UI.Controllers.UserManagement
         [HttpPost]
         public async Task<IActionResult> AuthenticateUser(AuthenticateModel model)
         {
-            var userModel = (await _UserDetailService.GetList(x => x.IsActive == 1)).Where(x => x.UserName == model.UserName && x.Password == model.Password).First();
-            if (userModel!=null)
+            var userModels = await _UserDetailService.GetList(x => x.IsActive == 1);
+
+            if(userModels.Any(x=>x.UserName==model.UserName && x.Password== model.Password))
             {
+
+                var userModel = userModels.Where(x => x.UserName == model.UserName && x.Password == model.Password).First();
+
                 var claims = new List<Claim> {
                         new Claim(ClaimTypes.Name,model.UserName),
                         new Claim(ClaimTypes.Role, userModel.RoleId.ToString())
@@ -44,7 +48,7 @@ namespace IGL.UI.Controllers.UserManagement
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimIdentity));
 
                 HttpContext.Session.SetInt32("userId", userModel.Id);
-                
+
                 return RedirectToAction("Index", "DashBoard");
             }
             else

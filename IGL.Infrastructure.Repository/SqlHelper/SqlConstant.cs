@@ -11,5 +11,6 @@ namespace IGL.Infrastructure.Repository.SqlHelper
         public static string ProcGetVendorWisePoStatusReport = @"Proc_VendorWisePOStatusReport";
         public static string ProcGetVendorWisePoStatusDetailReport = @"Proc_VenderWisePoStatusDetailReport";
         public static string ProcGetProductTransactionStatusReport = @"Proc_GetProductTransactionStatusReport";
+        public static string ProcGetIssueProduct = @"usp_GetIssueProduct";
     }
 }

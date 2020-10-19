@@ -3,12 +3,12 @@
     <div class="col-xs-12">
         <div class="col-md-4 form-group">
             <label class="control-label">Employee Name</label>
-            <label class="control-label">@Model.First().EmployeeName</label>
+            <span>@Model.First().EmployeeName</span>
         </div>
 
         <div class="col-md-4 form-group">
-            <label class="control-label">Transaction Date</label>
-            <label class="control-label">@Model.First().TransactionDate</label>
+            <label class="control-label">Issue Date :</label>
+            <span>@Model.First().TransactionDate</span>
         </div>
 
         <div class="col-xs-12">
@@ -26,13 +26,15 @@
                         int maxValue = Convert.ToInt32(data.Quantity);
                         <tr>
                             <td>
+                                <input type="hidden" name="matId" value="@data.Id" />
                                 @data.ProductName
                             </td>
                             <td>
+                                <input type="hidden" name="ItemNumber" value="@data.ItemNumber" />
                                 @data.ItemNumber
                             </td>
                             <td>
-                                <input type="number" onblur="CheckNo(this,@data.Quantity)" class="form-control" value="@data.Quantity" />
+                                <input type="number" name="qty" onblur="CheckNo(this,@data.Quantity)" class="form-control" value="@data.Quantity" />
                             </td>
                         </tr>
                     }
