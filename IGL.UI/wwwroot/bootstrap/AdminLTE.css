@@ -5040,49 +5040,54 @@ hr {
     bottom: 540px;
     margin-left: 1015px;
 }
-
+*/
 .modal-dialog {
     width: 80%;
     height: 80%;
 }
 
 .modal-content {
-    width: 100%;*/
+    width: 100%;
     /*height:100%;*/
-/*}*/
+}
 
-/*.modal-body {
+.modal-body {
     height: 100% !important;
     width: 100%;
-}*/
+}
 /* #divCommanModalPartial {
         width: 100%;
         height: 100%;
     }*/
-/*#divMaterilDetail {
+#divMaterilDetail {
     height: 539px;
     overflow-y: scroll;
     overflow-x: hidden;
 }
-
+/*
 .modal-open .modal {
     overflow-x: hidden;
     overflow-y: hidden;
 }*/
+
 .clearB {
-clear:both;
+    clear:both;
 }
-/*#divMaterilDetail .box-footer {
+/*
+#divMaterilDetail .box-footer {
     position: fixed;
     bottom: 546px;
     margin-left: 1000px;
 }*/
+
 .hide {
     display:none;
 }
+
 .show {
-display:block;
+    display:block;
 }
+
 .cursorP {
-cursor:pointer;
+    cursor:pointer;
 }
