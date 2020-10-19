@@ -30,5 +30,12 @@ namespace IGL.UI.Controllers.MaterialTransaction
             var model = await _IProductReturnService.GetProductIssueDetail(id);
             return PartialView("~/Views/MaterialTransaction/MaterialReturnPartial.cshtml", model);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> ProductReturn(string [] matId,string [] ItemNumber, string [] qty,int slipNumber)
+        {
+
+            return Json("");
+        }
     }
 }

@@ -8,43 +8,47 @@
         Material Return
     </h1>
 </section>
-<section class="content container-fluid">
-    <section class="content">
-        <div class="box box-primary">
-            <div class="box-header with-border">
-                <h3 class="box-title">Material Reutrn</h3>
-            </div>
-            <div class="box-body">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="col-md-4 form-group">
-                            <label class="control-label"> Slip Number</label>
-                            <select class="form-control" id="ddlSlipNumber" onchange="GetProductIssueDetail()" asp-items="@(new SelectList(ViewBag.TransactionDetail,"Id","SlipNumber"))">
-                                <option value="">Select</option>
-                            </select>
+<form asp-action="ProductReturn" asp-controller="MaterialReturn" data-ajax="true" data-ajax-method="post"  
+      data-ajax-begin="customAjax.Fn_SubmitBegin(divReturnPartial)"  data-ajax-complete="customAjax.Fn_SubmitComplete(divReturnPartial)">
+
+
+    <section class="content container-fluid" id="divReturnPartial">
+        <section class="content">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Material Reutrn</h3>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="col-md-4 form-group">
+                                <label class="control-label"> Slip Number</label>
+                                <select class="form-control" id="ddlSlipNumber" name="slipNumber" onchange="GetProductIssueDetail()" asp-items="@(new SelectList(ViewBag.TransactionDetail,"Id","SlipNumber"))">
+                                    <option value="">Select</option>
+                                </select>
+                            </div>
+
                         </div>
-                      
-                    </div>
 
-                    <div class="col-xs-12">
-                        <div id="divIssueDetailPartial">
+                        <div class="col-xs-12">
+                            <div id="divIssueDetailPartial">
 
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="box-footer">
-                <div class="col-xs-12">
-                    <button class="btn btn-primary pull-right" onclick="materialTransaction.Fn_AddItemToIssueReturn()">
-                        <i class="fa fa-download"> &nbsp;&nbsp;Save</i>
-                    </button>
+                <div class="box-footer">
+                    <div class="col-xs-12">
+                        <button type="submit" class="btn btn-primary pull-right">
+                            <i class="fa fa-mail-reply-all"> &nbsp;&nbsp;Return</i>
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
     </section>
-</section>
-
+</form>
 <environment include="Development">
     <script src="~/js/MaterialTransaction/MaterialReturn.js"></script>
 </environment>
