@@ -12,14 +12,13 @@ namespace IGL.Infastructure.Service.Extensions
     {
         public static void AddServices(this IServiceCollection services)
         {
-            #region GenericService
+     
 
             services.AddTransient(typeof(IGenericService<,>), typeof(GenericService<,>));
             services.AddTransient<IMaterialDetailService, MaterialDetailService>();
             services.AddTransient<IProductReportService, ProductReportService>();
             services.AddTransient<IVendorWisePOStatusReportService, VendorWisePoStatusReportService>();
-
-            #endregion
+            services.AddTransient<IProductReturnService, ProductReturnService>();
         }
     }
 }

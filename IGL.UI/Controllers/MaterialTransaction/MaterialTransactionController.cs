@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using IGL.Core.Comman.Helper;
 using IGL.Core.Entities.Master;
+using IGL.Core.Entities.ProductTransaction;
 using IGL.Core.Entities.Transaction;
 using IGL.Core.Service.GenericService;
 using IGL.Core.Service.MaterialDetail;
@@ -23,8 +24,9 @@ namespace IGL.UI.Controllers.MaterialTransaction
         private readonly IGenericService<UnitMaster, int> _IUnitMasterRepo;
         private readonly IGenericService<TransactionItems, int> _ITransactionItemService;
         private readonly IMaterialDetailService _materialDetailService;
+        private readonly IGenericService<ProductTransactionDetail, int> _IProductDetailService;
 
-        public MaterialTransactionController(IGenericService<MaterialTransction, int> materialTransactionService, IGenericService<EmployeeDetail, int> employeeDetailService, IGenericService<MaterialMaster, int> materialMasterService, IGenericService<UnitMaster, int> unitMasterRepo, IGenericService<TransactionItems, int> _transactionService, IMaterialDetailService materialDetailService)
+        public MaterialTransactionController(IGenericService<MaterialTransction, int> materialTransactionService, IGenericService<EmployeeDetail, int> employeeDetailService, IGenericService<MaterialMaster, int> materialMasterService, IGenericService<UnitMaster, int> unitMasterRepo, IGenericService<TransactionItems, int> _transactionService, IMaterialDetailService materialDetailService, IGenericService<ProductTransactionDetail, int> productDetailService)
         {
             _IMaterialTransactionService = materialTransactionService;
             _IEmployeeDetailService = employeeDetailService;
@@ -32,6 +34,7 @@ namespace IGL.UI.Controllers.MaterialTransaction
             _IUnitMasterRepo = unitMasterRepo;
             _ITransactionItemService = _transactionService;
             _materialDetailService = materialDetailService;
+            _IProductDetailService = productDetailService;
         }
         public async Task<IActionResult> Index()
         {
@@ -40,6 +43,7 @@ namespace IGL.UI.Controllers.MaterialTransaction
         public async Task<IActionResult> ReturnIssue()
         {
             ViewBag.EmployeeList = await _IEmployeeDetailService.GetList(x => x.IsActive == 1);
+            ViewBag.ProductList = await _IMaterialMasterService.GetList(x => x.IsActive == 1);
             return PartialView("~/Views/MaterialTransaction/_MaterialIssueReturnPartial.cshtml");
         }
         public async Task<IActionResult> GetMaterialDetails()
@@ -68,7 +72,7 @@ namespace IGL.UI.Controllers.MaterialTransaction
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateReturnIssue(MaterialTransction model, string[] matId, string[] remarks, string[] qty, string[] unitPrice)
+        public async Task<IActionResult> CreateReturnIssue(MaterialTransction model, string[] matId, string[] remarks, string[] qty, string[] prodNumber)
         {
             var listData = await _IMaterialTransactionService.GetList(x => x.IsActive == 1);
             string slipNumber = "#0001";
@@ -80,27 +84,43 @@ namespace IGL.UI.Controllers.MaterialTransaction
             var transactionMdoel = CommanCRUDHelper.CommanCreateCode(model, 1);
             var transactionMasterResponse = await _IMaterialTransactionService.CreateEntity(transactionMdoel);
             var materialId = (await _IMaterialTransactionService.GetList(x => x.IsActive == 1)).Max(x => x.Id);
-            List<TransactionItems> itemModels = new List<TransactionItems>();
 
+            List<TransactionItems> itemModels = new List<TransactionItems>();
+            List<MaterialMaster> prodList = new List<MaterialMaster>();
             for (int i = 0; i < matId.Count(); i++)
             {
+                string itemNumber = string.Empty;
+                if( prodNumber[i]!="0")
+                {
+                    var prodTranModel = await _IProductDetailService.GetSingle(x => x.Id == Convert.ToInt32(prodNumber[i]));
+                    prodTranModel.IsActive = 0; prodTranModel.IsDeleted = 1;
+                    var transResponse = await _IProductDetailService.Update(prodTranModel);
+                    var productMasterModel = await _IMaterialMasterService.GetSingle(x => x.Id == Convert.ToInt32(matId[i]) && x.IsActive == 1);
+                    productMasterModel.OpeningQuantity = productMasterModel.OpeningQuantity - 1;
+                    await _IMaterialMasterService.Update(productMasterModel);
+
+                    itemNumber = prodTranModel.ItemNumber;
+                }
+
                 TransactionItems itemModel = new TransactionItems();
                 itemModel.MaterialTransctionId = materialId;
                 itemModel.ItemId = Convert.ToInt32(matId[i]);
                 itemModel.Quantity = Convert.ToDecimal(qty[i]);
-                itemModel.UnitPrice = Convert.ToDecimal(unitPrice[i]);
+                itemModel.ItemNumber = itemNumber;
                 itemModel.Remarks = remarks[i];
                 itemModel.IsActive = 1;
                 itemModel.IsDeleted = 0;
                 itemModel.CreatedBy = 1;
                 itemModel.CreatedDate = DateTime.Now.Date;
-                
 
+                MaterialMaster prodModel = await _IMaterialMasterService.GetSingle(x => x.Id == Convert.ToInt32(matId[i]));
+                prodModel.OpeningQuantity =Convert.ToInt32(Convert.ToDecimal(prodModel.OpeningQuantity) - Convert.ToDecimal(qty[i]));
+                prodList.Add(prodModel);
                 itemModels.Add(itemModel);
             }
 
             var response = await _ITransactionItemService.Add(itemModels.ToArray());
-
+            var updateProdQuantity = await _IMaterialMasterService.Update(prodList.ToArray());
             return Json(ResponseHelper.GetResponseMessage(response));
         }
 
@@ -137,5 +157,26 @@ namespace IGL.UI.Controllers.MaterialTransaction
 
             return PartialView("~/Views/MaterialTransaction/_MaterialSlipPartial.cshtml", models);
         }
+
+        public async Task<IActionResult> GetProductNumber(int prodId)
+        {
+            var models = await _IProductDetailService.GetList(x => x.IsActive == 1 && x.MaterialId == prodId);
+            return Json(models);
+        }
+
+        public async Task<IActionResult> ValidateProductQuantity(int prodId,int qty)
+        {
+            var model = await _IMaterialMasterService.GetSingle(x => x.Id == prodId);
+            if(model.OpeningQuantity<qty)
+            {
+                return Json("-1");
+            }
+            if(model.OpeningQuantity == qty)
+            {
+                return Json("-2");
+            }
+            return Json("");
+        }
+
     }
 }
