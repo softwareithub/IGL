@@ -59,7 +59,26 @@ namespace IGL.Infrastructure.Repository.Reports
                 model.Quantity = reader.DefaultIfNull<int>("Quantity");
                 model.TotalPrice = reader.DefaultIfNull<decimal>("TotalPrice");
                 model.TransactionType = reader.DefaultIfNull<string>("TransactionType"); 
-                model.UnitPrice = reader.DefaultIfNull<decimal>("UnitPrice"); ;
+                model.UnitPrice = reader.DefaultIfNull<decimal>("UnitPrice");
+                models.Add(model);
+            }
+
+            return models;
+        }
+        public async Task<List<LowQuantityProductReport>> GetLowQuantityProductReport()
+        {
+            var models = new List<LowQuantityProductReport>();
+            var reader = await SqlHelperExtension.ExecuteReader(_connectionString, SqlConstant.ProcGetLowQuantityProductReport, System.Data.CommandType.StoredProcedure, null);
+
+            while (reader.Read())
+            {
+                LowQuantityProductReport model = new LowQuantityProductReport();
+                model.Code = reader.DefaultIfNull<string>("Code");
+                model.Name = reader.DefaultIfNull<string>("Name");
+                model.PeUnitCost = reader.DefaultIfNull<decimal>("PerUnitCost");
+                model.Quantity = reader.DefaultIfNull<int>("Quantity");
+                model.ThresholdValue = reader.DefaultIfNull<int>("ThresholdValue");
+                model.Unit = reader.DefaultIfNull<string>("Unit");
                 models.Add(model);
             }
 

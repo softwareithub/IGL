@@ -5091,3 +5091,12 @@ hr {
 .cursorP {
     cursor:pointer;
 }
+.floatR {
+float:right;
+}
+.floatL {
+    float: right;
+}
+.marBot5px{
+    margin-bottom:5px;
+}

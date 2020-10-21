@@ -1,0 +1,75 @@
+﻿@model IEnumerable<IGL.Core.Entities.Reports.LowQuantityProductReport>
+@{
+    ViewData["Title"] = "Low Quantity Product Report";
+}
+
+<section class="content-header">
+    <h1>
+        Low Quanttity Product Detail
+    </h1>
+</section>
+<section class="content container-fluid">
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Low Quantity Product Report</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="marBot5px floatR">
+                            <input type="button" value="Export To Excel" id="btnExport" name="btnExport" />
+                        </div>
+                        <table id="IGLDataTable" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Code</th>
+                                    <th>Unit</th>
+                                    <th>Per Unit Cost</th>
+                                    <th>Threshold Value</th>
+                                    <th>Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var data in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @data.Name
+                                        </td>
+                                        <td>
+                                            @data.Code
+                                        </td>
+                                        <td>
+                                            @data.Unit
+                                        </td>
+                                        <td>
+                                            @data.PeUnitCost
+                                        </td>
+                                        <td>
+                                            @data.ThresholdValue
+                                        </td>
+                                        <td>
+                                            @data.Quantity
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</section>
+
+
+<environment include="Production">
+    <script src="~/js/Reports/LowQuantityProductReport.js"></script>">
+</environment>
+<environment include="Development">
+    <script src="~/js/Reports/LowQuantityProductReport.js"></script>">
+</environment>

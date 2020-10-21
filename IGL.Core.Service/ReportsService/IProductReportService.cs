@@ -10,5 +10,6 @@ namespace IGL.Core.Service.ReportsService
     {
         Task<List<ProductReport>> GetProductReport();
         Task<List<ProductTransactionStatusReport>> GetProductTransactionStatusReport(int? EmployeeId);
+        Task<List<LowQuantityProductReport>> GetLowQuantityProductReport();
     }
 }
