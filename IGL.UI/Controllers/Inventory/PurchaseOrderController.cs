@@ -6,6 +6,7 @@ using IGL.Core.Comman.Helper;
 using IGL.Core.Entities.Inventory;
 using IGL.Core.Entities.Master;
 using IGL.Core.Service.GenericService;
+using IGL.Core.Service.PurchaseOrder;
 using IGL.Core.ViewModelEntities.Inventory;
 using IGL.Core.ViewModelEntities.MasterVm;
 using Microsoft.AspNetCore.Mvc;
@@ -21,8 +22,12 @@ namespace IGL.UI.Controllers.Inventory
         private readonly IGenericService<MaterialMaster, int> _IProductService;
         private readonly IGenericService<UnitMaster, int> _IunitMasterService;
         private readonly IGenericService<IGL.Core.Entities.Organization.Organisation, int> _IOrganisationService;
+        private readonly IPurchaseOrderService _IPurchaseOrder;
 
-        public PurchaseOrderController(IGenericService<PurchaseOrder, int> purchaseOrderService, IGenericService<POItem, int> poItemService, IGenericService<VendorMaster, int> vendorService, IGenericService<MaterialMaster, int> productService, IGenericService<UnitMaster, int> unitMasterService, IGenericService<IGL.Core.Entities.Organization.Organisation, int> organisationService)
+        public PurchaseOrderController(IGenericService<PurchaseOrder, int> purchaseOrderService, 
+            IGenericService<POItem, int> poItemService, IGenericService<VendorMaster, int> vendorService, 
+            IGenericService<MaterialMaster, int> productService, IGenericService<UnitMaster, int> unitMasterService, 
+            IGenericService<IGL.Core.Entities.Organization.Organisation, int> organisationService, IPurchaseOrderService purchaseOrder)
         {
             _IPOItemService = poItemService;
             _IPurchaseOrderService = purchaseOrderService;
@@ -30,9 +35,11 @@ namespace IGL.UI.Controllers.Inventory
             _IProductService = productService;
             _IunitMasterService = unitMasterService;
             _IOrganisationService = organisationService;
+            _IPurchaseOrder = purchaseOrder;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            ViewBag.PoStatusCount = await _IPurchaseOrder.GetPoStatusCount();
             return View("~/Views/PurchaseOrder/POIndex.cshtml");
         }
 
@@ -50,12 +57,46 @@ namespace IGL.UI.Controllers.Inventory
             return await Task.Run(() => PartialView("~/Views/PurchaseOrder/_CreatePurchaseOrderPartial.cshtml"));
         }
 
-        public async Task<IActionResult> GetPOList()
+        public async Task<IActionResult> GetPOList(int poStatus)
         {
+            /*
+             po Status -1 for Po Created
+             po status -2 for Approved
+             po status -3 for siv created
+             po status -4 for siv approved
+             */
+
             var poDetail = await _IPurchaseOrderService.GetList(x => x.IsActive == 1);
             var poItems = await _IPOItemService.GetList(x => x.IsActive == 1);
             var vendorDetails = await _IVendorService.GetList(x => x.IsActive == 1);
             var productDetails = await _IProductService.GetList(x => x.IsActive == 1);
+
+            switch (poStatus)
+            {
+                case 1:
+                    poDetail = poDetail.Where(x => x.POStatus.Trim().ToLower() == "created").ToList();
+                    ViewBag.poStatus = "created";
+                    break;
+
+                case 2:
+                    poDetail = poDetail.Where(x => x.POStatus.Trim().ToLower() == "poapproved").ToList();
+                    ViewBag.poStatus = "poapproved";
+                    break;
+
+                case 3:
+                    poDetail = poDetail.Where(x => x.POStatus.Trim().ToLower() == "sivcreated").ToList();
+                    ViewBag.poStatus = "sivcreated";
+                    break;
+
+                case 4:
+                    poDetail = poDetail.Where(x => x.POStatus.Trim().ToLower() == "sivapproved").ToList();
+                    ViewBag.poStatus = "sivapproved";
+                    break;
+
+                default:
+                    break;
+            }
+
 
 
             var models = (from PO in poDetail

@@ -12,6 +12,7 @@ namespace IGL.Core.Entities.Transaction
         public decimal UnitPrice { get; set; }
         public string Remarks { get; set; }
         public string ItemNumber { get; set; }
+        public int UniqueItemId { get; set; }
 
     }
 }

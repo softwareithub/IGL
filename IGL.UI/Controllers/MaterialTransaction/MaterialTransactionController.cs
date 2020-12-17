@@ -10,6 +10,7 @@ using IGL.Core.Service.GenericService;
 using IGL.Core.Service.MaterialDetail;
 using IGL.Core.ViewModelEntities.MasterVm;
 using IGL.Core.ViewModelEntities.MasterVm.TransactionVm;
+using IGL.UI.Helper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,8 +26,14 @@ namespace IGL.UI.Controllers.MaterialTransaction
         private readonly IGenericService<TransactionItems, int> _ITransactionItemService;
         private readonly IMaterialDetailService _materialDetailService;
         private readonly IGenericService<ProductTransactionDetail, int> _IProductDetailService;
+        private readonly IProductReturnService _productReturnService;
 
-        public MaterialTransactionController(IGenericService<MaterialTransction, int> materialTransactionService, IGenericService<EmployeeDetail, int> employeeDetailService, IGenericService<MaterialMaster, int> materialMasterService, IGenericService<UnitMaster, int> unitMasterRepo, IGenericService<TransactionItems, int> _transactionService, IMaterialDetailService materialDetailService, IGenericService<ProductTransactionDetail, int> productDetailService)
+        public MaterialTransactionController(IGenericService<MaterialTransction, int> materialTransactionService, 
+            IGenericService<EmployeeDetail, int> employeeDetailService, IGenericService<MaterialMaster, int> materialMasterService,
+            IGenericService<UnitMaster, int> unitMasterRepo, IGenericService<TransactionItems, int> _transactionService,
+            IMaterialDetailService materialDetailService, IGenericService<ProductTransactionDetail, int> productDetailService,
+            IProductReturnService productReturnService
+            )
         {
             _IMaterialTransactionService = materialTransactionService;
             _IEmployeeDetailService = employeeDetailService;
@@ -35,6 +42,7 @@ namespace IGL.UI.Controllers.MaterialTransaction
             _ITransactionItemService = _transactionService;
             _materialDetailService = materialDetailService;
             _IProductDetailService = productDetailService;
+            _productReturnService = productReturnService;
         }
         public async Task<IActionResult> Index()
         {
@@ -76,86 +84,32 @@ namespace IGL.UI.Controllers.MaterialTransaction
         {
             var listData = await _IMaterialTransactionService.GetList(x => x.IsActive == 1);
             string slipNumber = "#0001";
+
             if (listData.Count() > 0)
-            {
                 slipNumber += listData.Max(x => x.Id).ToString();
-            }
+
             model.SlipNumber = slipNumber;
-            var transactionMdoel = CommanCRUDHelper.CommanCreateCode(model, 1);
-            var transactionMasterResponse = await _IMaterialTransactionService.CreateEntity(transactionMdoel);
-            var materialId = (await _IMaterialTransactionService.GetList(x => x.IsActive == 1)).Max(x => x.Id);
 
             List<TransactionItems> itemModels = new List<TransactionItems>();
-            List<MaterialMaster> prodList = new List<MaterialMaster>();
             for (int i = 0; i < matId.Count(); i++)
             {
-                string itemNumber = string.Empty;
-                if( prodNumber[i]!="0")
-                {
-                    var prodTranModel = await _IProductDetailService.GetSingle(x => x.Id == Convert.ToInt32(prodNumber[i]));
-                    prodTranModel.IsActive = 0; prodTranModel.IsDeleted = 1;
-                    var transResponse = await _IProductDetailService.Update(prodTranModel);
-                    var productMasterModel = await _IMaterialMasterService.GetSingle(x => x.Id == Convert.ToInt32(matId[i]) && x.IsActive == 1);
-                    productMasterModel.OpeningQuantity = productMasterModel.OpeningQuantity - 1;
-                    await _IMaterialMasterService.Update(productMasterModel);
-
-                    itemNumber = prodTranModel.ItemNumber;
-                }
-
-                TransactionItems itemModel = new TransactionItems();
-                itemModel.MaterialTransctionId = materialId;
-                itemModel.ItemId = Convert.ToInt32(matId[i]);
-                itemModel.Quantity = Convert.ToDecimal(qty[i]);
-                itemModel.ItemNumber = itemNumber;
-                itemModel.Remarks = remarks[i];
-                itemModel.IsActive = 1;
-                itemModel.IsDeleted = 0;
-                itemModel.CreatedBy = 1;
-                itemModel.CreatedDate = DateTime.Now.Date;
-
-                MaterialMaster prodModel = await _IMaterialMasterService.GetSingle(x => x.Id == Convert.ToInt32(matId[i]));
-                prodModel.OpeningQuantity =Convert.ToInt32(Convert.ToDecimal(prodModel.OpeningQuantity) - Convert.ToDecimal(qty[i]));
-                prodList.Add(prodModel);
-                itemModels.Add(itemModel);
+                TransactionItems item = new TransactionItems();
+                item.ItemId = Convert.ToInt32(matId[i]?? "0");
+                item.Remarks = remarks[i]?? string.Empty;
+                item.Quantity = Convert.ToDecimal(qty[i]??"0");
+                item.UniqueItemId = Convert.ToInt32(prodNumber[i]??"0");
+                itemModels.Add(item);
             }
-
-            var response = await _ITransactionItemService.Add(itemModels.ToArray());
-            var updateProdQuantity = await _IMaterialMasterService.Update(prodList.ToArray());
-            return Json(ResponseHelper.GetResponseMessage(response));
+            var response = await _productReturnService.CreateMaterialIssue(model, itemModels);
+            var responseMessage= response.responseStatus == 1 ? Message.configuration["DataSaved"] : Message.configuration["CommonError"];
+            return Json(responseMessage);
         }
 
         public async Task<IActionResult> GetMaterialSlip(int id)
         {
-            var materials = await _IMaterialTransactionService.GetList(x => x.IsActive == 1);
-            var items = await _ITransactionItemService.GetList(x => x.IsActive == 1);
+            var response = await _productReturnService.GetMaterialSlipDetail(id);
 
-            var models = (from mt in materials
-                          join im in items
-                          on mt.Id equals im.MaterialTransctionId
-                          join em in await _IEmployeeDetailService.GetList(x => x.IsActive == 1)
-                          on mt.EmployeeId equals em.Id
-                          join md in await _IMaterialMasterService.GetList(x => x.IsActive == 1)
-                          on im.ItemId equals md.Id
-                          join um in await _IUnitMasterRepo.GetList(x => x.IsActive == 1)
-                          on md.UnitId equals um.Id
-                          where mt.Id == id
-                          select new MaterialSlipVm
-                          {
-                              Id = mt.Id,
-                              SlipNumber = mt.SlipNumber,
-                              SlipName = mt.TransactionType.ToLower().Trim() == "return" ? "Material Return Slip" : "Material Issue Slip",
-                              SlipDate = mt.TransactionDate,
-                              EmployeeName = em.Name,
-                              MaterialCode = md.Code,
-                              MaterialName = md.Name,
-                              UnitPrice = md.PerUnitCost,
-                              Quantity = im.Quantity,
-                              Remarks = im.Remarks,
-                              UnitName = um.Name,
-                              TotalPrice = im.Quantity * md.PerUnitCost
-                          }).ToList();
-
-            return PartialView("~/Views/MaterialTransaction/_MaterialSlipPartial.cshtml", models);
+            return PartialView("~/Views/MaterialTransaction/_MaterialSlipPartial.cshtml", response);
         }
 
         public async Task<IActionResult> GetProductNumber(int prodId)

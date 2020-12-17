@@ -1,68 +1,86 @@
 ﻿@model IEnumerable<IGL.Core.ViewModelEntities.Inventory.PurchaseOrderDetail>
+@{
+    var poStatus = ViewBag.poStatus;
 
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Purchase Order List</h3>
+}
 
-                    <button class="btn btn-primary pull-right" onclick="poDetail.Fn_CreatePO()">
-                        <i class="fa fa-plus-circle"> &nbsp; &nbsp; Add &nbsp; &nbsp;</i>
-                    </button>
-
-                </div>
-                <div class="box-body">
-                    <table id="IGLDataTable" class="table table-bordered table-striped">
-                        <thead>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <button class="btn btn-primary pull-right" onclick="poDetail.Fn_CreatePO()">
+                    <i class="fa fa-plus-circle"> &nbsp; &nbsp; Create Po &nbsp; &nbsp;</i>
+                </button>
+            </div>
+            <div class="box-body">
+                <table id="IGLDataTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>PO Number</th>
+                            <th>PO Date</th>
+                            <th>Vendor Name</th>
+                            <th>PO Status</th>
+                            <th>Remarks</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var data in Model.GroupBy(x => x.PoId))
+                        {
                             <tr>
-                                <th>PO Number</th>
-                                <th>PO Date</th>
-                                <th>Vendor Name</th>
-                                <th>PO Status</th>
-                                <th>Remarks</th>
-                                <th>Action</th>
+                                <td>
+                                    @data.First().PoNUmber
+                                </td>
+                                <td>
+                                    @data.First().PoDate.ToShortDateString()
+                                </td>
+                                <td>
+                                    @data.First().VendorName
+                                </td>
+                                <td>
+                                    @data.First().POStatus
+                                </td>
+                                <td>
+                                    @data.First().Remarks
+                                </td>
+
+                                <td>
+
+                                    <a class="btn btn-outline-danger pull-right" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'  style='color:#DD4B39'></i>" onclick="poDetail.Fn_DeletePO(@data.Key, this)">
+                                        <i class="fa fa-trash" style="color:#DD4B39"></i>
+                                    </a>
+                                    @if (poStatus == "created")
+                                    {
+
+                                        <a class="btn btn-success pull-right" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'  style='color:#DD4B39'></i>" onclick="poDetail.Fn_ApprovePO(@data.Key, this)">
+                                            <b>Approve Po</b>
+                                        </a>
+                                    }
+
+                                    @if (poStatus == "poapproved")
+                                    {
+                                        <a class="btn btn-success" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'  style='color:#DD4B39'></i>" onclick="poDetail.Fn_EditPO(@data.Key, this)">
+                                            <b>Download Po </b>
+                                        </a>
+                                        <a class="btn btn-success pull-right" asp-action="Index" asp-controller="SIVMaster" asp-route-poId="@data.First().PoId">
+                                            <b>Create SIV</b>
+                                        </a>
+                                    }
+
+                                    @if (poStatus == "sivcreated")
+                                    {
+                                        <a class="btn btn-success pull-right">
+                                            <b>Approve SIV</b>
+                                        </a>
+                                    }
+
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var data in Model.GroupBy(x=>x.PoId))
-                            {
-                                <tr>
-                                    <td>
-                                        @data.First().PoNUmber
-                                    </td>
-                                    <td>
-                                        @data.First().PoDate.ToShortDateString()
-                                    </td>
-                                    <td>
-                                        @data.First().VendorName
-                                    </td>
-                                    <td>
-                                        @data.First().POStatus
-                                    </td>
-                                    <td>
-                                        @data.First().Remarks
-                                    </td>
-                                   
-                                    <td>
+                        }
+                    </tbody>
 
-                                        <a class="btn btn-outline-success pull-right" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'  style='color:#DD4B39'></i>" onclick="poDetail.Fn_ApprovePO(@data.Key, this)">
-                                            <i class="fa fa-edit" style="color:#DD4B39"></i>
-                                        </a>
-
-                                        <a class="btn btn-outline-danger pull-right" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'  style='color:#DD4B39'></i>" onclick="poDetail.Fn_DeletePO(@data.Key, this)">
-                                            <i class="fa fa-trash" style="color:#DD4B39"></i>
-                                        </a>
-
-                                        <a class="btn btn-outline-success pull-right" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'  style='color:#DD4B39'></i>" onclick="poDetail.Fn_EditPO(@data.Key, this)">
-                                            <i class="fa fa-envelope-open" style="color:#3C8DBC"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-
-                    </table>
-                </div>
+                </table>
             </div>
         </div>
     </div>
+</div>

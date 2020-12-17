@@ -1,16 +1,54 @@
 ﻿@{
     ViewData["Title"] = "Purchase Order Detail";
+    var poStatusDetail = (IList<IGL.Core.Entities.Inventory.PoStatusCount>)ViewBag.PoStatusCount;
+
 }
 
 <section class="content-header">
     <h1>
-        Create Purchase Order
+        Purchase Order Details
     </h1>
 </section>
-<section class="content container-fluid">
+<section class="content container-fluid" id="divPurchaseOrderConatiner">
     <section class="content">
-        <div class="row" id="divPurchaseOrder">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel with-nav-tabs panel-default">
+                    <div class="panel-heading">
+                        <ul class="nav nav-tabs" id="poStatusLi">
+                            @foreach (var data in poStatusDetail)
+                            {
+                                switch (data.StatusName.Trim().ToLower())
+                                {
+                                    case "created":
+                                        <li class="active"><a href="javascript:void(0)" onclick="poDetail.Fn_GetPOList(1)" data-toggle="tab"><b>Created Po (@data.StatusCount)</b></a></li>
+                                        break;
+                                    case "poapproved":
+                                        <li><a href="javascript:void(0)" onclick="poDetail.Fn_GetPOList(2)" data-toggle="tab"><b>Approved Po (@data.StatusCount)</b></a></li>
+                                        break;
+                                    case "sivcreated":
+                                        <li><a href="javascript:void(0)" onclick="poDetail.Fn_GetPOList(3)" data-toggle="tab"><b>SIV Created (@data.StatusCount)</b></a></li>
+                                        break;
+                                    case "sivapproved":
+                                        <li><a href="javascript:void(0)" onclick="poDetail.Fn_GetPOList(4)" data-toggle="tab"><b>SIV Approved (@data.StatusCount)</b></a></li>
+                                        break;
+
+                                }
+                            }
+                        </ul>
+
+                    </div>
+                    <div class="panel-body">
+                        <div class="tab-content">
+                            <div class="row" id="divPurchaseOrder">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
+
     </section>
     @await Html.PartialAsync("~/Views/Shared/IGLCommanModal.cshtml")
 

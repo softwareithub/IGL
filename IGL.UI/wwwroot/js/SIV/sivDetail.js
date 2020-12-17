@@ -1,7 +1,10 @@
 ﻿var sivDetails = {
-    "Fn_CreateSiv": function () {
-        $.get("/SIVMaster/CreateSIV", function (data) {
+    "Fn_CreateSiv": function (status) {
+        $("#sivCreateContainer").addClass('ajaxLoding');
+        $.get("/SIVMaster/CreateSIV", { sivStatus: status}, function (data) {
             $("#divSIVDetails").html(data);
+        }).done(function () {
+            $("#sivCreateContainer").removeClass('ajaxLoding');
         })
     },
     "Fn_GetPoDetailInfo": function () {
@@ -57,7 +60,7 @@
 };
 
 $(document).ready(function () {
-    sivDetails.Fn_CreateSiv();
+    sivDetails.Fn_CreateSiv(0);
 })
 
 

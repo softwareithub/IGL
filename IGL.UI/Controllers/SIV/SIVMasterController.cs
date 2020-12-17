@@ -38,15 +38,42 @@ namespace IGL.UI.Controllers.SIV
             _IunitMasterService = unitService;
             _IRateMasterService = rateMasterService;
         }
-        public IActionResult Index()
+        public IActionResult Index(int poId)
         {
+            TempData["poId"] = poId;
             return View("~/Views/SIV/SIVIndex.cshtml");
         }
 
-        public async Task<IActionResult> CreateSIV()
+        public async Task<IActionResult> CreateSIV(int sivStatus)
         {
+            int poId = Convert.ToInt32(TempData["poId"]);
             ViewBag.StoreList = await _IStoreService.GetList(x => x.IsActive == 1);
-            ViewBag.POList = await _IPoDetailService.GetList(x => x.IsActive == 1 && x.POStatus != "Created");
+            /*SIV status==0 for created and sivStatus ==1 for Approve*/
+            if (sivStatus == 0)
+            {
+                if (poId != 0)
+                {
+                    ViewBag.POList = (await _IPoDetailService.GetList(x => x.IsActive == 1 && x.POStatus == "POApproved")).Where(x => x.Id == poId).ToList();
+                }
+                else
+                {
+                    ViewBag.POList = (await _IPoDetailService.GetList(x => x.IsActive == 1 && x.POStatus == "POApproved"));
+                }
+            }
+            else
+            {
+                if (poId != 0)
+                {
+                    ViewBag.POList = (await _IPoDetailService.GetList(x => x.IsActive == 1 && x.POStatus == "SIVCreated")).Where(x => x.Id == poId).ToList();
+                }
+                else
+                {
+                    ViewBag.POList = (await _IPoDetailService.GetList(x => x.IsActive == 1 && x.POStatus == "SIVCreated"));
+                }
+
+            }
+
+
             return PartialView("~/Views/SIV/_SIVCreatePartial.cshtml");
         }
 
@@ -187,7 +214,7 @@ namespace IGL.UI.Controllers.SIV
                     }
                 }
 
-             
+
             }
             return Json("There is somethng wents wrong. Please contact Admin Team.");
         }
@@ -274,7 +301,7 @@ namespace IGL.UI.Controllers.SIV
                 matId.ToList().ForEach(x =>
                 {
                     int productId = Convert.ToInt32(x);
-                    var prdDetail = productDetails.ToList().Where(z => z.Id ==productId).FirstOrDefault();
+                    var prdDetail = productDetails.ToList().Where(z => z.Id == productId).FirstOrDefault();
                     prdDetail.OpeningQuantity += Convert.ToInt32(qty[i]);
                     prdDetail.PerUnitCost = Convert.ToDecimal(price);
                     productList.Add(prdDetail);
@@ -283,17 +310,18 @@ namespace IGL.UI.Controllers.SIV
                 var response = await _IProductService.Update(productList.ToArray());
                 return response == ResponseMessage.UpdatedSuccessfully ? true : false;
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
 
                 return false;
             }
-           
+
         }
 
-        private async Task<bool> UpdateRateMaster(string [] prodId, string [] price)
+        private async Task<bool> UpdateRateMaster(string[] prodId, string[] price)
         {
             ResponseMessage createResponse = ResponseMessage.AddedSuccessfully;
-            for(int i=0; i<prodId.Count(); i++)
+            for (int i = 0; i < prodId.Count(); i++)
             {
                 //Check product exists in RateMaster
                 var productId = Convert.ToInt32(prodId[i]);
@@ -305,13 +333,13 @@ namespace IGL.UI.Controllers.SIV
                     var updateResponse = await _IRateMasterService.Update(rateModel);
                 }
                 RateMaster model = new RateMaster();
-                model.ProductId =Convert.ToInt32(prodId[i]);
+                model.ProductId = Convert.ToInt32(prodId[i]);
                 model.Rate = Convert.ToDecimal(price[i]);
                 model.FromDate = DateTime.Now.Date;
                 model.ToDate = null;
                 createResponse = await _IRateMasterService.CreateEntity(model);
             }
-           
+
             return createResponse == Core.Comman.Comman.ResponseMessage.AddedSuccessfully ? true : false;
         }
     }
