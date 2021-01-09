@@ -270,21 +270,20 @@ namespace IGL.UI.Controllers.SIV
 
                 var productDetails = await _IProductService.GetList(x => x.IsActive == 1);
                 List<MaterialMaster> productList = new List<MaterialMaster>();
-                int i = 0;
-                matId.ToList().ForEach(x =>
+                for(int i=0; i< matId.Count(); i++)
                 {
-                    int productId = Convert.ToInt32(x);
-                    var prdDetail = productDetails.ToList().Where(z => z.Id ==productId).FirstOrDefault();
+                    int productId = Convert.ToInt32(matId[i]);
+                    var prdDetail = productDetails.ToList().Where(z => z.Id == productId).FirstOrDefault();
                     prdDetail.OpeningQuantity += Convert.ToInt32(qty[i]);
                     prdDetail.PerUnitCost = Convert.ToDecimal(price);
                     productList.Add(prdDetail);
-                    i++;
-                });
+                }
+
                 var response = await _IProductService.Update(productList.ToArray());
                 return response == ResponseMessage.UpdatedSuccessfully ? true : false;
             }
-            catch (Exception ex) {
-
+            catch (Exception ex) 
+            {
                 return false;
             }
            
