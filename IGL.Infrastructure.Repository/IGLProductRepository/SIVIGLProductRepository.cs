@@ -6,6 +6,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace IGL.Infrastructure.Repository.IGLProductRepository
@@ -19,6 +20,26 @@ namespace IGL.Infrastructure.Repository.IGLProductRepository
             baseContext = new IGLContext();
             _connectionString = baseContext.Database.GetDbConnection().ConnectionString;
         }
+
+        public async Task<int> ApprovedSIVCount()
+        {
+            SqlParameter[] sqlParams = { };
+            try
+            {
+                var response = await SqlHelperExtension.ExecuteNonQuery(_connectionString, SqlConstant.ProcGetApprovedSIVCount, System.Data.CommandType.StoredProcedure, sqlParams);
+                return response;
+            }
+            catch(Exception ex)
+            {
+                return -1;
+            }
+        }
+
+        public Task<List<ApprovedSIVDetail>> GetSIVApprovedDetail()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<(int responseStatus, string responseMessage)> InsertIGLProduct(IGLProduct modelEntity)
         {
             SqlParameter[] sqlParams = {
@@ -29,7 +50,7 @@ namespace IGL.Infrastructure.Repository.IGLProductRepository
             };
             try {
                 var response = await SqlHelperExtension.ExecuteNonQuery(_connectionString, SqlConstant.ProcInsertIGLProduct, System.Data.CommandType.StoredProcedure, sqlParams);
-                return response == 1 ? (response, "Inserted") : (0, "Exception");
+                return response >=1 ? (response, "Inserted") : (0, "Exception");
             }
             catch(Exception ex)
             {

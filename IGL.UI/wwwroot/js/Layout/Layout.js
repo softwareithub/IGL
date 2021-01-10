@@ -7,5 +7,9 @@
     },
     "Fn_Success": function (response) {
         alertify.success(response);
+    },
+    "Fn_MasterSearch": function () {
+        $("#IGLMasterSearch").modal('show');
     }
+
 };

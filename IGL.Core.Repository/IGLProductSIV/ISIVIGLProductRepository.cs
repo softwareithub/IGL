@@ -9,5 +9,7 @@ namespace IGL.Core.Repository.IGLProductSIV
     public interface ISIVIGLProductRepository
     {
         Task<(int responseStatus, string responseMessage)> InsertIGLProduct(IGLProduct modelEntity);
+        Task<int> ApprovedSIVCount();
+        Task<List<ApprovedSIVDetail>> GetSIVApprovedDetail();
     }
 }
