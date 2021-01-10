@@ -3,6 +3,17 @@
         $("#sivCreateContainer").addClass('ajaxLoding');
         $.get("/SIVMaster/CreateSIV", { sivStatus: status}, function (data) {
             $("#divSIVDetails").html(data);
+            if (status == 0) {
+                $("#divStoreInward").html("Create Store Inward Voucher");
+                $("#btnApprove").attr("style", "display:none");
+                $("#btnSave").removeAttr("style");
+               
+            } else {
+                $("#divStoreInward").html("Approve Store Inward Voucher");
+                $("#btnSave").attr("style", "display:none");
+                $("#btnApprove").removeAttr("style");
+            }
+          
         }).done(function () {
             $("#sivCreateContainer").removeClass('ajaxLoding');
         })

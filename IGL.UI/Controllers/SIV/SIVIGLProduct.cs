@@ -29,6 +29,7 @@ namespace IGL.UI.Controllers.SIV
         }
         public async Task<IActionResult> InsertIGLProduct(IGLProduct modelEntity)
         {
+            modelEntity.Quantity = 1;
             var response =await iIGLProductService.InsertIGLProduct(modelEntity);
             return Json(response.responseMessage);
         }

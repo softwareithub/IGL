@@ -14,7 +14,8 @@ namespace IGL.Core.Entities.CoreContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server= LAPTOP-S2ID88VA\\SQLEXPRESS; Database= IGL_Development; persist security info=True; Integrated Security = SSPI; ");
+            
+            optionsBuilder.UseSqlServer("Server= DESKTOP-SF1G3N8\\VIPRAIT; Database= IGL_Development; User Id=sa;Password = vi@pra91");
         }
 
         public DbSet<UnitMaster> UnitMasters { get; set; }
