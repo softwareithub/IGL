@@ -13,5 +13,6 @@ namespace IGL.Infrastructure.Repository.SqlHelper
         public static string ProcGetProductTransactionStatusReport = @"Proc_GetProductTransactionStatusReport";
         public static string ProcGetIssueProduct = @"usp_GetIssueProduct";
         public static string ProcGetLowQuantityProductReport = @"Proc_LowQuantityProductReport";
+        public static string ProcInsertIGLProduct = @"usp_UpsertIGLItems";
     }
 }

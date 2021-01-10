@@ -7,10 +7,29 @@
         SIV Detail
     </h1>
 </section>
-<section class="content container-fluid">
+<section class="content container-fluid" id="sivCreateContainer">
     <section class="content">
-        <div class="row" id="divSIVDetails">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel with-nav-tabs panel-default">
+                    <div class="panel-heading">
+                        <ul class="nav nav-tabs" id="poStatusLi">
+                            <li class="active"><a href="javascript:void(0)" onclick="sivDetails.Fn_CreateSiv(0)" data-toggle="tab"><b>Create SIV (Store Inward Voucher)</b></a></li>
+                            <li><a href="javascript:void(0)" onclick="sivDetails.Fn_CreateSiv(1)" data-toggle="tab"><b>Approve SIV (Store Inward Voucher)</b></a></li>
+                        </ul>
+
+                    </div>
+                    <div class="panel-body">
+                        <div class="tab-content">
+                            <div class="row" id="divSIVDetails">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+ 
+        
     </section>
     @await Html.PartialAsync("~/Views/Shared/IGLCommanModal.cshtml")
 </section>

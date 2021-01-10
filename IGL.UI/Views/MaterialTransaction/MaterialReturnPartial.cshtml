@@ -1,14 +1,13 @@
-﻿@model IEnumerable<IGL.Core.Entities.ProductTransaction.ProductIssueDetail>
+﻿@model IEnumerable<IGL.Core.Entities.Transaction.MaterialReturnDetail>
 
     <div class="col-xs-12">
         <div class="col-md-4 form-group">
-            <label class="control-label">Employee Name</label>
-            <span>@Model.First().EmployeeName</span>
+            <input type="hidden" id="_hdEmployeeName" value="@Model.GroupBy(x => x.Id).First().First().EmployeeName" />
         </div>
 
         <div class="col-md-4 form-group">
-            <label class="control-label">Issue Date :</label>
-            <span>@Model.First().TransactionDate</span>
+            <input type="hidden" id="_hdIssueDate" value="@Model.GroupBy(x=>x.Id).First().First().SlipDate.ToShortDateString()" />
+            <input type="hidden" name="slipNumber" value="@Model.GroupBy(x=>x.Id).First().First().SlipNumber" />
         </div>
 
         <div class="col-xs-12">
@@ -17,7 +16,8 @@
                     <tr>
                         <th>Product Name</th>
                         <th>Item Number</th>
-                        <th>Quantity</th>
+                        <th>Issue Quantity</th>
+                        <th>Return Quantity</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -26,12 +26,15 @@
                         int maxValue = Convert.ToInt32(data.Quantity);
                         <tr>
                             <td>
-                                <input type="hidden" name="matId" value="@data.Id" />
+                                <input type="hidden" name="matId" value="@data.ProductId" />
                                 @data.ProductName
                             </td>
                             <td>
-                                <input type="hidden" name="ItemNumber" value="@data.ItemNumber" />
+                                <input type="hidden" name="ItemNumber" value="@data.UniqueItemId" />
                                 @data.ItemNumber
+                            </td>
+                            <td>
+                                @data.Quantity
                             </td>
                             <td>
                                 <input type="number" name="qty" onblur="CheckNo(this,@data.Quantity)" class="form-control" value="@data.Quantity" />
@@ -44,3 +47,11 @@
         </div>
     </div>
     
+<script type="text/javascript">
+    $(document).ready(function () {
+        var employeeName = $("#_hdEmployeeName").val();
+        var issueDate = $("#_hdIssueDate").val();
+        $("#employeeName").val(employeeName);
+        $("#issueDate").val(issueDate);
+    });
+</script>

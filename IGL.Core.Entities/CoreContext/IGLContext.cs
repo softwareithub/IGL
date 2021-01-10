@@ -6,9 +6,7 @@ using IGL.Core.Entities.SIV;
 using IGL.Core.Entities.StoreMaster;
 using IGL.Core.Entities.Transaction;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
+
 
 namespace IGL.Core.Entities.CoreContext
 {
@@ -16,7 +14,7 @@ namespace IGL.Core.Entities.CoreContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server= DESKTOP-SF1G3N8\\VIPRAIT; Database= IGLDevelopment; User Id=sa;Password = vi@pra91");
+            optionsBuilder.UseSqlServer("Server= LAPTOP-S2ID88VA\\SQLEXPRESS; Database= IGL_Development; persist security info=True; Integrated Security = SSPI; ");
         }
 
         public DbSet<UnitMaster> UnitMasters { get; set; }

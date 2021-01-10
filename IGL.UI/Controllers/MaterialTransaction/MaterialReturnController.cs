@@ -27,14 +27,26 @@ namespace IGL.UI.Controllers.MaterialTransaction
 
         public async Task<IActionResult> GetProductIssueDetail(int id)
         {
-            var model = await _IProductReturnService.GetProductIssueDetail(id);
+            var model = await _IProductReturnService.GetMaterialIssueDetail(id);
             return PartialView("~/Views/MaterialTransaction/MaterialReturnPartial.cshtml", model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> ProductReturn(string [] matId,string [] ItemNumber, string [] qty,int slipNumber)
+        public async Task<IActionResult> ProductReturn(string [] matId,string [] ItemNumber, string [] qty,string slipNumber)
         {
-
+            var models = new List<MaterialReturn>();
+            for(int i=0; i<matId.Count();i++)
+            {
+                var model = new MaterialReturn();
+                model.ProductId = Convert.ToInt32(matId[i]);
+                model.UniqueItemId =Convert.ToInt32(ItemNumber[i].ToString()??"0");
+                model.Quantity = Convert.ToDecimal(qty[i]);
+                model.SlipNumber = slipNumber;
+                model.TransactionType = "Return";
+                model.TransactionDate = DateTime.Now;
+                models.Add(model);
+            }
+            var response = await _IProductReturnService.MaterialReturn(models);
             return Json("");
         }
     }

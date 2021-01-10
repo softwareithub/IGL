@@ -13,8 +13,16 @@
         poDetail.Fn_GetPOList();
         customAjax.Fn_SubmitSuccess(response);
     },
-    "Fn_GetPOList": function () {
-        customAjax.Fn_CommanGet("/PurchaseOrder/GetPOList", "#divPurchaseOrder", "#IGLDataTable")
+    "Fn_GetPOList": function (status = 1) {
+        $("#divPurchaseOrderConatiner").addClass('ajaxLoading');
+        $.get("/PurchaseOrder/GetPOList", { poStatus: status }, function (data) {
+            $("#divPurchaseOrder").html(data);
+        }).catch((error) => {
+            console.log(error);
+        }).done(function () {
+            $("#divPurchaseOrderConatiner").removeClass('ajaxLoading');
+        });
+        
     },
     "Fn_AddMaterialToPo": function () {
         var message = "Item Added !!!";

@@ -1,0 +1,96 @@
+﻿@model IGL.Core.Entities.SIV.IGLProduct
+@{
+    ViewData["Title"] = "SIV IGL Product";
+}
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<section class="content-header">
+    <h1>
+        SIV IGL Product Detail
+    </h1>
+</section>
+<section class="content container-fluid">
+    <section class="content" id="divSivProduct">
+        <form id="form" method="post" data-ajax="true" data-ajax-method="post"
+              asp-action="InsertIGLProduct" asp-controller="SIVIGLProduct" data-ajax-success="Fn_Success"
+              data-ajax-begin="customAjax.Fn_SubmitBegin(divSivProduct)" data-ajax-complete="customAjax.Fn_SubmitComplete(divSivProduct)">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Store Inward Voucher</h3>
+                        </div>
+                        <div class="box-body">
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-4 form-group">
+                                        <input type="hidden" asp-for="Id" />
+                                        <label class="control-label"> Store</label>
+                                        <select asp-for="StoreId" class="form-control" asp-items="@(new SelectList(ViewBag.StoreList,"Id","StoreName"))">
+                                            <option value="">Select</option>
+                                        </select>
+                                        <span asp-validation-for="StoreId"></span>
+                                    </div>
+                                    <div class="col-md-4 form-group">
+                                        <label class="control-label"> Product (IGL)</label>
+                                        <select asp-for="MaterialId" class="form-control" asp-items="@(new SelectList(ViewBag.ProductList,"Id","Name"))">
+                                            <option value="">Select</option>
+                                        </select>
+                                        <span asp-validation-for="MaterialId"></span>
+                                    </div>
+                                    <div class="col-md-4 form-group">
+                                        <label class="control-label">Item Number</label>
+                                        <input type="text" class="form-control" asp-for="ItemNumber" />
+                                        <span asp-validation-for="ItemNumber"></span>
+                                    </div>
+                                    <div class="col-md-4 form-group">
+                                        <label class="control-label"> Quantity</label>
+                                        <input type="text" class="form-control" asp-for="Quantity" />
+                                        <span asp-validation-for="Quantity"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <div id="divPoItems">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <div class="col-sm-12">
+                                <div class="col-sm-8" id="divButtons">
+                                    <div id="btnSave">
+                                        <button type="submit" name="Save" class="btn btn-primary pull-right" value="Save" id="btnSave">
+                                            <i class="fa fa-download"> &nbsp;&nbsp;Save</i>
+                                        </button>
+                                    </div>
+                                    <div id="btnApprove" style="display:none">
+                                        <button type="submit" name="Save" class="btn btn-info pull-right" value="Approve" id="btnSave">
+                                            <i class="fa fa-angle-left"> &nbsp;&nbsp;Approve</i>
+                                        </button>
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="reset" class="btn btn-warning" value="reset">
+                                        <i class="fa fa-refresh">&nbsp;&nbsp;Reset</i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </section>
+    @await Html.PartialAsync("~/Views/Shared/IGLCommanModal.cshtml")
+</section>
+<environment include="Development">
+    <script src="~/js/SIV/SIVProduct.js"></script>
+</environment>
+<environment include="Production">
+    <script src="~/js/SIV/SIVProduct.js"></script>
+</environment>
