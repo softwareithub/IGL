@@ -22,6 +22,13 @@
             $("#IGLCommanModal").modal('show');
             $("#modalTitle").text("Assign Product Number To Each Product.")
         })
+    },
+    "Fn_GetProductCostDetail": function (productId,productName) {
+        $.get("/MaterialMaster/GetProductPriceDetail", { productId: productId }, function (data) {
+            $("#IGLCommanModal").modal('show');
+            $("#divCommanModalPartial").html(data);
+            $("#modalTitle").html("Price Detail for Product (" + productName + ")");
+        })                      
     }
 };
 

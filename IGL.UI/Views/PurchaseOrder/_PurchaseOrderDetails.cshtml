@@ -59,17 +59,13 @@
 
                                     @if (poStatus == "poapproved")
                                     {
-                                        <a class="btn btn-success" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'  style='color:#DD4B39'></i>" onclick="poDetail.Fn_EditPO(@data.Key, this)">
-                                            <b>Download Po </b>
-                                        </a>
-                                        <a class="btn btn-success pull-right" asp-action="Index" asp-controller="SIVMaster" asp-route-poId="@data.First().PoId">
-                                            <b>Create SIV</b>
-                                        </a>
+                                        <a  onclick="poDetail.Fn_EditPO(@data.Key, this)">Download </a> <span>|</span> 
+                                        <a  asp-action="Index" asp-controller="SIVMaster" asp-route-poId="@data.First().PoId">Create SIV</a>
                                     }
 
                                     @if (poStatus == "sivcreated")
                                     {
-                                        <a class="btn btn-success pull-right">
+                                        <a href="/SIVMaster/Index">
                                             <b>Approve SIV</b>
                                         </a>
                                     }

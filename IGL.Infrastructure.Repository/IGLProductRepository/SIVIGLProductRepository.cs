@@ -26,8 +26,8 @@ namespace IGL.Infrastructure.Repository.IGLProductRepository
             SqlParameter[] sqlParams = { };
             try
             {
-                var response = await SqlHelperExtension.ExecuteNonQuery(_connectionString, SqlConstant.ProcGetApprovedSIVCount, System.Data.CommandType.StoredProcedure, sqlParams);
-                return response;
+                var response = await SqlHelperExtension.ExecuteScalar(_connectionString, SqlConstant.ProcGetApprovedSIVCount, System.Data.CommandType.StoredProcedure, sqlParams);
+                return Convert.ToInt32(response);
             }
             catch(Exception ex)
             {
@@ -35,9 +35,29 @@ namespace IGL.Infrastructure.Repository.IGLProductRepository
             }
         }
 
-        public Task<List<ApprovedSIVDetail>> GetSIVApprovedDetail()
+        public async Task<List<ApprovedSIVDetail>> GetSIVApprovedDetail()
         {
-            throw new NotImplementedException();
+            SqlParameter[] sqlParams = { };
+            var models = new List<ApprovedSIVDetail>();
+
+            try {
+                var reader = await SqlHelperExtension.ExecuteReader(_connectionString, "usp_GetApprovedSIVDateWise", System.Data.CommandType.StoredProcedure, sqlParams);
+                while(reader.Read())
+                {
+                    var model = new ApprovedSIVDetail();
+                    model.PoDate = reader.DefaultIfNull<DateTime>("PODate");
+                    model.PoNumber = reader.DefaultIfNull<string>("PONumber");
+                    model.VendorName = reader.DefaultIfNull<string>("VendorName");
+                    model.vendorEmail = reader.DefaultIfNull<string>("VendorEmail");
+                    model.VendorPhone = reader.DefaultIfNull<string>("VendorPhone");
+                    model.VendorType = reader.DefaultIfNull<string>("VendorType");
+                    models.Add(model);
+                }
+                return models;
+            }
+            catch (Exception ex) {
+                return models;
+            }
         }
 
         public async Task<(int responseStatus, string responseMessage)> InsertIGLProduct(IGLProduct modelEntity)

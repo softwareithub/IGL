@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using IGL.Core.Entities.Transaction;
 using IGL.Core.Service.GenericService;
 using IGL.Core.Service.MaterialDetail;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IGL.UI.Controllers.MaterialTransaction
@@ -27,6 +28,7 @@ namespace IGL.UI.Controllers.MaterialTransaction
 
         public async Task<IActionResult> GetProductIssueDetail(int id)
         {
+            HttpContext.Session.SetInt32("TransactionId", id);
             var model = await _IProductReturnService.GetMaterialIssueDetail(id);
             return PartialView("~/Views/MaterialTransaction/MaterialReturnPartial.cshtml", model);
         }
@@ -38,6 +40,7 @@ namespace IGL.UI.Controllers.MaterialTransaction
             for(int i=0; i<matId.Count();i++)
             {
                 var model = new MaterialReturn();
+                model.Id = Convert.ToInt32(HttpContext.Session.GetInt32("TransactionId"));
                 model.ProductId = Convert.ToInt32(matId[i]);
                 model.UniqueItemId =Convert.ToInt32(ItemNumber[i].ToString()??"0");
                 model.Quantity = Convert.ToDecimal(qty[i]);

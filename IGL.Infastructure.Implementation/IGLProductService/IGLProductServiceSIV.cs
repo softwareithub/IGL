@@ -18,12 +18,12 @@ namespace IGL.Infastructure.Service.IGLProductService
 
         public async Task<int> ApprovedSIVCount()
         {
-            throw new NotImplementedException();
+            return await _sivIGLProductRepository.ApprovedSIVCount();
         }
 
-        public Task<List<ApprovedSIVDetail>> GetSIVApprovedDetail()
+        public async Task<List<ApprovedSIVDetail>> GetSIVApprovedDetail()
         {
-            throw new NotImplementedException();
+            return await _sivIGLProductRepository.GetSIVApprovedDetail();
         }
 
         public async Task<(int responseStatus, string responseMessage)> InsertIGLProduct(IGLProduct modelEntity)

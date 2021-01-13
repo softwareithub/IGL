@@ -1,0 +1,50 @@
+﻿@model IEnumerable<IGL.Core.Entities.Master.RateMaster>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Product Rate List</h3>
+            </div>
+            <div class="box-body">
+                <table id="IGLDataTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Price</th>
+                            <th>From Date</th>
+                            <th>ToDate</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var data in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @data.Rate
+                                </td>
+                                <td>
+                                    @data.FromDate.ToShortDateString()
+                                </td>
+                                <th>
+                                    @if (data.ToDate == null)
+                                    {
+                                        <span style="color:darkblue">
+                                            Till Date
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        @data.ToDate
+                                    }
+
+                                </th>
+
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

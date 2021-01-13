@@ -33,5 +33,15 @@ namespace IGL.UI.Controllers.SIV
             var response =await iIGLProductService.InsertIGLProduct(modelEntity);
             return Json(response.responseMessage);
         }
+        public async Task<IActionResult> GetApprovedSIVDetails()
+        {
+            var response = await iIGLProductService.GetSIVApprovedDetail();
+            return PartialView("~/Views/SIV/SIVDetailListPartial.cshtml", response);
+        }
+        public async Task<IActionResult> GetApprovedSIVCount()
+        {
+            var response = await iIGLProductService.ApprovedSIVCount();
+            return Json(response);
+        }
     }
 }

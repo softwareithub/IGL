@@ -302,7 +302,7 @@ namespace IGL.UI.Controllers.SIV
                     int productId = Convert.ToInt32(matId[i]);
                     var prdDetail = productDetails.ToList().Where(z => z.Id == productId).FirstOrDefault();
                     prdDetail.OpeningQuantity += Convert.ToInt32(qty[i]);
-                    prdDetail.PerUnitCost = Convert.ToDecimal(price);
+                    prdDetail.PerUnitCost = Convert.ToDecimal(price[i]);
                     productList.Add(prdDetail);
                 }
 

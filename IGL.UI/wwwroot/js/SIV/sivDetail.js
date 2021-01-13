@@ -47,7 +47,6 @@
             $("#divPoItems").html(data);
         });
     },
-
     "Fn_Success": function (response) {
         alertify.success(response);
         sivDetails.Fn_CreateSiv();
@@ -66,12 +65,24 @@
     "Fn_UpdateTotalPrice": function (eData, unitPrice, id) {
         var totalPrice = parseFloat($(eData).val()) * parseFloat(unitPrice);
         $("#" + id).text(totalPrice);
+    },
+    "Fn_ApproveSIVCount": function () {
+        $.get("/SIVIGLProduct/GetApprovedSIVCount", function (data) {
+            $("#sivApproveCount").html(data);
+        });
+    },
+    "Fn_ApproveSIVDetail": function () {
+        $.get("/SIVIGLProduct/GetApprovedSIVDetails", function (data) {
+            $("#divSIVDetails").html(data);
+        });
+
     }
 
 };
 
 $(document).ready(function () {
     sivDetails.Fn_CreateSiv(0);
+    sivDetails.Fn_ApproveSIVCount();
 })
 
 

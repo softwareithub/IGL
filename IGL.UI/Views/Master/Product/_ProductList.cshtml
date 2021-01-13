@@ -74,6 +74,7 @@
                                     <a class="btn btn-outline-success pull-right" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'  style='color:#DD4B39'></i>" onclick="productDetail.Fn_EditProductMaster(@data.Id, this)">
                                         <i class="fa fa-edit" style="color:#3C8DBC"></i>
                                     </a>
+                                    <a href="javascript:void(0)" onclick="productDetail.Fn_GetProductCostDetail(@data.Id, '@data.MaterialName')">Cost History</a>
                                 </td>
                             </tr>
                         }

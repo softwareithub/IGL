@@ -19,6 +19,7 @@ namespace IGL.UI.Controllers.Master
         private readonly IGenericService<UnitMaster, int> _IUnitMasterService;
         private readonly IGenericService<ProductTransactionDetail, int> _IProductTransactionService;
         private readonly IGenericService<RateMaster, int> _IRateMasterService;
+        
         public MaterialMasterController(IGenericService<MaterialMaster, int> _matetialService, IGenericService<UnitMaster, int> _unitMasterService, IGenericService<ProductTransactionDetail, int> productTransactionService, IGenericService<RateMaster, int> rateMasterService)
         {
             _IMaterialMasterService = _matetialService;
@@ -168,6 +169,12 @@ namespace IGL.UI.Controllers.Master
             model.ToDate = null;
             var createResponse = await _IRateMasterService.CreateEntity(model);
             return createResponse == Core.Comman.Comman.ResponseMessage.AddedSuccessfully ? true : false;
+        }
+
+        public async Task<IActionResult> GetProductPriceDetail(int productId)
+        {
+            var response = (await _IRateMasterService.GetList(x => x.IsActive == 1 && x.IsDeleted == 0)).ToList();
+            return PartialView("~/Views/Master/Product/_ProductRateDetailPartial.cshtml", response.Where(x=>x.ProductId==productId).ToList());
         }
     }
 }
