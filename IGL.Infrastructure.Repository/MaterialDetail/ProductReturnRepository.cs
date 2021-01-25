@@ -127,6 +127,7 @@ namespace IGL.Infrastructure.Repository.MaterialDetail
                 model.UnitName = reader.DefaultIfNull<string>("UnitName");
                 model.TotalPrice = reader.DefaultIfNull<decimal>("TotalPrice");
                 model.SlipNumber = reader.DefaultIfNull<string>("SlipNumber");
+                model.UnitPrice = reader.DefaultIfNull<decimal>("UnitPrice");
 
                 models.Add(model);
             }

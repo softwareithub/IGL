@@ -19,6 +19,9 @@
                     <div class="box box-primary">
                         <div class="box-header with-border">
                             <h3 class="box-title">Store Inward Voucher</h3>
+                            <button type="button" class="btn btn-primary pull-right" onclick="GetPoWiseProduct()">
+                                <i class="fa fa-list"> &nbsp;&nbsp;List</i>
+                            </button>
                         </div>
                         <div class="box-body">
 
@@ -32,6 +35,10 @@
                                         </select>
                                         <span asp-validation-for="StoreId"></span>
                                     </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label">Po Number</label>
+                                        <input type="text" class="form-control" asp-for="PoNumber" />
+                                    </div>
                                     <div class="col-md-4 form-group">
                                         <label class="control-label"> Product (IGL)</label>
                                         <select asp-for="MaterialId" class="form-control" asp-items="@(new SelectList(ViewBag.ProductList,"Id","Name"))">
@@ -40,14 +47,11 @@
                                         <span asp-validation-for="MaterialId"></span>
                                     </div>
                                     <div class="col-md-4 form-group">
-                                        <label class="control-label">Item Number</label>
-                                        <input type="text" class="form-control" asp-for="ItemNumber" />
-                                        <span asp-validation-for="ItemNumber"></span>
+                                        <label class="control-label">Item Quantity (Number of Item need to insert.)</label>
+                                        <input type="number" id="quantity" onchange="CreateItems()" class="form-control" />
                                     </div>
-                                    <div class="col-md-4 form-group">
-                                        <label class="control-label"> Quantity</label>
-                                        <input type="text" value="1" disabled="disabled" class="form-control" asp-for="Quantity" />
-                                        <span asp-validation-for="Quantity"></span>
+                                    <div id="divItemNumber">
+
                                     </div>
                                 </div>
 

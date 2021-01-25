@@ -22,6 +22,7 @@ namespace IGL.Core.Entities.Master
         [StringLength(20, ErrorMessage = "Confirm Password must be at least {2} characters long.", MinimumLength = 6)]
         [Compare("Password", ErrorMessage = "Password mismatch")]
         [DataType(DataType.Password)]
+        [Display(Prompt ="Confirm Password")]
         public string ConfirmPassword { get; set; }
 
         [Required(ErrorMessage = "Please Enter Name.")]
@@ -39,7 +40,9 @@ namespace IGL.Core.Entities.Master
         [RegularExpression(@"^[0-9]*$", ErrorMessage = "Character and space are not allowed.")]
         [MaxLength(15, ErrorMessage = "Invalid Phone Number.")]
         [MinLength(10, ErrorMessage = "Invalid Phone Number.")]
+        [Display(Prompt ="Phone Number")]
         public string Phone { get; set; }
+        [Display(Prompt ="Address")]
         public string Address { get; set; }
 
         [Required(ErrorMessage = "Please Select Role.")]

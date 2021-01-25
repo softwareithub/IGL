@@ -15,5 +15,6 @@ namespace IGL.Core.Entities.SIV
         [Required(ErrorMessage ="Product quantity is required.")]
         public decimal Quantity { get; set; }
         public int StoreId { get; set; }
+        public string PoNumber { get; set; }
     }
 }

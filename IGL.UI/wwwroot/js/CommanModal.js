@@ -1,7 +1,26 @@
 ﻿var modalPop = {
     "fn_close": function (id) {
-        if (confirm("Are you sure want to Close the Pop Up")) {
-            $("#" + id).modal('hide');
-        }
+
+        $.confirm({
+            title: 'Confirm!',
+            content: 'Are you sure want Leave, and close the PopUp.',
+            buttons: {
+                Ok: {
+                    title: 'Ok',
+                    btnClass:'btn-success',
+                    action: function () {
+                        $("#" + id).modal('hide');
+                    },
+                    btnClass: 'btn-primary',
+                  
+                },
+                Cancel: {
+                    text: 'Cancel',
+                    btnClass: 'btn-warning',
+                    action: function () {
+                    }
+                }
+            }
+        });
     }
 }

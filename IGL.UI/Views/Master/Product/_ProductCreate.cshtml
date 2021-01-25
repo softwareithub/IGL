@@ -11,7 +11,7 @@
             <div class="col-md-4 form-group">
                 <input type="hidden" asp-for="Id" />
                 <label class="control-label"> Name</label>
-                <input asp-for="Name" class="form-control" />
+                <input asp-for="Name" class="form-control" onchange="productDetail.Fn_IsProductExists(this)" />
                 <span asp-validation-for="Name"></span>
             </div>
             <div class="col-md-4 form-group">

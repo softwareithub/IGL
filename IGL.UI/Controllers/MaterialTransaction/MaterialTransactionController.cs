@@ -75,7 +75,7 @@ namespace IGL.UI.Controllers.MaterialTransaction
                               TransactionDate = TM.TransactionDate,
                               TransactionType = TM.TransactionType,
                               SlipNumber = TM.SlipNumber
-                          }).ToList();
+                          }).OrderByDescending(x=>x.Id).ToList();
             return PartialView("~/Views/MaterialTransaction/_MaterialTransactionDetailPartial.cshtml", models);
         }
 
@@ -101,7 +101,7 @@ namespace IGL.UI.Controllers.MaterialTransaction
                 itemModels.Add(item);
             }
             var response = await _productReturnService.CreateMaterialIssue(model, itemModels);
-            var responseMessage= response.responseStatus == 1 ? Message.configuration["DataSaved"] : Message.configuration["CommonError"];
+            var responseMessage= response.responseStatus == 1 ? "Material Issue Created" : "Error in Material Issue creation.";
             return Json(responseMessage);
         }
 

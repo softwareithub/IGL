@@ -31,6 +31,7 @@
                             <th>Material Name</th>
                             <th>Material Code</th>
                             <th>Unit</th>
+                            <th>Per Unit Cost</th>
                             <th>Quantity</th>
                             <th>Total Price</th>
                             <th>Remarks</th>
@@ -55,10 +56,13 @@
                                         @data.Data.UnitName
                                     </td>
                                     <td>
+                                        @data.Data.UnitPrice
+                                    </td>
+                                    <td>
                                         @data.Data.Quantity
                                     </td>
                                     <td>
-                                        @data.Data.TotalPrice
+                                       @Math.Round(@data.Data.TotalPrice,2)
                                     </td>
                                     <td>
                                         @data.Data.Remarks

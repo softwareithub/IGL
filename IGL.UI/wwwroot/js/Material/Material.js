@@ -29,6 +29,17 @@
             $("#divCommanModalPartial").html(data);
             $("#modalTitle").html("Price Detail for Product (" + productName + ")");
         })                      
+    },
+    "Fn_IsProductExists": function (eval) {
+        if ($("#Id").val() == "") {
+            $.get("/MaterialMaster/IsProductExists", { productName: $(eval).val() }, function (data) {
+                if (data == 1) {
+                    alert("Product with name " + $(eval).val() + "   is already exists.")
+                    $(eval).val('');
+                }
+            });
+        }
+       
     }
 };
 

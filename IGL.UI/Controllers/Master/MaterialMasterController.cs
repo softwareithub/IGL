@@ -19,7 +19,7 @@ namespace IGL.UI.Controllers.Master
         private readonly IGenericService<UnitMaster, int> _IUnitMasterService;
         private readonly IGenericService<ProductTransactionDetail, int> _IProductTransactionService;
         private readonly IGenericService<RateMaster, int> _IRateMasterService;
-        
+
         public MaterialMasterController(IGenericService<MaterialMaster, int> _matetialService, IGenericService<UnitMaster, int> _unitMasterService, IGenericService<ProductTransactionDetail, int> productTransactionService, IGenericService<RateMaster, int> rateMasterService)
         {
             _IMaterialMasterService = _matetialService;
@@ -89,14 +89,14 @@ namespace IGL.UI.Controllers.Master
                 return Json(ResponseHelper.GetResponseMessage(updateResponse));
             }
 
-            
+
         }
 
         public async Task<IActionResult> AssignProductNumber(int ProductId, int count)
         {
             ViewBag.prodId = ProductId;
             ViewBag.prodCount = count;
-            
+
             var models = await _IProductTransactionService.GetList(x => x.IsActive == 1 && x.MaterialId == ProductId);
 
             if (models.Any())
@@ -152,12 +152,12 @@ namespace IGL.UI.Controllers.Master
 
         }
 
-        private async  Task<bool> UpdateRateMaster(int prodId,decimal price)
+        private async Task<bool> UpdateRateMaster(int prodId, decimal price)
         {
             //Check product exists in RateMaster
             var rateModel = (await _IRateMasterService.GetList(x => x.ProductId == prodId && x.ToDate == null)).FirstOrDefault();
 
-            if(rateModel!=null)
+            if (rateModel != null)
             {
                 rateModel.ToDate = DateTime.Now.Date;
                 var updateResponse = await _IRateMasterService.Update(rateModel);
@@ -174,7 +174,16 @@ namespace IGL.UI.Controllers.Master
         public async Task<IActionResult> GetProductPriceDetail(int productId)
         {
             var response = (await _IRateMasterService.GetList(x => x.IsActive == 1 && x.IsDeleted == 0)).ToList();
-            return PartialView("~/Views/Master/Product/_ProductRateDetailPartial.cshtml", response.Where(x=>x.ProductId==productId).ToList());
+            return PartialView("~/Views/Master/Product/_ProductRateDetailPartial.cshtml", response.Where(x => x.ProductId == productId).ToList());
+        }
+
+        public async Task<IActionResult> IsProductExists(string productName)
+        {
+            var response = await _IMaterialMasterService.GetSingle(x => x.Name.Trim().ToLower() == productName.Trim().ToLower());
+            if (response != null)
+                return Json(1);
+
+            return Json(-1);
         }
     }
 }

@@ -22,7 +22,7 @@ namespace IGL.UI.Controllers.Inventory
             return await Task.Run(()=> View("~/Views/Inventory/VendorIndex.cshtml"));
         }
 
-        public async Task<IActionResult> GetVendorList()
+        public async Task<IActionResult> GetVendorList(string vendorName)
         {
             var models = await _IVendorMasterService.GetList(x => x.IsActive == 1);
             return PartialView("~/Views/Inventory/_VendorListPartial.cshtml", models.OrderByDescending(x => x.Id).ThenBy(x => x.UpdatedDate).ToList());

@@ -78,6 +78,7 @@
                     "responsive": true,
                     "autoWidth": false,
                     "paging": false,
+                    "scrollX": true
                 });
             }, 500)
         });

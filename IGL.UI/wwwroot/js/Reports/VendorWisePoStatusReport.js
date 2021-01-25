@@ -4,11 +4,11 @@
         $("#IGLCommanModal").modal('show');
 
     }).done(function () {
-        $("#IGLPOStatusDetailTable").DataTable();
+        $("#IGLPOStatusDetailTable").DataTable({ "scrollX": true});
     });
 }
 
 $(document).ready(function () {
 
-    $("#IGLDataTable").DataTable();
+    $("#IGLDataTable").DataTable({ "scrollX": true});
 })

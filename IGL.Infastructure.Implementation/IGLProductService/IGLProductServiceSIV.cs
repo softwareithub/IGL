@@ -26,9 +26,19 @@ namespace IGL.Infastructure.Service.IGLProductService
             return await _sivIGLProductRepository.GetSIVApprovedDetail();
         }
 
-        public async Task<(int responseStatus, string responseMessage)> InsertIGLProduct(IGLProduct modelEntity)
+        public async Task<(int responseStatus, string responseMessage)> InsertIGLProduct(List<IGLProduct> modelEntities)
         {
-           return await  _sivIGLProductRepository.InsertIGLProduct(modelEntity);
+           return await  _sivIGLProductRepository.InsertIGLProduct(modelEntities);
+        }
+
+        public async  Task<int> IsExistsItemNumber(string itemnumber)
+        {
+           return  await _sivIGLProductRepository.IsExistsItemNumber(itemnumber);
+        }
+
+        public async Task<List<IGLProductPoWise>> PoWiseIGLProducts()
+        {
+            return await _sivIGLProductRepository.PoWiseIGLProducts();
         }
     }
 }
