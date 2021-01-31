@@ -19,15 +19,15 @@ namespace IGL.Core.Entities.Master
 
         [Required(ErrorMessage = "Please Enter Email Id.")]
         [Display(Prompt = "Email")]
-        [StringLength(20, ErrorMessage = "Email Id Is Too Long")]
+        //[StringLength(20, ErrorMessage = "Email Id Is Too Long")]
         [DataType(DataType.EmailAddress)]
         public string EmailId { get; set; }
 
-        [Required(ErrorMessage = "Please Enter Phone Number")]
-        [RegularExpression(@"^[0-9]*$", ErrorMessage = "Character And Space Are Not Allowed.")]
-        [MaxLength(15, ErrorMessage = "Invalid Phone Number.")]
-        [MinLength(10, ErrorMessage = "Invalid Phone Number.")]
+        //[Required(ErrorMessage = "Please Enter Phone Number")]
+        //[RegularExpression(@"^[0-9]*$", ErrorMessage = "Character And Space Are Not Allowed.")]
+        //[MaxLength(15, ErrorMessage = "Invalid Phone Number.")]
+        //[MinLength(10, ErrorMessage = "Invalid Phone Number.")]
         public string Phone { get; set; }
-        public string Address { get; set; }
+        public string PanNo { get; set; }
     }
 }

@@ -42,7 +42,7 @@ namespace IGL.UI.Controllers.Master
                               EmployeeType = ET.Name,
                               EmailId = ED.EmailId,
                               Phone = ED.Phone,
-                              Address = ED.Address
+                              Address = ED.PanNo
 
                           }).ToList();
             return PartialView("~/Views/Master/Employee/_EmployeeListPartial.cshtml", models);

@@ -11,7 +11,7 @@ namespace IGL.Core.Entities.Master
     public class UnitMaster : BaseClass<int>
     {
         [Required(ErrorMessage ="Unit name is required.")]
-        [StringLength(20,ErrorMessage ="Too Long Name")]
+        [StringLength(50,ErrorMessage ="Too Long Name")]
         public string Name { get; set; }
         public string Code { get; set; }
         public int IsDefault { get; set; }
