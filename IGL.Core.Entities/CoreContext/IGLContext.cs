@@ -15,7 +15,7 @@ namespace IGL.Core.Entities.CoreContext
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             
-            optionsBuilder.UseSqlServer("Server= DESKTOP-SF1G3N8\\VIPRAIT; Database= IGL_Development; User Id=sa;Password = vi@pra91");
+            optionsBuilder.UseSqlServer("Server= 89.163.218.70\\MSSQLSERVER2017; Database= IGL_Development; User Id=igl;Password = Manoj@12345");
         }
 
         public DbSet<UnitMaster> UnitMasters { get; set; }
