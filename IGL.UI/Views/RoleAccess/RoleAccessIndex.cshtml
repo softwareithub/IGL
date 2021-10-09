@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Role Access Detail";
+}
+
+<section class="content-header">
+    <h1>
+        Role Access Detail
+    </h1>
+</section>
+<section class="content container-fluid">
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-4 form-group">
+                    <label>Role Details</label>
+                    <select class="form-control" id="ddlRole" onchange="GetRoleAccess()" asp-items="@(new SelectList(ViewBag.RoleMaster,"Id","RoleName"))">
+                        <option value="0">Select</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="divRoleAccessDetails">
+        </div>
+    </section>
+    @await Html.PartialAsync("~/Views/Shared/IGLCommanModal.cshtml")
+</section>
+
+
+<environment include="Production">
+
+</environment>
+<environment include="Development">
+
+</environment>
+
+<script type="text/javascript">
+    function GetRoleAccess() {
+        $.get("/RoleAccess/GetRoleAccessDetails", { roleId: $("#ddlRole").val() }, function (data) {
+            $("#divRoleAccessDetails").html(data);
+        })
+    }
+
+    function Fn_Success(response) {
+        alert(response);
+    }
+</script>

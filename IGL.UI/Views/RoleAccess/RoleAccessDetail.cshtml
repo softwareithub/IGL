@@ -1,0 +1,65 @@
+﻿@model IEnumerable<IGL.Core.Entities.Master.MenuSubMenuModel>
+@{
+    ViewData["Title"] = "Menu Detail";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Employee Details</h3>
+
+
+            </div>
+
+            <form id="form" method="post" data-ajax="true" data-ajax-method="post"
+                  asp-action="CreateRoleMap" asp-controller="RoleAccess" data-ajax-success="Fn_Success"
+                  data-ajax-begin="customAjax.Fn_SubmitBegin(divModalPopUp)" data-ajax-complete="customAjax.Fn_SubmitComplete(divModalPopUp)">
+                <div class="box-body">
+                    <input type="hidden" value="@ViewBag.roleId" name="roleId"/>
+                    <table id="IGLDataTable" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th> Menu</th>
+                                <th>Sub Menu</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var data in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @data.Menu
+                                    </td>
+                                    <td>
+                                        @data.SubMenu
+                                    </td>
+                                    <td>
+                                        @if (data.IsMapped == 1)
+                                        {
+
+
+                                            <input type="checkbox" value="@data.Id" checked="checked" name="MenuId" />
+                                        }
+                                        else
+                                        {
+                                            <input value="@data.Id" type="checkbox" name="MenuId" />
+                                        }
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+
+                    <div class="row">
+                        <button class="btn btn-success pull-right">Save</button> 
+                    </div>
+                </div>
+                </form>
+        </div>
+    </div>
+</div>
+

@@ -5,6 +5,7 @@ using IGL.Core.Entities.ProductTransaction;
 using IGL.Core.Entities.SIV;
 using IGL.Core.Entities.StoreMaster;
 using IGL.Core.Entities.Transaction;
+using IGL.Core.Entities.UserManagement;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -14,7 +15,7 @@ namespace IGL.Core.Entities.CoreContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            
+
             optionsBuilder.UseSqlServer("Server= 89.163.218.70\\MSSQLSERVER2017; Database= IGL_Development; User Id=igl;Password = Manoj@12345");
         }
 
@@ -37,5 +38,7 @@ namespace IGL.Core.Entities.CoreContext
         public DbSet<SIVMaterialTransaction> SIVMaterialTransactions { get; set; }
         public DbSet<ProductTransactionDetail> ProductTransactionDetails { get; set; }
         public DbSet<RateMaster> RateMasters { get; set; }
+        public DbSet<MenuSubMenuModel> MenuSubMenuModels { get; set; }
+        public DbSet<RoleAccess> RoleAccess { get; set; }
     }
 }

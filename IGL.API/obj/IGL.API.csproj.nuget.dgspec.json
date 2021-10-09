@@ -1,0 +1,617 @@
+{
+  "format": 1,
+  "restore": {
+    "E:\\IGLFolder\\IGL.API\\IGL.API.csproj": {}
+  },
+  "projects": {
+    "E:\\IGLFolder\\IGL.API\\IGL.API.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\IGLFolder\\IGL.API\\IGL.API.csproj",
+        "projectName": "IGL.API",
+        "projectPath": "E:\\IGLFolder\\IGL.API\\IGL.API.csproj",
+        "packagesPath": "C:\\Users\\Bhawesh Deepak\\.nuget\\packages\\",
+        "outputPath": "E:\\IGLFolder\\IGL.API\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Bhawesh Deepak\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "E:\\IGLFolder\\IGL.Core.Comman\\IGL.Core.Comman.csproj": {
+                "projectPath": "E:\\IGLFolder\\IGL.Core.Comman\\IGL.Core.Comman.csproj"
+              },
+              "E:\\IGLFolder\\IGL.Core.Entities\\IGL.Core.Entities.csproj": {
+                "projectPath": "E:\\IGLFolder\\IGL.Core.Entities\\IGL.Core.Entities.csproj"
+              },
+              "E:\\IGLFolder\\IGL.Core.Repository\\IGL.Core.Repository.csproj": {
+                "projectPath": "E:\\IGLFolder\\IGL.Core.Repository\\IGL.Core.Repository.csproj"
+              },
+              "E:\\IGLFolder\\IGL.Core.Service\\IGL.Core.Service.csproj": {
+                "projectPath": "E:\\IGLFolder\\IGL.Core.Service\\IGL.Core.Service.csproj"
+              },
+              "E:\\IGLFolder\\IGL.Core.ViewModelEntities\\IGL.Core.ViewModelEntities.csproj": {
+                "projectPath": "E:\\IGLFolder\\IGL.Core.ViewModelEntities\\IGL.Core.ViewModelEntities.csproj"
+              },
+              "E:\\IGLFolder\\IGL.Infastructure.Implementation\\IGL.Infastructure.Service.csproj": {
+                "projectPath": "E:\\IGLFolder\\IGL.Infastructure.Implementation\\IGL.Infastructure.Service.csproj"
+              },
+              "E:\\IGLFolder\\IGL.Infrastructure.Repository\\IGL.Infrastructure.Repository.csproj": {
+                "projectPath": "E:\\IGLFolder\\IGL.Infrastructure.Repository\\IGL.Infrastructure.Repository.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[5.6.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.303\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\IGLFolder\\IGL.Core.Comman\\IGL.Core.Comman.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\IGLFolder\\IGL.Core.Comman\\IGL.Core.Comman.csproj",
+        "projectName": "IGL.Core.Comman",
+        "projectPath": "E:\\IGLFolder\\IGL.Core.Comman\\IGL.Core.Comman.csproj",
+        "packagesPath": "C:\\Users\\Bhawesh Deepak\\.nuget\\packages\\",
+        "outputPath": "E:\\IGLFolder\\IGL.Core.Comman\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Bhawesh Deepak\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "E:\\IGLFolder\\IGL.Core.Entities\\IGL.Core.Entities.csproj": {
+                "projectPath": "E:\\IGLFolder\\IGL.Core.Entities\\IGL.Core.Entities.csproj"
+              },
+              "E:\\IGLFolder\\IGL.Core.ViewModelEntities\\IGL.Core.ViewModelEntities.csproj": {
+                "projectPath": "E:\\IGLFolder\\IGL.Core.ViewModelEntities\\IGL.Core.ViewModelEntities.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.303\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\IGLFolder\\IGL.Core.Entities\\IGL.Core.Entities.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\IGLFolder\\IGL.Core.Entities\\IGL.Core.Entities.csproj",
+        "projectName": "IGL.Core.Entities",
+        "projectPath": "E:\\IGLFolder\\IGL.Core.Entities\\IGL.Core.Entities.csproj",
+        "packagesPath": "C:\\Users\\Bhawesh Deepak\\.nuget\\packages\\",
+        "outputPath": "E:\\IGLFolder\\IGL.Core.Entities\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Bhawesh Deepak\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[3.1.8, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.8, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.303\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\IGLFolder\\IGL.Core.Repository\\IGL.Core.Repository.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\IGLFolder\\IGL.Core.Repository\\IGL.Core.Repository.csproj",
+        "projectName": "IGL.Core.Repository",
+        "projectPath": "E:\\IGLFolder\\IGL.Core.Repository\\IGL.Core.Repository.csproj",
+        "packagesPath": "C:\\Users\\Bhawesh Deepak\\.nuget\\packages\\",
+        "outputPath": "E:\\IGLFolder\\IGL.Core.Repository\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Bhawesh Deepak\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "E:\\IGLFolder\\IGL.Core.Comman\\IGL.Core.Comman.csproj": {
+                "projectPath": "E:\\IGLFolder\\IGL.Core.Comman\\IGL.Core.Comman.csproj"
+              },
+              "E:\\IGLFolder\\IGL.Core.Entities\\IGL.Core.Entities.csproj": {
+                "projectPath": "E:\\IGLFolder\\IGL.Core.Entities\\IGL.Core.Entities.csproj"
+              },
+              "E:\\IGLFolder\\IGL.Core.ViewModelEntities\\IGL.Core.ViewModelEntities.csproj": {
+                "projectPath": "E:\\IGLFolder\\IGL.Core.ViewModelEntities\\IGL.Core.ViewModelEntities.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.8, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.8, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.303\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\IGLFolder\\IGL.Core.Service\\IGL.Core.Service.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\IGLFolder\\IGL.Core.Service\\IGL.Core.Service.csproj",
+        "projectName": "IGL.Core.Service",
+        "projectPath": "E:\\IGLFolder\\IGL.Core.Service\\IGL.Core.Service.csproj",
+        "packagesPath": "C:\\Users\\Bhawesh Deepak\\.nuget\\packages\\",
+        "outputPath": "E:\\IGLFolder\\IGL.Core.Service\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Bhawesh Deepak\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "E:\\IGLFolder\\IGL.Core.Comman\\IGL.Core.Comman.csproj": {
+                "projectPath": "E:\\IGLFolder\\IGL.Core.Comman\\IGL.Core.Comman.csproj"
+              },
+              "E:\\IGLFolder\\IGL.Core.Entities\\IGL.Core.Entities.csproj": {
+                "projectPath": "E:\\IGLFolder\\IGL.Core.Entities\\IGL.Core.Entities.csproj"
+              },
+              "E:\\IGLFolder\\IGL.Core.ViewModelEntities\\IGL.Core.ViewModelEntities.csproj": {
+                "projectPath": "E:\\IGLFolder\\IGL.Core.ViewModelEntities\\IGL.Core.ViewModelEntities.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.303\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\IGLFolder\\IGL.Core.ViewModelEntities\\IGL.Core.ViewModelEntities.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\IGLFolder\\IGL.Core.ViewModelEntities\\IGL.Core.ViewModelEntities.csproj",
+        "projectName": "IGL.Core.ViewModelEntities",
+        "projectPath": "E:\\IGLFolder\\IGL.Core.ViewModelEntities\\IGL.Core.ViewModelEntities.csproj",
+        "packagesPath": "C:\\Users\\Bhawesh Deepak\\.nuget\\packages\\",
+        "outputPath": "E:\\IGLFolder\\IGL.Core.ViewModelEntities\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Bhawesh Deepak\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "E:\\IGLFolder\\IGL.Core.Entities\\IGL.Core.Entities.csproj": {
+                "projectPath": "E:\\IGLFolder\\IGL.Core.Entities\\IGL.Core.Entities.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.303\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\IGLFolder\\IGL.Infastructure.Implementation\\IGL.Infastructure.Service.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\IGLFolder\\IGL.Infastructure.Implementation\\IGL.Infastructure.Service.csproj",
+        "projectName": "IGL.Infastructure.Service",
+        "projectPath": "E:\\IGLFolder\\IGL.Infastructure.Implementation\\IGL.Infastructure.Service.csproj",
+        "packagesPath": "C:\\Users\\Bhawesh Deepak\\.nuget\\packages\\",
+        "outputPath": "E:\\IGLFolder\\IGL.Infastructure.Implementation\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Bhawesh Deepak\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "E:\\IGLFolder\\IGL.Core.Comman\\IGL.Core.Comman.csproj": {
+                "projectPath": "E:\\IGLFolder\\IGL.Core.Comman\\IGL.Core.Comman.csproj"
+              },
+              "E:\\IGLFolder\\IGL.Core.Entities\\IGL.Core.Entities.csproj": {
+                "projectPath": "E:\\IGLFolder\\IGL.Core.Entities\\IGL.Core.Entities.csproj"
+              },
+              "E:\\IGLFolder\\IGL.Core.Repository\\IGL.Core.Repository.csproj": {
+                "projectPath": "E:\\IGLFolder\\IGL.Core.Repository\\IGL.Core.Repository.csproj"
+              },
+              "E:\\IGLFolder\\IGL.Core.Service\\IGL.Core.Service.csproj": {
+                "projectPath": "E:\\IGLFolder\\IGL.Core.Service\\IGL.Core.Service.csproj"
+              },
+              "E:\\IGLFolder\\IGL.Core.ViewModelEntities\\IGL.Core.ViewModelEntities.csproj": {
+                "projectPath": "E:\\IGLFolder\\IGL.Core.ViewModelEntities\\IGL.Core.ViewModelEntities.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Microsoft.Extensions.Configuration.Abstractions": {
+              "target": "Package",
+              "version": "[3.1.8, )"
+            },
+            "Microsoft.Extensions.DependencyInjection.Abstractions": {
+              "target": "Package",
+              "version": "[3.1.8, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.303\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\IGLFolder\\IGL.Infrastructure.Repository\\IGL.Infrastructure.Repository.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\IGLFolder\\IGL.Infrastructure.Repository\\IGL.Infrastructure.Repository.csproj",
+        "projectName": "IGL.Infrastructure.Repository",
+        "projectPath": "E:\\IGLFolder\\IGL.Infrastructure.Repository\\IGL.Infrastructure.Repository.csproj",
+        "packagesPath": "C:\\Users\\Bhawesh Deepak\\.nuget\\packages\\",
+        "outputPath": "E:\\IGLFolder\\IGL.Infrastructure.Repository\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Bhawesh Deepak\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "E:\\IGLFolder\\IGL.Core.Entities\\IGL.Core.Entities.csproj": {
+                "projectPath": "E:\\IGLFolder\\IGL.Core.Entities\\IGL.Core.Entities.csproj"
+              },
+              "E:\\IGLFolder\\IGL.Core.Repository\\IGL.Core.Repository.csproj": {
+                "projectPath": "E:\\IGLFolder\\IGL.Core.Repository\\IGL.Core.Repository.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Microsoft.Extensions.Configuration.Abstractions": {
+              "target": "Package",
+              "version": "[3.1.8, )"
+            },
+            "Microsoft.Extensions.DependencyInjection.Abstractions": {
+              "target": "Package",
+              "version": "[3.1.8, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.303\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

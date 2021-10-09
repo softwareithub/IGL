@@ -7,21 +7,28 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{1A8F2934-1
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{0B092681-B7FE-4762-9E04-B0912F528737}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IGL.UI", "IGL.UI\IGL.UI.csproj", "{CCCB6655-377C-468F-ACC3-B61C1E01E44B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IGL.UI", "IGL.UI\IGL.UI.csproj", "{CCCB6655-377C-468F-ACC3-B61C1E01E44B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IGL.Core.Entities", "IGL.Core.Entities\IGL.Core.Entities.csproj", "{1FAAB310-0E90-4F9A-9C05-45FA556EFBE8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IGL.Core.Entities", "IGL.Core.Entities\IGL.Core.Entities.csproj", "{1FAAB310-0E90-4F9A-9C05-45FA556EFBE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IGL.Core.Repository", "IGL.Core.Repository\IGL.Core.Repository.csproj", "{43092F73-AB8A-4BAA-91C7-2317D7063C62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IGL.Core.Repository", "IGL.Core.Repository\IGL.Core.Repository.csproj", "{43092F73-AB8A-4BAA-91C7-2317D7063C62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IGL.Core.Comman", "IGL.Core.Comman\IGL.Core.Comman.csproj", "{68751266-BAA4-40C4-A664-F777FF747D12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IGL.Core.Comman", "IGL.Core.Comman\IGL.Core.Comman.csproj", "{68751266-BAA4-40C4-A664-F777FF747D12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IGL.Core.ViewModelEntities", "IGL.Core.ViewModelEntities\IGL.Core.ViewModelEntities.csproj", "{EF387C01-4E4D-4B1B-B0DD-DC432614AB1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IGL.Core.ViewModelEntities", "IGL.Core.ViewModelEntities\IGL.Core.ViewModelEntities.csproj", "{EF387C01-4E4D-4B1B-B0DD-DC432614AB1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IGL.Infrastructure.Repository", "IGL.Infrastructure.Repository\IGL.Infrastructure.Repository.csproj", "{E332388F-25B2-4290-BFC8-ADC794CEC915}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IGL.Infrastructure.Repository", "IGL.Infrastructure.Repository\IGL.Infrastructure.Repository.csproj", "{E332388F-25B2-4290-BFC8-ADC794CEC915}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IGL.Infastructure.Service", "IGL.Infastructure.Implementation\IGL.Infastructure.Service.csproj", "{1FF748D0-693E-4EAD-8D63-CB2C651094E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IGL.Infastructure.Service", "IGL.Infastructure.Implementation\IGL.Infastructure.Service.csproj", "{1FF748D0-693E-4EAD-8D63-CB2C651094E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IGL.Core.Service", "IGL.Core.Service\IGL.Core.Service.csproj", "{2BC06F90-096A-402B-8E11-118CD13CE8C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IGL.Core.Service", "IGL.Core.Service\IGL.Core.Service.csproj", "{2BC06F90-096A-402B-8E11-118CD13CE8C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IGL.API", "IGL.API\IGL.API.csproj", "{4A4ABAF7-BC54-413F-A707-D9D7DAB4E2AA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{777EB8F5-7CFD-4F96-89A8-5EDBCE94040C}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +68,10 @@ Global
 		{2BC06F90-096A-402B-8E11-118CD13CE8C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2BC06F90-096A-402B-8E11-118CD13CE8C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2BC06F90-096A-402B-8E11-118CD13CE8C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A4ABAF7-BC54-413F-A707-D9D7DAB4E2AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A4ABAF7-BC54-413F-A707-D9D7DAB4E2AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A4ABAF7-BC54-413F-A707-D9D7DAB4E2AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A4ABAF7-BC54-413F-A707-D9D7DAB4E2AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
